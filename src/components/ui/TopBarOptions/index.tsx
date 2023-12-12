@@ -6,9 +6,9 @@ import ChannelOptions from '@features/channel/components/ChannelOptions'
 
 import UploadVideoButton from '@features/video/components/UploadVideoButton'
 
-import { Box, Button } from '@mui/material'
+import SignInButton from '@features/auth/components/SignInButton'
 
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined'
+import { Box } from '@mui/material'
 
 const TopBarOptions: FC = () => {
   const isAuth = useAppSelector(state => state.auth.isAuth)
@@ -26,14 +26,7 @@ const TopBarOptions: FC = () => {
           <ChannelOptions />
         </>
       ) : (
-        <Button
-          startIcon={<AccountCircleOutlinedIcon />}
-          data-testid='signInButton'
-          variant='outlined'
-          sx={{ borderRadius: '60px' }}
-        >
-          Sign in
-        </Button>
+        <SignInButton />
       )}
     </Box>
   )

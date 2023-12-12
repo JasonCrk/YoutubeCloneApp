@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material'
+import { PaletteMode, createTheme } from '@mui/material'
 
 import youTubeBoldFontTtf from '@assets/fonts/youtube-sans-bold.ttf'
 import youTubeMediumFontTtf from '@assets/fonts/youtube-sans-medium.ttf'
@@ -6,9 +6,40 @@ import youTubeLightFontTtf from '@assets/fonts/youtube-sans-light.ttf'
 
 import { grey } from '@mui/material/colors'
 
+const colorMode: PaletteMode = 'dark'
+
 export const theme = createTheme({
   palette: {
-    mode: 'dark'
+    mode: colorMode,
+    ...(colorMode === 'dark'
+      ? {
+          background: {
+            default: '#0F0F0F',
+            paper: '#212121'
+          },
+          text: {
+            primary: '#FFF',
+            secondary: '#CACACA'
+          },
+          common: {
+            white: '#fff',
+            black: '#000'
+          }
+        }
+      : {
+          background: {
+            default: '#fff',
+            paper: '#fff'
+          },
+          common: {
+            white: '#fff',
+            black: '#000'
+          },
+          text: {
+            primary: '#000',
+            secondary: '#383838'
+          }
+        })
   },
   typography: {
     fontFamily: `"Roboto", "Helvetica", "Arial", "YouTube", sans-serif`

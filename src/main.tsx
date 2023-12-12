@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 
 import { RouterProvider } from 'react-router-dom'
 
-import { CssBaseline, ThemeProvider } from '@mui/material'
+import { CssBaseline, GlobalStyles, ThemeProvider } from '@mui/material'
 
 import { Provider } from 'react-redux'
 
@@ -21,6 +21,25 @@ import '@fontsource/roboto/700.css'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <CssBaseline />
+    <GlobalStyles
+      styles={{
+        '&::-webkit-scrollbar': {
+          width: '16px'
+        },
+        '&::-webkit-scrollbar-track': {
+          backgroundColor: theme.palette.background.default
+        },
+        '&::-webkit-scrollbar-thumb': {
+          background: '#CCC',
+          borderRadius: '25px',
+          backgroundClip: 'content-box',
+          border: '4px solid transparent'
+        },
+        '&': {
+          scrollBehavior: 'smooth'
+        }
+      }}
+    />
     <ThemeProvider theme={theme}>
       <Provider store={setupStore()}>
         <RouterProvider router={router} />

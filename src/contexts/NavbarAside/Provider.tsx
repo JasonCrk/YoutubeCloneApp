@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from 'react'
+import { FC, ReactNode, useEffect, useState } from 'react'
 
 import { useMediaQuery, useTheme } from '@mui/material'
 
@@ -17,6 +17,16 @@ const NavbarAsideProvider: FC<{ children: ReactNode }> = ({ children }) => {
         ? NavbarAsideState.SHORT
         : NavbarAsideState.CLOSE
   )
+
+  useEffect(() => {
+    setState(
+      isFull
+        ? NavbarAsideState.FULL
+        : isShort
+          ? NavbarAsideState.SHORT
+          : NavbarAsideState.CLOSE
+    )
+  }, [isFull, isShort])
 
   const changeNavbarAsideState: NavbarAsideContext['changeNavbarAsideState'] =
     newState => {

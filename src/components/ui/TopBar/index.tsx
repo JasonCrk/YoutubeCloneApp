@@ -10,13 +10,14 @@ import { AppBar, Box, Toolbar } from '@mui/material'
 
 const TopBar: FC = () => {
   return (
-    <AppBar data-testid='TopBar'>
+    <AppBar data-testid='TopBar' elevation={0}>
       <Toolbar
         variant='dense'
         sx={{
           justifyContent: 'space-between',
           alignItems: 'center',
-          paddingY: '8px'
+          paddingY: '8px',
+          backgroundColor: 'background.default'
         }}
       >
         <Box display={'flex'} gap={2} alignItems={'center'}>
