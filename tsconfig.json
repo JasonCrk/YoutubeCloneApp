@@ -31,9 +31,14 @@
       "@features/*": ["src/features/*"],
       "@models/*": ["src/models/*"],
       "@contexts/*": ["src/contexts/*"],
-      "@theme/*": ["src/theme/*"]
-    }
+      "@theme/*": ["src/theme/*"],
+      "@assets/*": ["src/assets/*"],
+      "@store/*": ["src/store/*"]
+    },
+
+    /* Vitest */
+    "types": ["vitest/globals"]
   },
-  "include": ["src"],
+  "include": ["src", "vitest-setup.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
