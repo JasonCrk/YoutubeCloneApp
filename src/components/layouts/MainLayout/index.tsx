@@ -13,9 +13,11 @@ const MainLayout: FC = () => {
   return (
     <NavbarAsideProvider>
       <TopBar />
-      <Box display={'flex'} mt={7}>
+      <Box display={'flex'}>
         <NavbarAside />
-        <Outlet />
+        <div style={{ marginTop: '56px' }}>
+          <Outlet />
+        </div>
       </Box>
     </NavbarAsideProvider>
   )

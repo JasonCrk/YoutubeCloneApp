@@ -9,10 +9,10 @@ export enum NavbarAsideState {
 
 export interface NavbarAsideContext {
   state: NavbarAsideState
-  changeNavbarAsideState: (state: NavbarAsideState) => void
+  toggleNavbarAside: () => void
 }
 
 export const navbarAsideContext = createContext<NavbarAsideContext>({
   state: NavbarAsideState.FULL,
-  changeNavbarAsideState: () => {}
+  toggleNavbarAside: () => {},
 })

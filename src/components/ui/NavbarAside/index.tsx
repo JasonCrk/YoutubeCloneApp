@@ -3,18 +3,23 @@ import { FC, useContext } from 'react'
 import { NavbarAsideState, navbarAsideContext } from '@contexts/NavbarAside'
 
 import FullNavbarAside from './FullNavbarAside'
-
-import { Box } from '@mui/material'
+import ShortNavbarAside from './ShortNavbarAside'
+import FloatNavbarAside from './FloatNavbarAside'
 
 const NavbarAside: FC = () => {
   const { state } = useContext(navbarAsideContext)
 
-  if (state === NavbarAsideState.FULL) return <FullNavbarAside />
+  return (
+    <>
+      <FloatNavbarAside />
 
-  if (state === NavbarAsideState.SHORT)
-    return <Box data-testid='ShortNavbarAside'>short</Box>
-
-  return null
+      {state === NavbarAsideState.FULL ? (
+        <FullNavbarAside />
+      ) : state === NavbarAsideState.SHORT ? (
+        <ShortNavbarAside />
+      ) : null}
+    </>
+  )
 }
 
 export default NavbarAside

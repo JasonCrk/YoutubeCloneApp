@@ -23,7 +23,11 @@ import {
   ArrowForwardIos as ArrowForwardIosIcon
 } from '@mui/icons-material'
 
-const FullNavbarAside: FC = () => {
+interface Props {
+  disablePaddingTop?: boolean
+}
+
+const FullNavbarAside: FC<Props> = ({ disablePaddingTop }) => {
   const { isAuth, user } = useAppSelector(state => state.auth)
 
   return (
@@ -32,11 +36,10 @@ const FullNavbarAside: FC = () => {
       spacing={0.6}
       data-testid='FullNavbarAside'
       position={'sticky'}
-      pt={0.6}
+      pt={disablePaddingTop ? 0 : '56px'}
       sx={{
-        top: '56px',
         width: '230px',
-        height: '93vh',
+        height: '100vh',
         backgroundColor: 'background.default',
         color: 'white',
         overflow: 'auto',
@@ -68,7 +71,7 @@ const FullNavbarAside: FC = () => {
         </List>
 
         {isAuth ? (
-          <List>
+          <List data-testid='authLinks'>
             <NavbarAsideLink
               reverse
               activeIcon={<ArrowForwardIosIcon sx={{ fontSize: '15px' }} />}
@@ -93,7 +96,7 @@ const FullNavbarAside: FC = () => {
             />
           </List>
         ) : (
-          <List>
+          <List data-testid='noAuthLinks'>
             <NavbarAsideLink
               activeIcon={<VideoLibraryIcon />}
               noActiveIcon={<VideoLibraryOutlinedIcon />}
@@ -105,15 +108,14 @@ const FullNavbarAside: FC = () => {
       </Stack>
 
       {isAuth ? (
-        <>
-          <Stack p={1.2}>
-            <Typography pl={1.8} variant='subtitle1' fontWeight={'600'}>
-              Subscriptions
-            </Typography>
-          </Stack>
-        </>
+        <Box p={1.2} data-testid='authSection'>
+          <Typography pl={1.8} variant='subtitle1' fontWeight={'600'}>
+            Subscriptions
+          </Typography>
+          <Stack></Stack>
+        </Box>
       ) : (
-        <Box pl={4} pr={1} py={1.2}>
+        <Box pl={4} pr={1} py={1.2} data-testid='noAuthSection'>
           <Typography component={'p'} variant='body2' mb={1.5}>
             Sign in to like videos, comment, and subscribe.
           </Typography>

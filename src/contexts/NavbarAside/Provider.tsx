@@ -28,16 +28,27 @@ const NavbarAsideProvider: FC<{ children: ReactNode }> = ({ children }) => {
     )
   }, [isFull, isShort])
 
-  const changeNavbarAsideState: NavbarAsideContext['changeNavbarAsideState'] =
-    newState => {
-      setState(newState)
+  const toggleNavbarAside: NavbarAsideContext['toggleNavbarAside'] = () => {
+    if (isFull) {
+      if (state === NavbarAsideState.FULL) setState(NavbarAsideState.SHORT)
+      else setState(NavbarAsideState.FULL)
+    } else if (isShort) {
+      if (state === NavbarAsideState.FLOAT) {
+        setState(NavbarAsideState.SHORT)
+      } else {
+        setState(NavbarAsideState.FLOAT)
+      }
+    } else {
+      if (state === NavbarAsideState.CLOSE) setState(NavbarAsideState.FLOAT)
+      else setState(NavbarAsideState.CLOSE)
     }
+  }
 
   return (
     <navbarAsideContext.Provider
       value={{
         state,
-        changeNavbarAsideState
+        toggleNavbarAside
       }}
     >
       {children}

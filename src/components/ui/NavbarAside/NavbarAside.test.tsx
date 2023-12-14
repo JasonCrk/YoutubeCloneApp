@@ -1,4 +1,4 @@
-import { cleanup } from '@testing-library/react'
+import { cleanup, screen } from '@testing-library/react'
 
 import {
   NavbarAsideContext,
@@ -11,24 +11,29 @@ import NavbarAside from '.'
 import { render } from '@utils/testing/render'
 
 const fullNavbarAsideValue: NavbarAsideContext = {
-  changeNavbarAsideState: () => {},
+  toggleNavbarAside: () => {},
   state: NavbarAsideState.FULL
 }
 
 const shortNavbarAsideValue: NavbarAsideContext = {
-  changeNavbarAsideState: () => {},
+  toggleNavbarAside: () => {},
   state: NavbarAsideState.SHORT
 }
 
+const floatNavbarAsideValue: NavbarAsideContext = {
+  toggleNavbarAside: () => {},
+  state: NavbarAsideState.FLOAT
+}
+
 const closeNavbarAsideValue: NavbarAsideContext = {
-  changeNavbarAsideState: () => {},
+  toggleNavbarAside: () => {},
   state: NavbarAsideState.CLOSE
 }
 
 describe('<NavbarAside />', () => {
   afterEach(cleanup)
 
-  it('Should show the <FullNavbarAside /> component when the state is FULL', () => {
+  it('Should show the <FullNavbarAside /> when the state is FULL', () => {
     const { container } = render(
       <navbarAsideContext.Provider value={fullNavbarAsideValue}>
         <NavbarAside />
@@ -41,7 +46,7 @@ describe('<NavbarAside />', () => {
     expect(fullNavbarAside).not.toBeNull()
   })
 
-  it('Should show the <ShortNavbarAside /> component when the state is SHORT', () => {
+  it('Should show the <ShortNavbarAside /> when the state is SHORT', () => {
     const { container } = render(
       <navbarAsideContext.Provider value={shortNavbarAsideValue}>
         <NavbarAside />
@@ -52,6 +57,17 @@ describe('<NavbarAside />', () => {
       '[data-testid="ShortNavbarAside"]'
     )
     expect(shortNavbarAside).not.toBeNull()
+  })
+
+  it('Should show the <FloatNavbarAside /> when the state is FLOAT', () => {
+    render(
+      <navbarAsideContext.Provider value={floatNavbarAsideValue}>
+        <NavbarAside />
+      </navbarAsideContext.Provider>
+    )
+
+    const floatNavbarAside = screen.getByTestId('FloatNavbarAside')
+    expect(floatNavbarAside).toBeDefined()
   })
 
   it('Should show nothing when the state is CLOSE', () => {

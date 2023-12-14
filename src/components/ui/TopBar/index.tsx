@@ -16,8 +16,8 @@ const TopBar: FC = () => {
         sx={{
           justifyContent: 'space-between',
           alignItems: 'center',
-          paddingY: '8px',
-          backgroundColor: 'background.default'
+          backgroundColor: 'background.default',
+          height: '56px'
         }}
       >
         <Box display={'flex'} gap={2} alignItems={'center'}>
