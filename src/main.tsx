@@ -12,6 +12,7 @@ import { router } from './router'
 import { setupStore } from './store'
 
 import { theme } from '@theme/index'
+import { globalStyles } from '@theme/globalStyles'
 
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
@@ -21,25 +22,7 @@ import '@fontsource/roboto/700.css'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <CssBaseline />
-    <GlobalStyles
-      styles={{
-        '&::-webkit-scrollbar': {
-          width: '16px'
-        },
-        '&::-webkit-scrollbar-track': {
-          backgroundColor: theme.palette.background.default
-        },
-        '&::-webkit-scrollbar-thumb': {
-          background: '#CCC',
-          borderRadius: '25px',
-          backgroundClip: 'content-box',
-          border: '4px solid transparent'
-        },
-        '&': {
-          scrollBehavior: 'smooth'
-        }
-      }}
-    />
+    <GlobalStyles styles={globalStyles} />
     <ThemeProvider theme={theme}>
       <Provider store={setupStore()}>
         <RouterProvider router={router} />
