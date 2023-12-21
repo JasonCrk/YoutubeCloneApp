@@ -1,12 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 import { AuthenticatedUserAdapterResponse } from '@features/auth/models'
-import { AuthAccessToken, AuthRefreshToken } from '@features/auth/types'
+import { JwtToken } from '@features/auth/types'
 
 export interface AuthState {
   isAuth: boolean
-  accessToken: AuthAccessToken | null
-  refreshToken: AuthRefreshToken | null
+  accessToken: JwtToken | null
+  refreshToken: JwtToken | null
   user: AuthenticatedUserAdapterResponse | null
 }
 

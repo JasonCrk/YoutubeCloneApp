@@ -21,7 +21,8 @@ export default defineConfig({
       '@contexts': '/src/contexts',
       '@theme': '/src/theme',
       '@assets': '/src/assets',
-      '@store': '/src/store'
+      '@store': '/src/store',
+      '@config': '/src/config'
     }
   },
   test: {

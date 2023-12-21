@@ -11,7 +11,7 @@ import MainLayout from '@components/layouts/MainLayout'
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<MainLayout />}>
-      <Route path='' element={<HomePage />} />
+      <Route index element={<HomePage />} />
     </Route>
   )
 )
