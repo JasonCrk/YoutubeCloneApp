@@ -11,13 +11,13 @@ describe('<Logo />', () => {
     renderWithRouter(<Logo />)
 
     const logo = screen.getByRole('link')
-    expect(logo).toBeDefined()
+    expect(logo).toBeInTheDocument()
   })
 
   it('Should contain the youtube name', () => {
     renderWithRouter(<Logo />)
 
-    expect(screen.getByText(/YouTube/)).toBeDefined()
+    expect(screen.getByText(/YouTube/)).toBeInTheDocument()
   })
 
   it('Should the role element "link" be a <a />', () => {

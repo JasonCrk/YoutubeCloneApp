@@ -10,9 +10,9 @@ describe('<SearchField />', () => {
   it('Should render component', () => {
     renderWithRouter(<SearchField />)
 
-    const searchFieldComponent = screen.getByTestId('SearchField')
+    const searchFieldComponent = screen.queryByTestId('SearchField')
 
-    expect(searchFieldComponent).toBeDefined()
+    expect(searchFieldComponent).toBeInTheDocument()
   })
 
   it('Should contain a input element', () => {
@@ -27,8 +27,7 @@ describe('<SearchField />', () => {
     renderWithRouter(<SearchField />)
 
     const inputSearch = screen.getByRole('search')
-
-    expect(inputSearch.getAttribute('placeholder')).toBe('Search')
+    expect(inputSearch).toHaveAttribute('placeholder', 'Search')
   })
 
   it('Should contain a button element', () => {
@@ -39,23 +38,21 @@ describe('<SearchField />', () => {
   })
 
   it('Should hide the search icon when the user is not focused on the input search', async () => {
-    const { container } = renderWithRouter(<SearchField />)
+    renderWithRouter(<SearchField />)
 
-    const searchIcon = container.querySelector('[data-testid="searchIcon"]')
-
+    const searchIcon = screen.queryByTestId('searchIcon')
     expect(searchIcon).toBeNull()
   })
 
   it('Should show the search icon when the user is focused on the input search', async () => {
+    renderWithRouter(<SearchField />)
     const user = userEvent.setup()
-    const { container } = renderWithRouter(<SearchField />)
 
     const inputSearch = screen.getByRole('search')
 
     await user.click(inputSearch)
 
-    const searchIcon = container.querySelector('[data-testid="searchIcon"]')
-
+    const searchIcon = screen.queryByTestId('searchIcon')
     expect(searchIcon).not.toBeNull()
   })
 })

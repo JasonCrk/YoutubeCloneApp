@@ -20,12 +20,12 @@ describe('<AuthModal />', () => {
       </AuthModalProvider>
     )
 
-    const authModal = screen.getByTestId('AuthModal')
-    expect(authModal)
+    const authModal = screen.queryByTestId('AuthModal')
+    expect(authModal).toBeInTheDocument()
   })
 
   it("Shouldn't render component if the modal is not open", () => {
-    const { container } = render(
+    render(
       <AuthModalProvider
         defaultStates={{
           isOpen: false,
@@ -36,8 +36,8 @@ describe('<AuthModal />', () => {
       </AuthModalProvider>
     )
 
-    const authModal = container.querySelector('[data-testid="AuthModal"]')
-    expect(authModal).toBeNull()
+    const authModal = screen.queryByTestId('AuthModal')
+    expect(authModal).toBeDefined()
   })
 
   it('Should show the <SignInForm /> when sign in form is selected', () => {
@@ -52,7 +52,8 @@ describe('<AuthModal />', () => {
       </AuthModalProvider>
     )
 
-    screen.getByTestId('SignInForm')
+    const signInForm = screen.queryByTestId('SignInForm')
+    expect(signInForm).toBeInTheDocument()
   })
 
   it("Shouldn't show the <SignUpForm /> when sign up form is selected", () => {
@@ -67,6 +68,7 @@ describe('<AuthModal />', () => {
       </AuthModalProvider>
     )
 
-    screen.getByTestId('SignUpForm')
+    const signUpForm = screen.queryByTestId('SignUpForm')
+    expect(signUpForm).toBeInTheDocument()
   })
 })

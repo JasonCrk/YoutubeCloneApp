@@ -34,28 +34,24 @@ describe('<NavbarAside />', () => {
   afterEach(cleanup)
 
   it('Should show the <FullNavbarAside /> when the state is FULL', () => {
-    const { container } = render(
+    render(
       <navbarAsideContext.Provider value={fullNavbarAsideValue}>
         <NavbarAside />
       </navbarAsideContext.Provider>
     )
 
-    const fullNavbarAside = container.querySelector(
-      '[data-testid="FullNavbarAside"]'
-    )
+    const fullNavbarAside = screen.queryByTestId('FullNavbarAside')
     expect(fullNavbarAside).not.toBeNull()
   })
 
   it('Should show the <ShortNavbarAside /> when the state is SHORT', () => {
-    const { container } = render(
+    render(
       <navbarAsideContext.Provider value={shortNavbarAsideValue}>
         <NavbarAside />
       </navbarAsideContext.Provider>
     )
 
-    const shortNavbarAside = container.querySelector(
-      '[data-testid="ShortNavbarAside"]'
-    )
+    const shortNavbarAside = screen.queryByTestId('ShortNavbarAside')
     expect(shortNavbarAside).not.toBeNull()
   })
 
@@ -66,8 +62,8 @@ describe('<NavbarAside />', () => {
       </navbarAsideContext.Provider>
     )
 
-    const floatNavbarAside = screen.getByTestId('FloatNavbarAside')
-    expect(floatNavbarAside).toBeDefined()
+    const floatNavbarAside = screen.queryByTestId('FloatNavbarAside')
+    expect(floatNavbarAside).toBeInTheDocument()
   })
 
   it('Should show nothing when the state is CLOSE', () => {

@@ -12,30 +12,30 @@ describe('<TopBar />', () => {
   it('Should contain <NavbarAsideToggleButton /> component', () => {
     render(<TopBar />)
 
-    const navbarAsideToggleButton = screen.getByTestId(
+    const navbarAsideToggleButton = screen.queryByTestId(
       'NavbarAsideToggleButton'
     )
-    expect(navbarAsideToggleButton).toBeDefined()
+    expect(navbarAsideToggleButton).toBeInTheDocument()
   })
 
   it('Should contain <Logo /> component', () => {
     render(<TopBar />)
 
-    const logoComponent = screen.getByTestId('Logo')
-    expect(logoComponent).toBeDefined()
+    const logoComponent = screen.queryByTestId('Logo')
+    expect(logoComponent).toBeInTheDocument()
   })
 
   it('Should contain <InputSearch /> component', () => {
     render(<TopBar />)
 
-    const searchField = screen.getByTestId('SearchField')
-    expect(searchField).toBeDefined()
+    const searchField = screen.queryByTestId('SearchField')
+    expect(searchField).toBeInTheDocument()
   })
 
   it('Should contain <TopBarOptions /> component', () => {
     render(<TopBar />)
 
-    const topBarOptions = screen.getByTestId('TopBarOptions')
-    expect(topBarOptions).toBeDefined()
+    const topBarOptions = screen.queryByTestId('TopBarOptions')
+    expect(topBarOptions).toBeInTheDocument()
   })
 })

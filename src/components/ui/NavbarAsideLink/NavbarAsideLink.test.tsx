@@ -7,6 +7,9 @@ import { render } from '@utils/testing/render'
 import HomeIcon from '@mui/icons-material/Home'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 
+const ACTIVE_ICON_ID = 'activeIcon'
+const NO_ACTIVE_ICON_ID = 'noActiveIcon'
+
 describe('<NavbarAsideLink />', () => {
   afterEach(cleanup)
 
@@ -21,8 +24,7 @@ describe('<NavbarAsideLink />', () => {
     )
 
     const link = screen.getByRole('link')
-
-    expect(link).toBeDefined()
+    expect(link).toBeInTheDocument()
   })
 
   it('Should contain a "title" text content', () => {
@@ -38,7 +40,6 @@ describe('<NavbarAsideLink />', () => {
     )
 
     const link = screen.getByRole('link')
-
     expect(link).toHaveTextContent(linkTitle)
   })
 
@@ -55,17 +56,15 @@ describe('<NavbarAsideLink />', () => {
     )
 
     const link = screen.getByRole('link')
-
-    expect(link).toHaveAttribute('href', '/')
+    expect(link).toHaveAttribute('href', href)
   })
 
   it('Should show the active icon when the pathname is equal to the href', () => {
     const pathname = '/'
-    const activeIconId = 'activeIcon'
 
-    const { container } = render(
+    render(
       <NavbarAsideLink
-        activeIcon={<HomeIcon data-testid={activeIconId} />}
+        activeIcon={<HomeIcon data-testid={ACTIVE_ICON_ID} />}
         noActiveIcon={<HomeOutlinedIcon />}
         href={pathname}
         title='link'
@@ -77,18 +76,14 @@ describe('<NavbarAsideLink />', () => {
       }
     )
 
-    const activeIcon = container.querySelector(
-      `[data-testid="${activeIconId}"]`
-    )
+    const activeIcon = screen.queryByTestId(ACTIVE_ICON_ID)
     expect(activeIcon).not.toBeNull()
   })
 
   it("Shouldn't contain the active icon when the pathname is not equal to the href", () => {
-    const activeIconId = 'activeIcon'
-
-    const { container } = render(
+    render(
       <NavbarAsideLink
-        activeIcon={<HomeIcon data-testid={activeIconId} />}
+        activeIcon={<HomeIcon data-testid={ACTIVE_ICON_ID} />}
         noActiveIcon={<HomeOutlinedIcon />}
         href='/'
         title='link'
@@ -100,19 +95,15 @@ describe('<NavbarAsideLink />', () => {
       }
     )
 
-    const activeIcon = container.querySelector(
-      `[data-testid="${activeIconId}"]`
-    )
+    const activeIcon = screen.queryByTestId(ACTIVE_ICON_ID)
     expect(activeIcon).toBeNull()
   })
 
   it('Should contain the no active icon when the pathname is not equal to the href', () => {
-    const noActiveIconId = 'noActiveIcon'
-
-    const { container } = render(
+    render(
       <NavbarAsideLink
         activeIcon={<HomeIcon />}
-        noActiveIcon={<HomeOutlinedIcon data-testid={noActiveIconId} />}
+        noActiveIcon={<HomeOutlinedIcon data-testid={NO_ACTIVE_ICON_ID} />}
         href={'/'}
         title='link'
       />,
@@ -123,20 +114,17 @@ describe('<NavbarAsideLink />', () => {
       }
     )
 
-    const noActiveIcon = container.querySelector(
-      `[data-testid="${noActiveIconId}"]`
-    )
+    const noActiveIcon = screen.queryByTestId(NO_ACTIVE_ICON_ID)
     expect(noActiveIcon).not.toBeNull()
   })
 
   it("Shouldn't contain the no active icon when the pathname is equal to the href", () => {
     const pathname = '/'
-    const noActiveIconId = 'noActiveIcon'
 
-    const { container } = render(
+    render(
       <NavbarAsideLink
         activeIcon={<HomeIcon />}
-        noActiveIcon={<HomeOutlinedIcon data-testid={noActiveIconId} />}
+        noActiveIcon={<HomeOutlinedIcon data-testid={NO_ACTIVE_ICON_ID} />}
         href={pathname}
         title='link'
       />,
@@ -147,9 +135,7 @@ describe('<NavbarAsideLink />', () => {
       }
     )
 
-    const noActiveIcon = container.querySelector(
-      `[data-testid="${noActiveIconId}"]`
-    )
+    const noActiveIcon = screen.queryByTestId(NO_ACTIVE_ICON_ID)
     expect(noActiveIcon).toBeNull()
   })
 })

@@ -32,7 +32,7 @@ describe('<SignInButton />', () => {
     )
 
     const signInButton = screen.getByRole('button')
-    expect(signInButton).toBeDefined()
+    expect(signInButton).toBeInTheDocument()
   })
 
   it('Should contain a text in the button', () => {
@@ -59,8 +59,8 @@ describe('<SignInButton />', () => {
 
     await user.click(signInButton)
 
-    const authModal = screen.getByTestId('AuthModal')
-    expect(authModal).toBeDefined()
+    const authModal = screen.queryByTestId('AuthModal')
+    expect(authModal).toBeInTheDocument()
   })
 
   it('Should select the sign in form when user click in the button', async () => {

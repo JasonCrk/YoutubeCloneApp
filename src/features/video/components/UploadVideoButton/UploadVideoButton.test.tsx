@@ -9,7 +9,7 @@ describe('<UploadVideoButton />', () => {
     render(<UploadVideoButton />)
 
     const uploadVideoButton = screen.getByRole('button')
-    expect(uploadVideoButton).toBeDefined()
+    expect(uploadVideoButton).toBeInTheDocument()
   })
 
   it('Should the role element "button" be a <button />', () => {

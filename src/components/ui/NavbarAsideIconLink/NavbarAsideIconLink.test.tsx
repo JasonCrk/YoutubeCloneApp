@@ -22,8 +22,8 @@ describe('<NavbarAsideIconLink />', () => {
       />
     )
 
-    const iconLink = screen.getByTestId('NavbarAsideIconLink')
-    expect(iconLink).toBeDefined()
+    const iconLink = screen.queryByTestId('NavbarAsideIconLink')
+    expect(iconLink).toBeInTheDocument()
   })
 
   it('Should contain the title prop', () => {
@@ -38,7 +38,7 @@ describe('<NavbarAsideIconLink />', () => {
       />
     )
 
-    const elementWithTitleContent = screen.getByText(title)
+    const elementWithTitleContent = screen.queryByText(title)
     expect(elementWithTitleContent).not.toBeNull()
   })
 
@@ -53,7 +53,7 @@ describe('<NavbarAsideIconLink />', () => {
     )
 
     const link = screen.getByRole('link')
-    expect(link).toBeDefined()
+    expect(link).toBeInTheDocument()
   })
 
   it('Should the link have a href attribute equal to the href prop', () => {
@@ -75,7 +75,7 @@ describe('<NavbarAsideIconLink />', () => {
   it('Should show the active icon when the pathname is equal to the href prop', () => {
     const pathname = '/'
 
-    const { container } = render(
+    render(
       <NavbarAsideIconLink
         activeIcon={<Icon data-testid={ACTIVE_ICON_ID} />}
         noActiveIcon={<Icon data-testid={NO_ACTIVE_ICON_ID} />}
@@ -89,14 +89,12 @@ describe('<NavbarAsideIconLink />', () => {
       }
     )
 
-    const activeIcon = container.querySelector(
-      `[data-testid="${ACTIVE_ICON_ID}"]`
-    )
+    const activeIcon = screen.queryByTestId(ACTIVE_ICON_ID)
     expect(activeIcon).not.toBeNull()
   })
 
   it("Shouldn't show the active icon when the pathname is not equal to the href prop", () => {
-    const { container } = render(
+    render(
       <NavbarAsideIconLink
         activeIcon={<Icon data-testid={ACTIVE_ICON_ID} />}
         noActiveIcon={<Icon data-testid={NO_ACTIVE_ICON_ID} />}
@@ -110,14 +108,12 @@ describe('<NavbarAsideIconLink />', () => {
       }
     )
 
-    const activeIcon = container.querySelector(
-      `[data-testid="${ACTIVE_ICON_ID}"]`
-    )
+    const activeIcon = screen.queryByTestId(ACTIVE_ICON_ID)
     expect(activeIcon).toBeNull()
   })
 
   it('Should show the no active icon when the pathname is not equal to the href prop', () => {
-    const { container } = render(
+    render(
       <NavbarAsideIconLink
         activeIcon={<Icon data-testid={ACTIVE_ICON_ID} />}
         noActiveIcon={<Icon data-testid={NO_ACTIVE_ICON_ID} />}
@@ -131,16 +127,14 @@ describe('<NavbarAsideIconLink />', () => {
       }
     )
 
-    const noActiveIcon = container.querySelector(
-      `[data-testid="${NO_ACTIVE_ICON_ID}"]`
-    )
+    const noActiveIcon = screen.queryByTestId(NO_ACTIVE_ICON_ID)
     expect(noActiveIcon).not.toBeNull()
   })
 
   it("Shouldn't show the no active icon when then pathname is equal to the href prop", () => {
     const pathname = '/'
 
-    const { container } = render(
+    render(
       <NavbarAsideIconLink
         activeIcon={<Icon data-testid={ACTIVE_ICON_ID} />}
         noActiveIcon={<Icon data-testid={NO_ACTIVE_ICON_ID} />}
@@ -154,9 +148,7 @@ describe('<NavbarAsideIconLink />', () => {
       }
     )
 
-    const noActiveIcon = container.querySelector(
-      `[data-testid="${NO_ACTIVE_ICON_ID}"]`
-    )
+    const noActiveIcon = screen.queryByTestId(NO_ACTIVE_ICON_ID)
     expect(noActiveIcon).toBeNull()
   })
 })

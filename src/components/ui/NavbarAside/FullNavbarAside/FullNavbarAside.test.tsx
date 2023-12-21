@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react'
+import { cleanup, screen } from '@testing-library/react'
 
 import { AuthState } from '@store/slices/authSlice'
 
@@ -26,114 +26,100 @@ const AUTH_SECTION_ID = 'authSection'
 const NO_AUTH_SECTION_ID = 'noAuthSection'
 
 describe('<FullNavbarAside />', () => {
+  afterEach(cleanup)
+
   it('Should render component', () => {
     render(<FullNavbarAside />)
 
-    const fullNavbarAside = screen.getByTestId('FullNavbarAside')
-    expect(fullNavbarAside).toBeDefined()
+    const fullNavbarAside = screen.queryByTestId('FullNavbarAside')
+    expect(fullNavbarAside).toBeInTheDocument()
   })
 
   it('Should show the links for authenticated user when user is authenticated', () => {
-    const { container } = render(<FullNavbarAside />, {
+    render(<FullNavbarAside />, {
       preloadedState: {
         auth: AUTHENTICATED_USER
       }
     })
 
-    const authLinks = container.querySelector(
-      `[data-testid="${AUTH_LINKS_ID}"]`
-    )
+    const authLinks = screen.queryByTestId(AUTH_LINKS_ID)
     expect(authLinks).not.toBeNull()
   })
 
   it("Shouldn't show the links for authenticated user when user is not authenticated", () => {
-    const { container } = render(<FullNavbarAside />, {
+    render(<FullNavbarAside />, {
       preloadedState: {
         auth: UNAUTHENTICATED_USER
       }
     })
 
-    const authLinks = container.querySelector(
-      `[data-testid="${AUTH_LINKS_ID}"]`
-    )
+    const authLinks = screen.queryByTestId(AUTH_LINKS_ID)
     expect(authLinks).toBeNull()
   })
 
   it('Should show the links for unauthenticated user when user is not authenticated', () => {
-    const { container } = render(<FullNavbarAside />, {
+    render(<FullNavbarAside />, {
       preloadedState: {
         auth: UNAUTHENTICATED_USER
       }
     })
 
-    const noAuthLinks = container.querySelector(
-      `[data-testid="${NO_AUTH_LINKS_ID}"]`
-    )
+    const noAuthLinks = screen.queryByTestId(NO_AUTH_LINKS_ID)
     expect(noAuthLinks).not.toBeNull()
   })
 
   it("Shouldn't show the links for unauthenticated user when user is authenticated", () => {
-    const { container } = render(<FullNavbarAside />, {
+    render(<FullNavbarAside />, {
       preloadedState: {
         auth: AUTHENTICATED_USER
       }
     })
 
-    const noAuthLinks = container.querySelector(
-      `[data-testid="${NO_AUTH_LINKS_ID}"]`
-    )
+    const noAuthLinks = screen.queryByTestId(NO_AUTH_LINKS_ID)
     expect(noAuthLinks).toBeNull()
   })
 
   it('Should show the section for authenticated user when user is authenticated', () => {
-    const { container } = render(<FullNavbarAside />, {
+    render(<FullNavbarAside />, {
       preloadedState: {
         auth: AUTHENTICATED_USER
       }
     })
 
-    const authSection = container.querySelector(
-      `[data-testid="${AUTH_SECTION_ID}"]`
-    )
+    const authSection = screen.queryByTestId(AUTH_SECTION_ID)
     expect(authSection).not.toBeNull()
   })
 
   it("Shouldn't show the section for authenticated user when user is not authenticated", () => {
-    const { container } = render(<FullNavbarAside />, {
+    render(<FullNavbarAside />, {
       preloadedState: {
         auth: UNAUTHENTICATED_USER
       }
     })
 
-    const authSection = container.querySelector(
-      `[data-testid="${AUTH_SECTION_ID}"]`
-    )
+    const authSection = screen.queryByTestId(AUTH_SECTION_ID)
     expect(authSection).toBeNull()
   })
 
   it('Should show the section for unauthenticated user when user is not authenticated', () => {
-    const { container } = render(<FullNavbarAside />, {
+    render(<FullNavbarAside />, {
       preloadedState: {
         auth: UNAUTHENTICATED_USER
       }
     })
 
-    const noAuthSection = container.querySelector(
-      `[data-testid="${NO_AUTH_SECTION_ID}"]`
-    )
+    const noAuthSection = screen.queryByTestId(NO_AUTH_SECTION_ID)
     expect(noAuthSection).not.toBeNull()
   })
 
   it("Shouldn't show the section for unauthenticated user when user is authenticated", () => {
-    const { container } = render(<FullNavbarAside />, {
+    render(<FullNavbarAside />, {
       preloadedState: {
         auth: AUTHENTICATED_USER
       }
     })
 
-    const noAuthSection = container.querySelector(
-      `[data-testid="${NO_AUTH_SECTION_ID}"]`
-    )
+    const noAuthSection = screen.queryByTestId(NO_AUTH_SECTION_ID)
     expect(noAuthSection).toBeNull()
   })
 })

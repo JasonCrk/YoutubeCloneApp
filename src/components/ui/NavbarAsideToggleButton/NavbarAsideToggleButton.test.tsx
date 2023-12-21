@@ -9,7 +9,7 @@ describe('<NavbarAsideToggleButton />', () => {
     render(<NavbarAsideToggleButton />)
 
     const button = screen.getByRole('button')
-    expect(button).toBeDefined()
+    expect(button).toBeInTheDocument()
   })
 
   it('Should the role element "button" be a <button />', () => {

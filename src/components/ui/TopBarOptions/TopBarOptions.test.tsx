@@ -28,20 +28,18 @@ describe('<TopBarOptions />', () => {
       }
     })
 
-    const channelOptionsComponent = screen.getByTestId('ChannelOptions')
-    expect(channelOptionsComponent).toBeDefined()
+    const channelOptionsComponent = screen.queryByTestId('ChannelOptions')
+    expect(channelOptionsComponent).toBeInTheDocument()
   })
 
   it('Should not contain <ChannelOptions /> component when user is not authenticated', () => {
-    const { container } = render(<TopBarOptions />, {
+    render(<TopBarOptions />, {
       preloadedState: {
         auth: isNotAuthState
       }
     })
 
-    const channelOptionsComponent = container.querySelector(
-      '[data-testid="ChannelOptions"]'
-    )
+    const channelOptionsComponent = screen.queryByTestId('ChannelOptions')
     expect(channelOptionsComponent).toBeNull()
   })
 
@@ -52,42 +50,40 @@ describe('<TopBarOptions />', () => {
       }
     })
 
-    const uploadVideoComponent = screen.getByTestId('UploadVideoButton')
-    expect(uploadVideoComponent).toBeDefined()
+    const uploadVideoComponent = screen.queryByTestId('UploadVideoButton')
+    expect(uploadVideoComponent).toBeInTheDocument()
   })
 
   it('Should not contain <UploadVideoButton /> component when user is not authenticated', () => {
-    const { container } = render(<TopBarOptions />, {
+    render(<TopBarOptions />, {
       preloadedState: {
         auth: isNotAuthState
       }
     })
 
-    const uploadVideoComponent = container.querySelector(
-      '[data-testid="SignInButton"]'
-    )
+    const uploadVideoComponent = screen.queryByTestId('SignInButton')
     expect(uploadVideoComponent).toBeNull()
   })
 
   it('Should contain a link to open <AuthModal /> when user is not authenticated', () => {
-    const { container } = render(<TopBarOptions />, {
+    render(<TopBarOptions />, {
       preloadedState: {
         auth: isNotAuthState
       }
     })
 
-    const signInButton = container.querySelector('[data-testid="signInButton"]')
+    const signInButton = screen.queryByTestId('signInButton')
     expect(signInButton).not.toBeNull()
   })
 
   it('Should not contain a link to open <AuthModal /> when user is authenticated', () => {
-    const { container } = render(<TopBarOptions />, {
+    render(<TopBarOptions />, {
       preloadedState: {
         auth: isAuthState
       }
     })
 
-    const signInButton = container.querySelector('[data-testid="signInButton"]')
+    const signInButton = screen.queryByTestId('signInButton')
     expect(signInButton).toBeNull()
   })
 })
