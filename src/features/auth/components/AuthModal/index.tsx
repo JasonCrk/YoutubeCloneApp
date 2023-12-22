@@ -1,5 +1,7 @@
 import { FC, useContext } from 'react'
 
+import { useLocation, useNavigate } from 'react-router-dom'
+
 import {
   AuthenticationOptions,
   authModalContext
@@ -7,10 +9,19 @@ import {
 import SignInForm from '@features/auth/components/SignInForm'
 import SignUpForm from '@features/auth/components/SignUpForm'
 
-import { Box, Modal } from '@mui/material'
+import { Box, Modal, Typography } from '@mui/material'
 
 const AuthModal: FC = () => {
-  const { isOpen, authForm, onClose } = useContext(authModalContext)
+  const { isOpen, authForm, onClose, changeAuthForm } =
+    useContext(authModalContext)
+
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const handleSignInSuccess = () => {
+    if (location.pathname === '/') window.location.reload()
+    else navigate('/')
+  }
 
   return (
     <Modal open={isOpen} onClose={onClose}>
@@ -27,11 +38,37 @@ const AuthModal: FC = () => {
           borderRadius: 2
         }}
       >
-        {authForm === AuthenticationOptions.SIGN_IN ? (
-          <SignInForm />
-        ) : authForm === AuthenticationOptions.SIGN_UP ? (
-          <SignUpForm />
-        ) : null}
+        <Box width='400px'>
+          {authForm === AuthenticationOptions.SIGN_IN ? (
+            <>
+              <SignInForm onSuccess={handleSignInSuccess} />
+              <Typography
+                component='div'
+                textAlign='center'
+                color='white'
+                mt={2}
+              >
+                You are not registered? Sign up{' '}
+                <Typography
+                  component='span'
+                  color='primary'
+                  onClick={() => changeAuthForm(AuthenticationOptions.SIGN_UP)}
+                  sx={{
+                    cursor: 'pointer',
+                    ':hover': {
+                      textDecoration: 'underline',
+                      textUnderlineOffset: 3
+                    }
+                  }}
+                >
+                  HERE
+                </Typography>
+              </Typography>
+            </>
+          ) : authForm === AuthenticationOptions.SIGN_UP ? (
+            <SignUpForm />
+          ) : null}
+        </Box>
       </Box>
     </Modal>
   )
