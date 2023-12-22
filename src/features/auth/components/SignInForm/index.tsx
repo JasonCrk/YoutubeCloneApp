@@ -1,6 +1,4 @@
-import { FC, useContext } from 'react'
-
-import { useLocation, useNavigate } from 'react-router-dom'
+import { FC } from 'react'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -9,26 +7,22 @@ import { useCallService } from '@hooks/useCallService.hook'
 
 import { SignInInputs } from '@features/auth/models'
 import { signInService } from '@features/auth/services'
-import {
-  AuthenticationOptions,
-  authModalContext
-} from '@features/auth/contexts/AuthModal'
+import { signInValidator } from '@features/auth/validators'
 import {
   setAccessTokenInLocalStorage,
   setRefreshTokenInLocalStorage
 } from '@features/auth/utils/localStorage.util'
-import { signInValidator } from '@features/auth/validators'
 
 import PasswordField from '@features/auth/components/PasswordField'
 
 import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 
-const SignInForm: FC = () => {
-  const { changeAuthForm, onClose } = useContext(authModalContext)
+interface Props {
+  onSuccess?: () => void
+  onSettled?: () => void
+}
 
-  const navigate = useNavigate()
-  const location = useLocation()
-
+const SignInForm: FC<Props> = ({ onSettled, onSuccess }) => {
   const {
     handleSubmit,
     register,
@@ -42,25 +36,18 @@ const SignInForm: FC = () => {
     onSuccess: ({ access, refresh }) => {
       setAccessTokenInLocalStorage(access)
       setRefreshTokenInLocalStorage(refresh)
-
-      if (location.pathname === '/') window.location.reload()
-      else {
-        navigate('/')
-        onClose()
-      }
-    }
+      if (onSuccess) onSuccess()
+    },
+    onError: () => {},
+    onSettled
   })
 
   const handleSignInSubmit = handleSubmit(async credentials => {
     callSignInService(credentials)
   })
 
-  const handleChangeFormToSignUp = () => {
-    changeAuthForm(AuthenticationOptions.SIGN_UP)
-  }
-
   return (
-    <Box data-testid='SignInForm' width='400px'>
+    <Box data-testid='SignInForm'>
       <Typography
         variant='h4'
         component='h2'
@@ -104,21 +91,6 @@ const SignInForm: FC = () => {
           Sign in
         </Button>
       </Stack>
-
-      <Typography component='div' textAlign='center' color='white'>
-        You are not registered? Sign up{' '}
-        <Typography
-          component='span'
-          color='primary'
-          onClick={() => handleChangeFormToSignUp()}
-          sx={{
-            cursor: 'pointer',
-            ':hover': { textDecoration: 'underline', textUnderlineOffset: 3 }
-          }}
-        >
-          HERE
-        </Typography>
-      </Typography>
     </Box>
   )
 }
