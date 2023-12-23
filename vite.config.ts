@@ -22,7 +22,8 @@ export default defineConfig({
       '@theme': '/src/theme',
       '@assets': '/src/assets',
       '@store': '/src/store',
-      '@config': '/src/config'
+      '@config': '/src/config',
+      '@mocks': '/src/mocks'
     }
   },
   test: {
