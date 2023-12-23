@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react'
+import { cleanup, screen } from '@testing-library/react'
 
 import SearchField from '@components/form/SearchField'
 
@@ -7,6 +7,8 @@ import { renderWithRouter } from '@utils/testing/routerRender'
 import { userEvent } from '@testing-library/user-event'
 
 describe('<SearchField />', () => {
+  afterEach(cleanup)
+
   it('Should render component', () => {
     renderWithRouter(<SearchField />)
 
