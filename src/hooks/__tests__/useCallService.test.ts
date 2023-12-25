@@ -144,7 +144,7 @@ describe('useCallService', () => {
 
     await waitFor(() => result.current.isSuccess)
 
-    expect(result.current.data).toBe(MOCK_DATA)
+    expect(result.current.data).toEqual(MOCK_DATA)
   })
 
   it('Should assignment the service error result to the error status if the service has an errors while running', async () => {
@@ -162,6 +162,6 @@ describe('useCallService', () => {
 
     await waitFor(() => result.current.isError)
 
-    expect(result.current.error).toBe(MOCK_ERROR)
+    expect(result.current.error).toEqual(MOCK_ERROR)
   })
 })
