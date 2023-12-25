@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface UseServiceParams<TResponse = unknown, TError = unknown> {
   serviceFn: () => Promise<TResponse>
@@ -13,7 +13,6 @@ interface UseServiceResponse<TResponse = unknown, TError = unknown> {
   isSuccess: boolean
   isError: boolean
   isLoading: boolean
-  isRefetching: boolean
   refetch: () => void
 }
 
@@ -33,10 +32,9 @@ export const useService = <TResponse = unknown, TError = unknown>({
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
-  const [isRefetching, setIsRefetching] = useState<boolean>(false)
 
-  const onFetchService = useCallback(() => {
-    if (!isLoading) setIsRefetching(true)
+  useEffect(() => {
+    setIsLoading(true)
     serviceFn()
       .then(data => {
         setData(data)
@@ -50,15 +48,10 @@ export const useService = <TResponse = unknown, TError = unknown>({
         if (onError) onError(error)
       })
       .finally(() => {
-        if (!isLoading) setIsRefetching(false)
-        else setIsLoading(false)
+        setIsLoading(false)
         if (onSettled) onSettled()
       })
-  }, [serviceFn, onSuccess, onError, onSettled, isLoading])
-
-  useEffect(() => {
-    onFetchService()
-  }, [onFetchService, refetchCount])
+  }, [refetchCount])
 
   const refetch: UseServiceResponse['refetch'] = () =>
     setRefetchCount(prevRefetchCount => prevRefetchCount++)
@@ -68,7 +61,6 @@ export const useService = <TResponse = unknown, TError = unknown>({
     error,
     isError,
     isLoading,
-    isRefetching,
     isSuccess,
     refetch
   }
