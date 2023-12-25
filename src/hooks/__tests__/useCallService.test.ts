@@ -53,11 +53,11 @@ describe('useCallService', () => {
       result.current.callService()
     })
 
-    await waitFor(() => result.current.isSuccess)
-
-    expect(result.current.isError).toBe(false)
-    expect(result.current.isSuccess).toBe(true)
-    expect(result.current.isPending).toBe(false)
+    await waitFor(() => {
+      expect(result.current.isError).toBe(false)
+      expect(result.current.isSuccess).toBe(true)
+      expect(result.current.isPending).toBe(false)
+    })
   })
 
   it('Should change the "isError" status to true if the service has an error while running', async () => {
@@ -71,11 +71,11 @@ describe('useCallService', () => {
       result.current.callService()
     })
 
-    await waitFor(() => result.current.isError)
-
-    expect(result.current.isError).toBe(true)
-    expect(result.current.isSuccess).toBe(false)
-    expect(result.current.isPending).toBe(false)
+    await waitFor(() => {
+      expect(result.current.isError).toBe(true)
+      expect(result.current.isSuccess).toBe(false)
+      expect(result.current.isPending).toBe(false)
+    })
   })
 
   it('The onSettled function should be called once if the service has finished running (either success or error)', async () => {
@@ -89,9 +89,7 @@ describe('useCallService', () => {
       result.current.callService()
     })
 
-    await waitFor(() => result.current.isPending)
-
-    expect(mockOnSettled).toHaveBeenCalledOnce()
+    await waitFor(() => expect(mockOnSettled).toHaveBeenCalledOnce())
   })
 
   it('The onSuccess function should be called once if the service has no errors running', async () => {
@@ -105,9 +103,7 @@ describe('useCallService', () => {
       result.current.callService()
     })
 
-    await waitFor(() => result.current.isSuccess)
-
-    expect(mockOnSuccess).toHaveBeenCalledOnce()
+    await waitFor(() => expect(mockOnSuccess).toHaveBeenCalledOnce())
   })
 
   it('The onError function should be called once if the service has an error while running', async () => {
@@ -124,9 +120,7 @@ describe('useCallService', () => {
       result.current.callService()
     })
 
-    await waitFor(() => result.current.isError)
-
-    expect(mockOnError).toHaveBeenCalledOnce()
+    await waitFor(() => expect(mockOnError).toHaveBeenCalledOnce())
   })
 
   it('Should assignment the service result to the data status if the service has no errors running', async () => {
@@ -142,9 +136,7 @@ describe('useCallService', () => {
       result.current.callService()
     })
 
-    await waitFor(() => result.current.isSuccess)
-
-    expect(result.current.data).toEqual(MOCK_DATA)
+    await waitFor(() => expect(result.current.data).toEqual(MOCK_DATA))
   })
 
   it('Should assignment the service error result to the error status if the service has an errors while running', async () => {
@@ -160,8 +152,6 @@ describe('useCallService', () => {
       result.current.callService()
     })
 
-    await waitFor(() => result.current.isError)
-
-    expect(result.current.error).toEqual(MOCK_ERROR)
+    await waitFor(() => expect(result.current.error).toEqual(MOCK_ERROR))
   })
 })
