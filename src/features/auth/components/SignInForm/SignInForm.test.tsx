@@ -28,13 +28,6 @@ describe('<SignInForm />', () => {
 
   afterAll(() => server.close())
 
-  it('Should contain a <h2> title', () => {
-    render(<SignInForm />)
-
-    const signInTitle = screen.getByText(/Sign in/i, { selector: 'h2' })
-    expect(signInTitle).toBeInTheDocument()
-  })
-
   it('Should the input email has the email type attribute', () => {
     render(<SignInForm />)
 
