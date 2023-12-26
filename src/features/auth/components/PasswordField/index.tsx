@@ -47,7 +47,7 @@ const PasswordField: FC<Props> = ({
       <OutlinedInput
         id={id}
         {...inputProps}
-        {...(register != undefined ? register(name) : undefined)}
+        {...(register !== undefined ? register(name) : undefined)}
         label={label}
         name={name}
         type={showPassword ? 'text' : 'password'}
