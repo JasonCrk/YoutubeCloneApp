@@ -15,7 +15,7 @@ import {
 
 import PasswordField from '@features/auth/components/PasswordField'
 
-import { Box, Button, Stack, TextField, Typography } from '@mui/material'
+import { Button, Stack, TextField, Typography } from '@mui/material'
 
 interface Props {
   onSuccess?: () => void
@@ -47,51 +47,43 @@ const SignInForm: FC<Props> = ({ onSettled, onSuccess }) => {
   })
 
   return (
-    <Box data-testid='SignInForm'>
-      <Typography
-        variant='h4'
-        component='h2'
-        textAlign='center'
-        color='white'
-        mb={2}
-      >
+    <Stack
+      spacing={2}
+      component={'form'}
+      data-testid='SignInForm'
+      onSubmit={handleSignInSubmit}
+    >
+      <Typography variant='h4' component='h2' textAlign='center'>
         Sign In
       </Typography>
 
-      <Stack
-        spacing={2}
-        component={'form'}
-        onSubmit={handleSignInSubmit}
-        mb={1}
+      <TextField
+        {...register('email')}
+        label='Email'
+        type='email'
+        inputProps={{ role: 'textbox' }}
+        helperText={errors.email?.message}
+        error={Boolean(errors.email)}
+      />
+
+      <PasswordField
+        id='password'
+        name='password'
+        register={register}
+        label='Password'
+        error={Boolean(errors.password)}
+        errorMessage={errors.password?.message}
+      />
+
+      <Button
+        role='button'
+        type='submit'
+        variant='contained'
+        disabled={isPending}
       >
-        <TextField
-          {...register('email')}
-          label='Email'
-          type='email'
-          inputProps={{ role: 'textbox' }}
-          helperText={errors.email?.message}
-          error={Boolean(errors.email)}
-        />
-
-        <PasswordField
-          id='password'
-          name='password'
-          register={register}
-          label='Password'
-          error={Boolean(errors.password)}
-          errorMessage={errors.password?.message}
-        />
-
-        <Button
-          role='button'
-          type='submit'
-          variant='contained'
-          disabled={isPending}
-        >
-          Sign in
-        </Button>
-      </Stack>
-    </Box>
+        Sign in
+      </Button>
+    </Stack>
   )
 }
 
