@@ -28,7 +28,7 @@ createRoot(document.getElementById('root')!).render(
     <ThemeProvider theme={theme}>
       <Provider store={setupStore()}>
         <RouterProvider router={router} />
-        <Toaster />
+        <Toaster position='bottom-left' />
       </Provider>
     </ThemeProvider>
   </StrictMode>
