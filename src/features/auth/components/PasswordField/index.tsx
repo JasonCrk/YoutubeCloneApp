@@ -49,6 +49,7 @@ const PasswordField: FC<Props> = ({
         {...inputProps}
         {...(register != undefined ? register(name) : undefined)}
         label={label}
+        name={name}
         type={showPassword ? 'text' : 'password'}
         inputProps={{ role: 'textbox' }}
         endAdornment={
