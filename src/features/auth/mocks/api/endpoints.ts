@@ -1,9 +1,16 @@
 import { HttpResponse, http } from 'msw'
 
-import { SignInInputs } from '@features/auth/models'
+import { SignInInputs, SignUpInputs } from '@features/auth/models'
 import { BASE_AUTH_API_URL } from '@features/auth/services'
-import { signInMockResponse } from '@features/auth/mocks/api/responses'
-import { mockUserCredentials } from '@features/auth/mocks/api/requests'
+
+import {
+  signInMockResponse,
+  signUpMockResponse
+} from '@features/auth/mocks/api/responses'
+import {
+  mockSignUpUserData,
+  mockUserCredentials
+} from '@features/auth/mocks/api/requests'
 
 export const signInMockEndpoint = http.post(
   BASE_AUTH_API_URL + '/jwt/create',
@@ -18,5 +25,25 @@ export const signInMockEndpoint = http.post(
     }
 
     return HttpResponse.json(signInMockResponse)
+  }
+)
+
+export const signUpMockEndpoint = http.post(
+  BASE_AUTH_API_URL + '/users',
+  async ({ request }) => {
+    const userData = (await request.json()) as SignUpInputs
+
+    if (
+      userData.email !== mockSignUpUserData.email &&
+      userData.password !== mockSignUpUserData.password &&
+      userData.username !== mockSignUpUserData.username &&
+      userData.re_password !== mockSignUpUserData.confirmPassword &&
+      userData.first_name !== mockSignUpUserData.firstName &&
+      userData.last_name !== mockSignUpUserData.lastName
+    ) {
+      return HttpResponse.error()
+    }
+
+    return HttpResponse.json(signUpMockResponse)
   }
 )

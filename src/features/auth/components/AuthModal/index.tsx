@@ -23,6 +23,10 @@ const AuthModal: FC = () => {
     else navigate('/')
   }
 
+  const handleSignUpSuccess = () => {
+    changeAuthForm(AuthenticationOptions.SIGN_IN)
+  }
+
   return (
     <Modal open={isOpen} onClose={onClose}>
       <Box
@@ -38,7 +42,7 @@ const AuthModal: FC = () => {
           borderRadius: 2
         }}
       >
-        <Box width='400px'>
+        <Box width='400px' color={'white'}>
           {authForm === AuthenticationOptions.SIGN_IN ? (
             <>
               <SignInForm onSuccess={handleSignInSuccess} />
@@ -66,7 +70,31 @@ const AuthModal: FC = () => {
               </Typography>
             </>
           ) : authForm === AuthenticationOptions.SIGN_UP ? (
-            <SignUpForm />
+            <>
+              <SignUpForm onSuccess={handleSignUpSuccess} />
+              <Typography
+                component='div'
+                textAlign='center'
+                color='white'
+                mt={2}
+              >
+                You are registered? Sign in{' '}
+                <Typography
+                  component='span'
+                  color='primary'
+                  onClick={() => changeAuthForm(AuthenticationOptions.SIGN_IN)}
+                  sx={{
+                    cursor: 'pointer',
+                    ':hover': {
+                      textDecoration: 'underline',
+                      textUnderlineOffset: 3
+                    }
+                  }}
+                >
+                  HERE
+                </Typography>
+              </Typography>
+            </>
           ) : null}
         </Box>
       </Box>
