@@ -1,15 +1,15 @@
 import { useState } from 'react'
 
-import { ServiceFnWithParams } from '@/services/types'
+import { ServiceFn } from '@/services/types'
 
-type CallServiceFn<TParams> = (params: TParams) => void
+type CallServiceFn<TParams = unknown> = (params?: TParams) => void
 
 interface UseCallServiceParams<
   TResponse = unknown,
   TParams = unknown,
   TError = unknown
 > {
-  serviceFn: ServiceFnWithParams<TResponse, TParams>
+  serviceFn: ServiceFn<TResponse, TParams>
   onSuccess?: (data: TResponse, variables: TParams | undefined) => void
   onError?: (error: TError, variables: TParams | undefined) => void
   onSettled?: (variables: TParams | undefined) => void

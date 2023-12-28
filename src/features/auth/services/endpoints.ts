@@ -13,9 +13,9 @@ import {
 import { authEndpoint } from '@/features/auth/services'
 import type { JwtToken } from '@/features/auth/types'
 
-import type { ServiceFnWithParams } from '@/services/types'
+import type { ServiceFn } from '@/services/types'
 
-export const signInService: ServiceFnWithParams<
+export const signInService: ServiceFn<
   AuthTokens,
   SignInInputs
 > = async signInData => {
@@ -26,7 +26,7 @@ export const signInService: ServiceFnWithParams<
   return response.data
 }
 
-export const signUpService: ServiceFnWithParams<
+export const signUpService: ServiceFn<
   SignUpResponseAdapter,
   SignUpInputsAdapter
 > = async signUpData => {
@@ -38,7 +38,7 @@ export const signUpService: ServiceFnWithParams<
   return signUpResponseAdapter(response.data)
 }
 
-export const verifyTokenService: ServiceFnWithParams<
+export const verifyTokenService: ServiceFn<
   void,
   JwtToken
 > = async accessToken => {
