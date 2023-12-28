@@ -1,18 +1,18 @@
 import { UserEmail, UserId, UserUsername } from '@/features/user/types'
 
 import {
-  CurrentChannelAdapterResponse,
-  CurrentChannelResponse
+  CurrentChannelAdapter,
+  CurrentChannel
 } from '@/features/channel/models'
 
-export interface AuthenticatedUserResponse {
+export interface AuthenticatedUser {
   id: UserId
   username: UserUsername
   email: UserEmail
-  current_channel: CurrentChannelResponse
+  current_channel: CurrentChannel
 }
 
-export interface AuthenticatedUserAdapterResponse {
+export interface AuthenticatedUserAdapter {
   id: UserId
-  currentChannel: CurrentChannelAdapterResponse
+  currentChannel: CurrentChannelAdapter
 }

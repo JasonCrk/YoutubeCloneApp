@@ -9,7 +9,7 @@ import { Provider } from 'react-redux'
 
 import { router } from './router'
 
-import { setupStore } from './store'
+import { store } from './store'
 
 import { theme } from '@/theme/index'
 import { globalStyles } from '@/theme/globalStyles'
@@ -26,7 +26,7 @@ createRoot(document.getElementById('root')!).render(
     <CssBaseline />
     <GlobalStyles styles={globalStyles} />
     <ThemeProvider theme={theme}>
-      <Provider store={setupStore()}>
+      <Provider store={store}>
         <RouterProvider router={router} />
         <Toaster position='bottom-left' />
       </Provider>

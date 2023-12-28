@@ -4,13 +4,15 @@ import {
   createRoutesFromElements
 } from 'react-router-dom'
 
+import MainLayout from '@/components/layouts/MainLayout'
+
 import HomePage from '@/pages/Home'
 
-import MainLayout from '@/components/layouts/MainLayout'
+import { verifyAuthentication } from '@/router/loaders'
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<MainLayout />}>
+    <Route loader={verifyAuthentication} path='/' element={<MainLayout />}>
       <Route index element={<HomePage />} />
     </Route>
   )

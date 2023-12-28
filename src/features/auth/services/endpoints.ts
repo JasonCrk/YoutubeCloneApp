@@ -1,4 +1,5 @@
 import {
+  authenticatedUserAdapter,
   signUpInputsOriginal,
   signUpResponseAdapter
 } from '@/features/auth/adapters'
@@ -8,7 +9,9 @@ import {
   AuthTokens,
   SignUpResponse,
   SignUpResponseAdapter,
-  SignUpInputsAdapter
+  SignUpInputsAdapter,
+  AuthenticatedUserAdapter,
+  AuthenticatedUser
 } from '@/features/auth/models'
 import { authEndpoint } from '@/features/auth/services'
 import type { JwtToken } from '@/features/auth/types'
@@ -40,11 +43,31 @@ export const signUpService: ServiceFn<
 
 export const verifyTokenService: ServiceFn<
   void,
-  JwtToken
-> = async accessToken => {
-  await authEndpoint.post<void>('/jwt/verify/', undefined, {
+  JwtToken | null
+> = async token => {
+  await authEndpoint.post<void>('/jwt/verify/', { token })
+}
+
+export const refreshTokensService: ServiceFn<
+  Pick<AuthTokens, 'access'>,
+  JwtToken | null
+> = async refresh => {
+  const response = await authEndpoint.post<Pick<AuthTokens, 'access'>>(
+    '/jwt/refresh/',
+    { refresh }
+  )
+  return response.data
+}
+
+export const retrieveUserWithAccessToken: ServiceFn<
+  AuthenticatedUserAdapter,
+  JwtToken | null
+> = async token => {
+  const response = await authEndpoint.get<AuthenticatedUser>('/users/me', {
     headers: {
-      Authorization: `Bearer ${accessToken}`
+      Authorization: `Bearer ${token}`
     }
   })
+
+  return authenticatedUserAdapter(response.data)
 }
