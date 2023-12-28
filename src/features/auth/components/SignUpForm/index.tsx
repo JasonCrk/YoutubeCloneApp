@@ -3,16 +3,16 @@ import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { useCallService } from '@hooks/useCallService.hook'
+import { useCallService } from '@/hooks/useCallService.hook'
 
 import {
   SignUpInputsAdapter,
   SignUpResponseAdapter
-} from '@features/auth/models'
-import { signUpService } from '@features/auth/services'
-import { signUpValidator } from '@features/auth/validators'
+} from '@/features/auth/models'
+import { signUpService } from '@/features/auth/services'
+import { signUpValidator } from '@/features/auth/validators'
 
-import PasswordField from '@features/auth/components/PasswordField'
+import PasswordField from '@/features/auth/components/PasswordField'
 
 import { Button, Stack, TextField, Typography } from '@mui/material'
 

@@ -5,11 +5,11 @@ import userEvent from '@testing-library/user-event'
 import {
   AuthModalDefaultStates,
   AuthenticationOptions
-} from '@features/auth/contexts/AuthModal'
-import AuthModalProvider from '@features/auth/contexts/AuthModal/Provider'
-import SignInButton from '@features/auth/components/SignInButton'
+} from '@/features/auth/contexts/AuthModal'
+import AuthModalProvider from '@/features/auth/contexts/AuthModal/Provider'
+import SignInButton from '@/features/auth/components/SignInButton'
 
-import { render } from '@utils/testing/render'
+import { render } from '@/utils/testing/render'
 
 const IS_NOT_OPEN_MODAL: AuthModalDefaultStates = {
   authForm: AuthenticationOptions.SIGN_IN,

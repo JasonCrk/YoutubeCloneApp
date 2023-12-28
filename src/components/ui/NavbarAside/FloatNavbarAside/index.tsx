@@ -1,10 +1,10 @@
 import { FC, useContext } from 'react'
 
-import { NavbarAsideState, navbarAsideContext } from '@contexts/NavbarAside'
+import { NavbarAsideState, navbarAsideContext } from '@/contexts/NavbarAside'
 
-import FullNavbarAside from '@components/ui/NavbarAside/FullNavbarAside'
-import NavbarAsideToggleButton from '@components/ui/NavbarAsideToggleButton'
-import Logo from '@components/ui/Logo'
+import FullNavbarAside from '@/components/ui/NavbarAside/FullNavbarAside'
+import NavbarAsideToggleButton from '@/components/ui/NavbarAsideToggleButton'
+import Logo from '@/components/ui/Logo'
 
 import { Box, Drawer } from '@mui/material'
 

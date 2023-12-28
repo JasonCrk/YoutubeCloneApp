@@ -1,6 +1,6 @@
 import { act, renderHook, waitFor, cleanup } from '@testing-library/react'
 
-import { useCallService } from '../useCallService.hook'
+import { useCallService } from '@/hooks/useCallService.hook'
 
 const MOCK_DATA = {
   data: 'test'

@@ -11,8 +11,8 @@ import { router } from './router'
 
 import { setupStore } from './store'
 
-import { theme } from '@theme/index'
-import { globalStyles } from '@theme/globalStyles'
+import { theme } from '@/theme/index'
+import { globalStyles } from '@/theme/globalStyles'
 
 import { Toaster } from 'react-hot-toast'
 

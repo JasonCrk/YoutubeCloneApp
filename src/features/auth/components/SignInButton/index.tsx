@@ -3,7 +3,7 @@ import { FC, useContext } from 'react'
 import {
   AuthenticationOptions,
   authModalContext
-} from '@features/auth/contexts/AuthModal'
+} from '@/features/auth/contexts/AuthModal'
 
 import { Button } from '@mui/material'
 

@@ -1,4 +1,4 @@
-import { SignUpResponse, SignUpResponseAdapter } from '@features/auth/models'
+import { SignUpResponse, SignUpResponseAdapter } from '@/features/auth/models'
 
 export const signUpResponseAdapter = (
   signUpResponse: SignUpResponse

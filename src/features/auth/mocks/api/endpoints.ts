@@ -1,16 +1,16 @@
 import { HttpResponse, http } from 'msw'
 
-import { SignInInputs, SignUpInputs } from '@features/auth/models'
-import { BASE_AUTH_API_URL } from '@features/auth/services'
+import { SignInInputs, SignUpInputs } from '@/features/auth/models'
+import { BASE_AUTH_API_URL } from '@/features/auth/services'
 
 import {
   signInMockResponse,
   signUpMockResponse
-} from '@features/auth/mocks/api/responses'
+} from '@/features/auth/mocks/api/responses'
 import {
   mockSignUpUserData,
   mockUserCredentials
-} from '@features/auth/mocks/api/requests'
+} from '@/features/auth/mocks/api/requests'
 
 export const signInMockEndpoint = http.post(
   BASE_AUTH_API_URL + '/jwt/create',

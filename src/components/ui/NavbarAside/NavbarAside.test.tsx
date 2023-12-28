@@ -4,11 +4,11 @@ import {
   NavbarAsideContext,
   NavbarAsideState,
   navbarAsideContext
-} from '@contexts/NavbarAside'
+} from '@/contexts/NavbarAside'
 
 import NavbarAside from '.'
 
-import { render } from '@utils/testing/render'
+import { render } from '@/utils/testing/render'
 
 const fullNavbarAsideValue: NavbarAsideContext = {
   toggleNavbarAside: () => {},

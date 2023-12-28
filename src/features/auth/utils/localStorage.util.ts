@@ -1,4 +1,4 @@
-import { JwtToken } from '@features/auth/types'
+import { JwtToken } from '@/features/auth/types'
 
 export const getAccessTokenFromLocalStorage = () => {
   return window.localStorage.getItem('accessToken')

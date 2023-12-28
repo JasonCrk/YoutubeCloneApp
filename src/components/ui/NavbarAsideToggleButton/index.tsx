@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react'
 
-import { navbarAsideContext } from '@contexts/NavbarAside'
+import { navbarAsideContext } from '@/contexts/NavbarAside'
 
 import { IconButton } from '@mui/material'
 

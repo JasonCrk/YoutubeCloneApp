@@ -7,11 +7,11 @@ import { setupServer } from 'msw/node'
 import {
   mockSignUpUserData,
   signUpMockEndpoint
-} from '@features/auth/mocks/api'
+} from '@/features/auth/mocks/api'
 
-import SignUpForm from '@features/auth/components/SignUpForm'
+import SignUpForm from '@/features/auth/components/SignUpForm'
 
-import { render } from '@utils/testing/render'
+import { render } from '@/utils/testing/render'
 
 const server = setupServer(signUpMockEndpoint)
 

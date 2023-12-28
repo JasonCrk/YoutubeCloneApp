@@ -2,7 +2,7 @@ import { cleanup, screen } from '@testing-library/react'
 
 import NavbarAsideLink from '.'
 
-import { render } from '@utils/testing/render'
+import { render } from '@/utils/testing/render'
 
 import HomeIcon from '@mui/icons-material/Home'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'

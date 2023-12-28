@@ -2,7 +2,7 @@ import { FC, ReactNode, useState } from 'react'
 
 import { AuthenticationOptions, authModalContext, AuthModalContext } from '.'
 
-import AuthModal from '@features/auth/components/AuthModal'
+import AuthModal from '@/features/auth/components/AuthModal'
 
 interface Props {
   children: ReactNode

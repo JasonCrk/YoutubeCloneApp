@@ -5,7 +5,7 @@ import {
   UserLastName,
   UserPassword,
   UserUsername
-} from '@features/user/types'
+} from '@/features/user/types'
 
 export interface SignUpInputs {
   username: UserUsername

@@ -1,9 +1,9 @@
 import { cleanup, screen } from '@testing-library/react'
 
-import { AuthenticationOptions } from '@features/auth/contexts/AuthModal'
-import AuthModalProvider from '@features/auth/contexts/AuthModal/Provider'
+import { AuthenticationOptions } from '@/features/auth/contexts/AuthModal'
+import AuthModalProvider from '@/features/auth/contexts/AuthModal/Provider'
 
-import { render } from '@utils/testing/render'
+import { render } from '@/utils/testing/render'
 
 describe('<AuthModal />', () => {
   afterEach(cleanup)

@@ -1,10 +1,10 @@
 import { screen } from '@testing-library/react'
 
-import { AuthState } from '@store/slices/authSlice'
+import { AuthState } from '@/store/slices/authSlice'
 
-import TopBarOptions from '@components/ui/TopBarOptions'
+import TopBarOptions from '@/components/ui/TopBarOptions'
 
-import { render } from '@utils/testing/render'
+import { render } from '@/utils/testing/render'
 
 const isAuthState: AuthState = {
   isAuth: true,

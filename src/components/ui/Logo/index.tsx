@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { Box, Typography } from '@mui/material'
 
-import logo from '@assets/images/youtube-logo.png'
+import logo from '@/assets/images/youtube-logo.png'
 
 const Logo: FC = () => {
   return (

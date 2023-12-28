@@ -2,7 +2,7 @@ import { cleanup, screen } from '@testing-library/react'
 
 import NavbarAsideIconLink from '.'
 
-import { render } from '@utils/testing/render'
+import { render } from '@/utils/testing/render'
 
 import Icon from '@mui/icons-material/Abc'
 

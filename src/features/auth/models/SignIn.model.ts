@@ -1,4 +1,4 @@
-import { UserEmail, UserPassword } from '@features/user/types'
+import { UserEmail, UserPassword } from '@/features/user/types'
 
 export interface SignInInputs {
   email: UserEmail

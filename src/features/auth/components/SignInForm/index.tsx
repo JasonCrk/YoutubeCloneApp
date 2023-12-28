@@ -3,17 +3,17 @@ import { FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { useCallService } from '@hooks/useCallService.hook'
+import { useCallService } from '@/hooks/useCallService.hook'
 
-import { SignInInputs } from '@features/auth/models'
-import { signInService } from '@features/auth/services'
-import { signInValidator } from '@features/auth/validators'
+import { SignInInputs } from '@/features/auth/models'
+import { signInService } from '@/features/auth/services'
+import { signInValidator } from '@/features/auth/validators'
 import {
   setAccessTokenInLocalStorage,
   setRefreshTokenInLocalStorage
-} from '@features/auth/utils/localStorage.util'
+} from '@/features/auth/utils/localStorage.util'
 
-import PasswordField from '@features/auth/components/PasswordField'
+import PasswordField from '@/features/auth/components/PasswordField'
 
 import { Button, Stack, TextField, Typography } from '@mui/material'
 

@@ -2,7 +2,7 @@ import { cleanup, render, screen } from '@testing-library/react'
 
 import userEvent from '@testing-library/user-event'
 
-import PasswordField from '@features/auth/components/PasswordField'
+import PasswordField from '@/features/auth/components/PasswordField'
 
 describe('<PasswordField />', () => {
   afterEach(cleanup)

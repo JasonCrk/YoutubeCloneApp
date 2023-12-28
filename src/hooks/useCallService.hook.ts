@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { ServiceFnWithParams } from '@services/types'
+import { ServiceFnWithParams } from '@/services/types'
 
 type CallServiceFn<TParams> = (params: TParams) => void
 

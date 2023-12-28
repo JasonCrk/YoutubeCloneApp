@@ -9,7 +9,7 @@ import type { PreloadedState } from '@reduxjs/toolkit'
 import { render as reactTestingRender } from '@testing-library/react'
 import type { RenderOptions } from '@testing-library/react'
 
-import { setupStore, type AppStore, type RootState } from '@store/index'
+import { setupStore, type AppStore, type RootState } from '@/store/index'
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>

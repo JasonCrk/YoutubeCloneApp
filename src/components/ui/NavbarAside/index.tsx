@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react'
 
-import { NavbarAsideState, navbarAsideContext } from '@contexts/NavbarAside'
+import { NavbarAsideState, navbarAsideContext } from '@/contexts/NavbarAside'
 
 import FullNavbarAside from './FullNavbarAside'
 import ShortNavbarAside from './ShortNavbarAside'

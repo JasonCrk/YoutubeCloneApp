@@ -1,10 +1,10 @@
 import { cleanup, screen } from '@testing-library/react'
 
-import { AuthState } from '@store/slices/authSlice'
+import { AuthState } from '@/store/slices/authSlice'
 
-import FullNavbarAside from '@components/ui/NavbarAside/FullNavbarAside'
+import FullNavbarAside from '@/components/ui/NavbarAside/FullNavbarAside'
 
-import { render } from '@utils/testing/render'
+import { render } from '@/utils/testing/render'
 
 const AUTHENTICATED_USER: AuthState = {
   accessToken: null,

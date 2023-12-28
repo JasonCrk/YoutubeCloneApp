@@ -1,11 +1,11 @@
 import { FC } from 'react'
 
-import { useAppSelector } from '@store/hooks'
+import { useAppSelector } from '@/store/hooks'
 
-import SignInButton from '@features/auth/components/SignInButton'
+import SignInButton from '@/features/auth/components/SignInButton'
 
-import NavbarAsideLink from '@components/ui/NavbarAsideLink'
-import FooterLink from '@components/ui/FooterLink'
+import NavbarAsideLink from '@/components/ui/NavbarAsideLink'
+import FooterLink from '@/components/ui/FooterLink'
 
 import { Box, Divider, List, Stack, Typography } from '@mui/material'
 

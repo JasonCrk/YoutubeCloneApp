@@ -1,8 +1,8 @@
 import { PaletteMode, createTheme } from '@mui/material'
 
-import youTubeBoldFontTtf from '@assets/fonts/youtube-sans-bold.ttf'
-import youTubeMediumFontTtf from '@assets/fonts/youtube-sans-medium.ttf'
-import youTubeLightFontTtf from '@assets/fonts/youtube-sans-light.ttf'
+import youTubeBoldFontTtf from '@/assets/fonts/youtube-sans-bold.ttf'
+import youTubeMediumFontTtf from '@/assets/fonts/youtube-sans-medium.ttf'
+import youTubeLightFontTtf from '@/assets/fonts/youtube-sans-light.ttf'
 
 import { grey } from '@mui/material/colors'
 

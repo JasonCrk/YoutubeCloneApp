@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { AuthenticatedUserAdapterResponse } from '@features/auth/models'
-import { JwtToken } from '@features/auth/types'
+import { AuthenticatedUserAdapterResponse } from '@/features/auth/models'
+import { JwtToken } from '@/features/auth/types'
 
 export interface AuthState {
   isAuth: boolean

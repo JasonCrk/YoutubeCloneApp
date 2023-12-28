@@ -5,9 +5,9 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import {
   AuthenticationOptions,
   authModalContext
-} from '@features/auth/contexts/AuthModal'
-import SignInForm from '@features/auth/components/SignInForm'
-import SignUpForm from '@features/auth/components/SignUpForm'
+} from '@/features/auth/contexts/AuthModal'
+import SignInForm from '@/features/auth/components/SignInForm'
+import SignUpForm from '@/features/auth/components/SignUpForm'
 
 import { Box, Modal, Typography } from '@mui/material'
 

@@ -8,10 +8,10 @@ import {
   signInMockEndpoint,
   mockUserCredentials,
   signInMockResponse
-} from '@features/auth/mocks/api'
-import SignInForm from '@features/auth/components/SignInForm'
+} from '@/features/auth/mocks/api'
+import SignInForm from '@/features/auth/components/SignInForm'
 
-import { render } from '@utils/testing/render'
+import { render } from '@/utils/testing/render'
 
 const server = setupServer(signInMockEndpoint)
 const localStorageSetItemSpy = vi.spyOn(Storage.prototype, 'setItem')

@@ -1,4 +1,4 @@
-import { Id } from '@models/types'
+import { Id } from '@/models/types'
 
 export type UserId = Id
 export type UserUsername = string

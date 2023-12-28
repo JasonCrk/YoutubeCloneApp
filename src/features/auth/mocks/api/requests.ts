@@ -1,4 +1,4 @@
-import { SignInInputs, SignUpInputsAdapter } from '@features/auth/models'
+import { SignInInputs, SignUpInputsAdapter } from '@/features/auth/models'
 
 export const mockUserCredentials: SignInInputs = {
   email: 'testUser@test.com',

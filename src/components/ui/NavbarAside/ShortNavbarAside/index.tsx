@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import NavbarAsideIconLink from '@components/ui/NavbarAsideIconLink'
+import NavbarAsideIconLink from '@/components/ui/NavbarAsideIconLink'
 
 import { Stack } from '@mui/material'
 

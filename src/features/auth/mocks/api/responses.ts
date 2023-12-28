@@ -1,4 +1,4 @@
-import { AuthTokens, SignUpResponse } from '@features/auth/models'
+import { AuthTokens, SignUpResponse } from '@/features/auth/models'
 
 export const signInMockResponse: AuthTokens = {
   access: 'accessJwt',

@@ -4,9 +4,9 @@ import {
   createRoutesFromElements
 } from 'react-router-dom'
 
-import HomePage from '@pages/Home'
+import HomePage from '@/pages/Home'
 
-import MainLayout from '@components/layouts/MainLayout'
+import MainLayout from '@/components/layouts/MainLayout'
 
 export const router = createBrowserRouter(
   createRoutesFromElements(

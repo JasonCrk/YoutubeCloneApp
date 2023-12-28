@@ -1,12 +1,12 @@
 import { FC } from 'react'
 
-import { useAppSelector } from '@store/hooks'
+import { useAppSelector } from '@/store/hooks'
 
-import ChannelOptions from '@features/channel/components/ChannelOptions'
+import ChannelOptions from '@/features/channel/components/ChannelOptions'
 
-import UploadVideoButton from '@features/video/components/UploadVideoButton'
+import UploadVideoButton from '@/features/video/components/UploadVideoButton'
 
-import SignInButton from '@features/auth/components/SignInButton'
+import SignInButton from '@/features/auth/components/SignInButton'
 
 import { Box } from '@mui/material'
 

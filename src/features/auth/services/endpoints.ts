@@ -1,7 +1,7 @@
 import {
   signUpInputsOriginal,
   signUpResponseAdapter
-} from '@features/auth/adapters'
+} from '@/features/auth/adapters'
 
 import {
   SignInInputs,
@@ -9,11 +9,11 @@ import {
   SignUpResponse,
   SignUpResponseAdapter,
   SignUpInputsAdapter
-} from '@features/auth/models'
-import { authEndpoint } from '@features/auth/services'
-import type { JwtToken } from '@features/auth/types'
+} from '@/features/auth/models'
+import { authEndpoint } from '@/features/auth/services'
+import type { JwtToken } from '@/features/auth/types'
 
-import type { ServiceFnWithParams } from '@services/types'
+import type { ServiceFnWithParams } from '@/services/types'
 
 export const signInService: ServiceFnWithParams<
   AuthTokens,
@@ -36,4 +36,15 @@ export const signUpService: ServiceFnWithParams<
     userDataOriginal
   )
   return signUpResponseAdapter(response.data)
+}
+
+export const verifyTokenService: ServiceFnWithParams<
+  void,
+  JwtToken
+> = async accessToken => {
+  await authEndpoint.post<void>('/jwt/verify/', undefined, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  })
 }

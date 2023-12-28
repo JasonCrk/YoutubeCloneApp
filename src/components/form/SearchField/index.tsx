@@ -1,9 +1,10 @@
 import { ChangeEvent, FC, useState } from 'react'
 
+import { useNavigate } from 'react-router-dom'
+
 import { Box, Button, InputAdornment, InputBase, styled } from '@mui/material'
 
 import SearchIcon from '@mui/icons-material/Search'
-import { useNavigate } from 'react-router-dom'
 
 const InputSearch = styled(InputBase)(({ theme }) => ({
   borderColor: theme.palette.grey[800],

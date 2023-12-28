@@ -1,4 +1,4 @@
-import { SignUpInputs, SignUpInputsAdapter } from '@features/auth/models'
+import { SignUpInputs, SignUpInputsAdapter } from '@/features/auth/models'
 
 export const signUpInputsAdapter = (
   signUpInputs: SignUpInputs

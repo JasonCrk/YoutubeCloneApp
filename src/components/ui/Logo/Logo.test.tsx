@@ -2,7 +2,7 @@ import { cleanup, screen } from '@testing-library/react'
 
 import Logo from '.'
 
-import { renderWithRouter } from '@utils/testing/routerRender'
+import { renderWithRouter } from '@/utils/testing/routerRender'
 
 describe('<Logo />', () => {
   afterEach(cleanup)
