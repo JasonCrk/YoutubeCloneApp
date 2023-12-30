@@ -1,16 +1,9 @@
-import { FC, MouseEvent, ReactElement } from 'react'
+import { FC, ReactElement } from 'react'
 
-import { useLocation, useNavigate } from 'react-router-dom'
+import { ListItemIcon, TypographyProps } from '@mui/material'
 
-import {
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  TypographyProps
-} from '@mui/material'
-
-import { grey } from '@mui/material/colors'
+import ListItemLinkWrapper from '@/components/ui/ListItemLinkWrapper'
+import ListItemTextCustom from '@/components/ui/ListItemTextCustom'
 
 interface Props {
   activeIcon: ReactElement
@@ -29,67 +22,34 @@ const NavbarAsideLink: FC<Props> = ({
   reverse,
   titleProps
 }) => {
-  const location = useLocation()
-  const navigate = useNavigate()
-
-  const isActive = location.pathname === href
-
-  const handleLink = (e: MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault()
-    navigate(href)
-  }
-
   return (
-    <ListItem disablePadding>
-      <ListItemButton
-        LinkComponent={'a'}
-        href={href}
-        onClick={handleLink}
-        sx={{
-          borderRadius: '8px',
-          backgroundColor: isActive ? 'background.paper' : 'background.default',
-          ':hover': {
-            backgroundColor: isActive ? grey[800] : 'background.paper'
-          }
-        }}
-      >
-        {reverse ? (
-          <>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <ListItemText
-                primary={title}
-                primaryTypographyProps={{
-                  fontFamily: 'Youtube, sans-serif',
-                  fontWeight: isActive ? 'bold' : 'normal',
-                  fontSize: '0.9rem',
-                  lineHeight: 1,
-                  ...titleProps
-                }}
-              />
-              <ListItemIcon sx={{ minWidth: '45px' }}>
-                {isActive ? activeIcon : noActiveIcon ?? activeIcon}
-              </ListItemIcon>
-            </div>
-          </>
+    <ListItemLinkWrapper href={href}>
+      {isActive =>
+        reverse ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <ListItemTextCustom
+              content={title}
+              isActive={isActive}
+              {...titleProps}
+            />
+            <ListItemIcon sx={{ minWidth: '45px' }}>
+              {isActive ? activeIcon : noActiveIcon ?? activeIcon}
+            </ListItemIcon>
+          </div>
         ) : (
           <>
             <ListItemIcon sx={{ minWidth: '45px' }}>
               {isActive ? activeIcon : noActiveIcon ?? activeIcon}
             </ListItemIcon>
-            <ListItemText
-              primary={title}
-              primaryTypographyProps={{
-                fontFamily: 'Youtube, sans-serif',
-                fontWeight: isActive ? 'bold' : 'normal',
-                fontSize: '0.9rem',
-                lineHeight: 1,
-                ...titleProps
-              }}
+            <ListItemTextCustom
+              content={title}
+              isActive={isActive}
+              {...titleProps}
             />
           </>
-        )}
-      </ListItemButton>
-    </ListItem>
+        )
+      }
+    </ListItemLinkWrapper>
   )
 }
 

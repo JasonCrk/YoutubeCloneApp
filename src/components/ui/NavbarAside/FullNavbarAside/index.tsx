@@ -2,10 +2,11 @@ import { FC } from 'react'
 
 import { useAppSelector } from '@/store/hooks'
 
-import SignInButton from '@/features/auth/components/SignInButton'
-
 import NavbarAsideLink from '@/components/ui/NavbarAsideLink'
 import FooterLink from '@/components/ui/FooterLink'
+
+import SignInButton from '@/features/auth/components/SignInButton'
+import NavbarAsideSubscriptionLinkList from '@/features/subscription/components/NavbarAsideSubscriptionLinkList'
 
 import { Box, Divider, List, Stack, Typography } from '@mui/material'
 
@@ -112,7 +113,7 @@ const FullNavbarAside: FC<Props> = ({ disablePaddingTop }) => {
           <Typography pl={1.8} variant='subtitle1' fontWeight={'600'}>
             Subscriptions
           </Typography>
-          <Stack></Stack>
+          <NavbarAsideSubscriptionLinkList />
         </Box>
       ) : (
         <Box pl={4} pr={1} py={1.2} data-testid='noAuthSection'>
