@@ -7,6 +7,7 @@ import FooterLink from '@/components/ui/FooterLink'
 
 import SignInButton from '@/features/auth/components/SignInButton'
 import NavbarAsideSubscriptionLinkList from '@/features/subscription/components/NavbarAsideSubscriptionLinkList'
+import NavbarAsidePlaylistLinkList from '@/features/playlist/components/NavbarAsidePlaylistLinkList'
 
 import { Box, Divider, List, Stack, Typography } from '@mui/material'
 
@@ -95,6 +96,8 @@ const FullNavbarAside: FC<Props> = ({ disablePaddingTop }) => {
               href='/feed/liked'
               title='Liked videos'
             />
+
+            <NavbarAsidePlaylistLinkList />
           </List>
         ) : (
           <List data-testid='noAuthLinks'>

@@ -12,6 +12,7 @@ interface Props {
   reverse?: boolean
   noActiveIcon?: ReactElement
   titleProps?: TypographyProps<'span'>
+  testId?: string
 }
 
 const NavbarAsideLink: FC<Props> = ({
@@ -20,10 +21,11 @@ const NavbarAsideLink: FC<Props> = ({
   title,
   href,
   reverse,
-  titleProps
+  titleProps,
+  testId
 }) => {
   return (
-    <ListItemLinkWrapper href={href}>
+    <ListItemLinkWrapper testId={testId} href={href}>
       {isActive =>
         reverse ? (
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
