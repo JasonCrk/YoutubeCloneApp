@@ -10,6 +10,7 @@ import {
   SignUpResponseAdapter
 } from '@/features/auth/models'
 import { signUpService } from '@/features/auth/services'
+import { signUpResponseAdapter } from '@/features/auth/adapters'
 import { signUpValidator } from '@/features/auth/validators'
 
 import PasswordField from '@/features/auth/components/PasswordField'
@@ -35,14 +36,15 @@ const SignUpForm: FC<Props> = ({ onSuccess, onSettled }) => {
   const { callService: callSignUpService, isPending } = useCallService({
     serviceFn: signUpService,
     onSettled,
-    onSuccess: data => {
+    onSuccess: signUpData => {
+      const adaptedSignUpData = signUpResponseAdapter(signUpData)
       toast.success(
         'You have received a link in your email to activate your account.',
         {
           duration: 4000
         }
       )
-      if (onSuccess) onSuccess(data)
+      if (onSuccess) onSuccess(adaptedSignUpData)
     },
     onError: () => {
       toast.error('An error occurred', {

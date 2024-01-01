@@ -5,9 +5,10 @@ import { logout, setAuthTokens, setUser } from '@/store/slices/authSlice'
 
 import {
   refreshTokensService,
-  retrieveUserWithAccessToken,
+  retrieveUserWithAccessTokenService,
   verifyTokenService
 } from '@/features/auth/services'
+import { authenticatedUserAdapter } from '@/features/auth/adapters'
 import {
   removeAccessTokenFromLocalStorage,
   removeRefreshTokenFromLocalStorage
@@ -49,9 +50,10 @@ export const verifyAuthentication: LoaderFunction = async () => {
   }
 
   try {
-    const user = await retrieveUserWithAccessToken(validAccessToken)
+    const userData = await retrieveUserWithAccessTokenService(validAccessToken)
+    const userAdapted = authenticatedUserAdapter(userData)
 
-    dispatch(setUser(user))
+    dispatch(setUser(userAdapted))
     dispatch(setAuthTokens({ accessToken: validAccessToken, refreshToken }))
   } catch (e) {
     return rejectAuthentication()

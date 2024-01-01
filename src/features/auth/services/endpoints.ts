@@ -1,16 +1,10 @@
-import {
-  authenticatedUserAdapter,
-  signUpInputsOriginal,
-  signUpResponseAdapter
-} from '@/features/auth/adapters'
+import { signUpInputsOriginal } from '@/features/auth/adapters'
 
 import {
   SignInInputs,
   AuthTokens,
   SignUpResponse,
-  SignUpResponseAdapter,
   SignUpInputsAdapter,
-  AuthenticatedUserAdapter,
   AuthenticatedUser
 } from '@/features/auth/models'
 import { authEndpoint } from '@/features/auth/services'
@@ -30,7 +24,7 @@ export const signInService: ServiceFn<
 }
 
 export const signUpService: ServiceFn<
-  SignUpResponseAdapter,
+  SignUpResponse,
   SignUpInputsAdapter
 > = async signUpData => {
   const userDataOriginal = signUpInputsOriginal(signUpData!)
@@ -38,7 +32,7 @@ export const signUpService: ServiceFn<
     '/users/',
     userDataOriginal
   )
-  return signUpResponseAdapter(response.data)
+  return response.data
 }
 
 export const verifyTokenService: ServiceFn<
@@ -59,8 +53,8 @@ export const refreshTokensService: ServiceFn<
   return response.data
 }
 
-export const retrieveUserWithAccessToken: ServiceFn<
-  AuthenticatedUserAdapter,
+export const retrieveUserWithAccessTokenService: ServiceFn<
+  AuthenticatedUser,
   JwtToken | null
 > = async token => {
   const response = await authEndpoint.get<AuthenticatedUser>('/users/me', {
@@ -69,5 +63,5 @@ export const retrieveUserWithAccessToken: ServiceFn<
     }
   })
 
-  return authenticatedUserAdapter(response.data)
+  return response.data
 }
