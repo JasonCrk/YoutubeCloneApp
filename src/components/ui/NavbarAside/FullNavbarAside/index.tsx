@@ -16,13 +16,13 @@ import {
   HomeOutlined as HomeOutlinedIcon,
   Portrait as PortraitIcon,
   PortraitOutlined as PortraitOutlinedIcon,
-  Slideshow as SlideshowIcon,
-  SlideshowOutlined as SlideshowOutlinedIcon,
   VideoLibrary as VideoLibraryIcon,
   VideoLibraryOutlined as VideoLibraryOutlinedIcon,
   Subscriptions as SubscriptionsIcon,
   SubscriptionsOutlined as SubscriptionsOutlinedIcon,
-  ArrowForwardIos as ArrowForwardIosIcon
+  ArrowForwardIos as ArrowForwardIosIcon,
+  ThumbUpOutlined as LikedVideosOutlinedIcon,
+  ThumbUp as LikedVideosIcon
 } from '@mui/icons-material'
 
 interface Props {
@@ -91,8 +91,8 @@ const FullNavbarAside: FC<Props> = ({ disablePaddingTop }) => {
               title='Your channel'
             />
             <NavbarAsideLink
-              activeIcon={<SlideshowIcon />}
-              noActiveIcon={<SlideshowOutlinedIcon />}
+              activeIcon={<LikedVideosIcon />}
+              noActiveIcon={<LikedVideosOutlinedIcon />}
               href='/feed/liked'
               title='Liked videos'
             />
