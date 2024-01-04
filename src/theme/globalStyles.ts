@@ -17,5 +17,8 @@ export const globalStyles: Interpolation<Theme> = {
   },
   '&': {
     scrollBehavior: 'smooth'
+  },
+  body: {
+    backgroundColor: theme.palette.background.default
   }
 }
