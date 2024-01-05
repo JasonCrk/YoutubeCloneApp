@@ -18,9 +18,7 @@ const MainLayout: FC = () => {
         <TopBar />
         <Box display={'flex'}>
           <NavbarAside />
-          <div style={{ marginTop: '56px' }}>
-            <Outlet />
-          </div>
+          <Outlet />
         </Box>
       </AuthModalProvider>
     </NavbarAsideProvider>

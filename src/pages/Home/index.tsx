@@ -1,5 +1,85 @@
+import { useService } from '@/hooks/useService.hook'
+import { listResponseAdapter } from '@/adapters/listResponse.adapter'
+
+import { retrieveTrendingVideosService } from '@/features/video/services'
+import { simpleVideoItemAdapter } from '@/features/video/adapters'
+
+import BlockVideoItem from '@/features/video/components/BlockVideoItem'
+import BlockVideoItemSkeleton from '@/features/video/components/BlockVideoItemSkeleton'
+
+import { Box, Grid, Typography } from '@mui/material'
+
+import ErrorIcon from '@mui/icons-material/Error'
+
 function HomePage() {
-  return <div>Home</div>
+  const {
+    data: trendingVideos,
+    isLoading,
+    isError
+  } = useService({
+    serviceFn: async () => {
+      const data = await retrieveTrendingVideosService()
+      return listResponseAdapter(data, simpleVideoItemAdapter)
+    }
+  })
+
+  if (isLoading)
+    return (
+      <Box sx={{ width: '100%', paddingTop: '56px' }}>
+        <Grid container pl={4.5} pr={3} pt={1} rowSpacing={4} columnSpacing={2}>
+          <Grid item xs={12} sm={6} md={4} xl={4}>
+            <BlockVideoItemSkeleton />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} xl={4}>
+            <BlockVideoItemSkeleton />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} xl={4}>
+            <BlockVideoItemSkeleton />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} xl={4}>
+            <BlockVideoItemSkeleton />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} xl={4}>
+            <BlockVideoItemSkeleton />
+          </Grid>
+          <Grid item xs={12} sm={6} md={4} xl={4}>
+            <BlockVideoItemSkeleton />
+          </Grid>
+        </Grid>
+      </Box>
+    )
+
+  if (isError)
+    return (
+      <Box
+        sx={{
+          width: '100%',
+          height: '100vh',
+          paddingTop: '56px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          color: 'white'
+        }}
+      >
+        <ErrorIcon sx={{ fontSize: '100px' }} />
+        <Typography variant='h6'>Error loading videos</Typography>
+      </Box>
+    )
+
+  return (
+    <Box sx={{ width: '100%', paddingTop: '56px' }}>
+      <Grid container pl={4.5} pr={3} pt={1} rowSpacing={4} columnSpacing={2}>
+        {trendingVideos &&
+          trendingVideos.map(trendVideo => (
+            <Grid item xs={12} sm={6} md={4} xl={4}>
+              <BlockVideoItem key={trendVideo.id} {...trendVideo} />
+            </Grid>
+          ))}
+      </Grid>
+    </Box>
+  )
 }
 
 export default HomePage

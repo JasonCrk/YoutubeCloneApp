@@ -40,7 +40,8 @@ const FullNavbarAside: FC<Props> = ({ disablePaddingTop }) => {
       position={'sticky'}
       pt={disablePaddingTop ? 0 : '56px'}
       sx={{
-        width: '230px',
+        minWidth: '228px',
+        width: '228px',
         height: '100vh',
         backgroundColor: 'background.default',
         color: 'white',
