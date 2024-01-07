@@ -10,7 +10,15 @@ const isAuthState: AuthState = {
   isAuth: true,
   accessToken: null,
   refreshToken: null,
-  user: null
+  user: {
+    id: 1,
+    currentChannel: {
+      handle: 'testHandle',
+      id: 1,
+      name: 'test name',
+      pictureUrl: null
+    }
+  }
 }
 
 const isNotAuthState: AuthState = {
