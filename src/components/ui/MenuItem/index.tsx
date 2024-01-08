@@ -23,6 +23,7 @@ const MenuItem: FC<Props> = ({
   iconEnd,
   link,
   children,
+  onClick,
   ...props
 }) => {
   const navigate = useNavigate()
@@ -30,19 +31,16 @@ const MenuItem: FC<Props> = ({
   const handleLink = (
     event: MouseEvent<HTMLLIElement, globalThis.MouseEvent>
   ) => {
-    if (link?.href) {
+    if (link) {
       event.preventDefault()
       navigate(link.href)
     }
+
+    if (onClick) onClick(event)
   }
 
   return (
-    <MaterialMenuItem
-      LinkComponent={link?.href ? 'a' : undefined}
-      onClick={handleLink}
-      sx={{ py: 1.1 }}
-      {...props}
-    >
+    <MaterialMenuItem onClick={handleLink} sx={{ py: 1.1 }} {...props}>
       {iconStart && <ListItemIcon>{iconStart}</ListItemIcon>}
 
       <ListItemText
