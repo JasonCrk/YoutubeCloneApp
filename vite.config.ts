@@ -26,7 +26,8 @@ export default defineConfig({
       '@/mocks': '/src/mocks',
       '@/router': '/src/router',
       '@/adapters': '/src/adapters',
-      '@/interceptors': '/src/interceptors'
+      '@/interceptors': '/src/interceptors',
+      '@/validations': '/src/validations'
     }
   },
   test: {
