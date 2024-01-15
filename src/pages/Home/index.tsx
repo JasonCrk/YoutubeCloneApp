@@ -27,24 +27,11 @@ function HomePage() {
     return (
       <Box sx={{ width: '100%', paddingTop: '56px' }}>
         <Grid container pl={4.5} pr={3} pt={1} rowSpacing={4} columnSpacing={2}>
-          <Grid item xs={12} sm={6} md={4} xl={4}>
-            <BlockVideoItemSkeleton />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} xl={4}>
-            <BlockVideoItemSkeleton />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} xl={4}>
-            <BlockVideoItemSkeleton />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} xl={4}>
-            <BlockVideoItemSkeleton />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} xl={4}>
-            <BlockVideoItemSkeleton />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} xl={4}>
-            <BlockVideoItemSkeleton />
-          </Grid>
+          {[...Array(6)].map(() => (
+            <Grid item key={crypto.randomUUID()} xs={12} sm={6} md={4} xl={4}>
+              <BlockVideoItemSkeleton />
+            </Grid>
+          ))}
         </Grid>
       </Box>
     )
@@ -73,7 +60,7 @@ function HomePage() {
       <Grid container pl={4.5} pr={3} pt={1} rowSpacing={4} columnSpacing={2}>
         {trendingVideos &&
           trendingVideos.map(trendVideo => (
-            <Grid item xs={12} sm={6} md={4} xl={4}>
+            <Grid item key={trendVideo.id} xs={12} sm={6} md={4} xl={4}>
               <BlockVideoItem key={trendVideo.id} {...trendVideo} />
             </Grid>
           ))}
