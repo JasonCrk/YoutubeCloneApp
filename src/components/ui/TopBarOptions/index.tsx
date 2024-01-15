@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { useAppSelector } from '@/store/hooks'
 
-import ChannelOptions from '@/features/channel/components/ChannelOptions'
+import ChannelOptionsButton from '@/features/channel/components/ChannelOptionsButton'
 
 import UploadVideoButton from '@/features/video/components/UploadVideoButton'
 
@@ -23,7 +23,7 @@ const TopBarOptions: FC = () => {
       {isAuth ? (
         <>
           <UploadVideoButton />
-          <ChannelOptions />
+          <ChannelOptionsButton />
         </>
       ) : (
         <SignInButton />
