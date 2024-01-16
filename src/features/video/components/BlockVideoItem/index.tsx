@@ -58,7 +58,11 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
           style={{ textDecoration: 'none' }}
           role='link'
         >
-          <Picture src={channel.pictureUrl} name={channel.name} />
+          <Picture
+            src={channel.pictureUrl}
+            name={channel.name}
+            sx={{ width: '36px', height: '36px' }}
+          />
         </Link>
 
         <Box>

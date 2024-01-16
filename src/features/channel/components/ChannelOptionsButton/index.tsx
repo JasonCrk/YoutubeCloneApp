@@ -25,8 +25,8 @@ const ChannelPictureOptionsButton: FC = () => {
         src={user.currentChannel.pictureUrl}
         onClick={handleOpenMenu}
         sx={{
-          width: '35px',
-          height: '35px',
+          width: '32px',
+          height: '32px',
           aspectRatio: 1 / 1,
           cursor: 'pointer',
           ':active': {
