@@ -2,6 +2,7 @@
 /// <reference types='Vite/client' />
 
 import { defineConfig } from 'vite'
+import path from 'path'
 
 import react from '@vitejs/plugin-react'
 import { configDefaults } from 'vitest/dist/config.js'
@@ -11,23 +12,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@/components': '/src/components',
-      '@/pages': '/src/pages',
-      '@/utils': '/src/utils',
-      '@/hooks': '/src/hooks',
-      '@/services': '/src/services',
-      '@/features': '/src/features',
-      '@/models': '/src/models',
-      '@/contexts': '/src/contexts',
-      '@/theme': '/src/theme',
-      '@/assets': '/src/assets',
-      '@/store': '/src/store',
-      '@/config': '/src/config',
-      '@/mocks': '/src/mocks',
-      '@/router': '/src/router',
-      '@/adapters': '/src/adapters',
-      '@/interceptors': '/src/interceptors',
-      '@/validations': '/src/validations'
+      '@': path.resolve(__dirname, './src')
     }
   },
   test: {
