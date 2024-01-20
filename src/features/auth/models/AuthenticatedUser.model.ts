@@ -14,5 +14,6 @@ export interface AuthenticatedUser {
 
 export interface AuthenticatedUserAdapter {
   id: UserId
+  email: UserEmail
   currentChannel: CurrentChannelAdapter
 }
