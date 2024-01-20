@@ -11,17 +11,30 @@ interface Props extends Omit<AvatarProps<'div'>, 'alt' | 'src'> {
   name: string
 }
 
-const Picture: FC<Props> = ({ src, name, ...avatarProps }) => {
-  const nameAcronym = initialsOfString(name).toUpperCase()
+const Picture: FC<Props> = ({ src, name, sx, ...avatarProps }) => {
+  if (src === null) {
+    const nameAcronym = initialsOfString(name).toUpperCase()
 
-  if (src === null)
     return (
-      <Avatar data-testid='Picture' {...avatarProps}>
+      <Avatar
+        data-testid='Picture'
+        sx={{ aspectRatio: 1 / 1, ...sx }}
+        {...avatarProps}
+      >
         {nameAcronym}
       </Avatar>
     )
+  }
 
-  return <Avatar data-testid='Picture' src={src} alt={name} {...avatarProps} />
+  return (
+    <Avatar
+      data-testid='Picture'
+      sx={{ aspectRatio: 1 / 1, ...sx }}
+      src={src}
+      alt={name}
+      {...avatarProps}
+    />
+  )
 }
 
 export default Picture
