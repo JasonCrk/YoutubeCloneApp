@@ -1,55 +1,35 @@
-import { FC, MouseEvent, ReactNode } from 'react'
+import { FC, ReactNode } from 'react'
 
-import { useNavigate } from 'react-router-dom'
+import MenuItemWrapper from '@/components/ui/MenuItemWrapper'
 
-import {
-  ListItemIcon,
-  ListItemText,
-  MenuItem as MaterialMenuItem,
-  MenuItemProps
-} from '@mui/material'
+import { ListItemIcon, ListItemText, MenuItemProps } from '@mui/material'
 
 interface Props extends Omit<MenuItemProps, 'LinkComponent'> {
-  iconStart?: ReactNode
-  iconEnd?: ReactNode
+  startIcon?: ReactNode
+  endIcon?: ReactNode
   children: string
-  link?: {
-    href: string
-  }
+  linkHref?: string
 }
 
 const MenuItem: FC<Props> = ({
-  iconStart,
-  iconEnd,
-  link,
+  startIcon,
+  endIcon,
   children,
+  linkHref,
   onClick,
   ...props
 }) => {
-  const navigate = useNavigate()
-
-  const handleLink = (
-    event: MouseEvent<HTMLLIElement, globalThis.MouseEvent>
-  ) => {
-    if (link) {
-      event.preventDefault()
-      navigate(link.href)
-    }
-
-    if (onClick) onClick(event)
-  }
-
   return (
-    <MaterialMenuItem onClick={handleLink} sx={{ py: 1.1 }} {...props}>
-      {iconStart && <ListItemIcon>{iconStart}</ListItemIcon>}
+    <MenuItemWrapper linkHref={linkHref} onClick={onClick} {...props}>
+      {startIcon && <ListItemIcon>{startIcon}</ListItemIcon>}
 
       <ListItemText
         primaryTypographyProps={{ fontSize: '0.9rem' }}
         primary={children}
       />
 
-      {iconEnd && iconEnd}
-    </MaterialMenuItem>
+      {endIcon && endIcon}
+    </MenuItemWrapper>
   )
 }
 

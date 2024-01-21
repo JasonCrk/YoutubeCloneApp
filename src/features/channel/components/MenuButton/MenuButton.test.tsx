@@ -1,42 +1,26 @@
 import { cleanup, screen } from '@testing-library/react'
-
 import userEvent from '@testing-library/user-event'
 
-import { AuthState } from '@/store/slices/authSlice'
+import { authStateMock } from '@/mocks/store'
 
-import ChannelPictureOptionsButton from '@/features/channel/components/ChannelOptionsButton'
+import MenuButton from '@/features/channel/components/MenuButton'
 
 import { render } from '@/utils/testing/render'
 
-const IS_AUTHENTICATED: AuthState = {
-  accessToken: null,
-  isAuth: true,
-  refreshToken: null,
-  user: {
-    id: 1,
-    currentChannel: {
-      id: 1,
-      handle: 'testHandle',
-      name: 'test name',
-      pictureUrl: null
-    }
-  }
-}
-
-describe('<ChannelOptions />', () => {
+describe('<OptionsMenuButton />', () => {
   afterEach(cleanup)
 
   it("Shouldn't show the component if user is not authenticated", () => {
-    render(<ChannelPictureOptionsButton />)
+    render(<MenuButton />)
 
-    const pictureElement = screen.queryByTestId('ChannelOptions')
+    const pictureElement = screen.queryByTestId('OptionsMenuButton')
     expect(pictureElement).toBeNull()
   })
 
   it('Should show the channel picture', () => {
-    render(<ChannelPictureOptionsButton />, {
+    render(<MenuButton />, {
       preloadedState: {
-        auth: IS_AUTHENTICATED
+        auth: authStateMock
       }
     })
 
@@ -45,9 +29,9 @@ describe('<ChannelOptions />', () => {
   })
 
   it('Should show the option menu if user click in the picture channel', async () => {
-    render(<ChannelPictureOptionsButton />, {
+    render(<MenuButton />, {
       preloadedState: {
-        auth: IS_AUTHENTICATED
+        auth: authStateMock
       }
     })
 
@@ -64,9 +48,9 @@ describe('<ChannelOptions />', () => {
   })
 
   it("Shouldn't show the option menu if user don't click the channel picture", () => {
-    render(<ChannelPictureOptionsButton />, {
+    render(<MenuButton />, {
       preloadedState: {
-        auth: IS_AUTHENTICATED
+        auth: authStateMock
       }
     })
 
@@ -75,9 +59,9 @@ describe('<ChannelOptions />', () => {
   })
 
   it('Should the option menu contain the channel picture', async () => {
-    render(<ChannelPictureOptionsButton />, {
+    render(<MenuButton />, {
       preloadedState: {
-        auth: IS_AUTHENTICATED
+        auth: authStateMock
       }
     })
 
@@ -95,9 +79,9 @@ describe('<ChannelOptions />', () => {
   })
 
   it('Should the option menu contain the channel name', async () => {
-    render(<ChannelPictureOptionsButton />, {
+    render(<MenuButton />, {
       preloadedState: {
-        auth: IS_AUTHENTICATED
+        auth: authStateMock
       }
     })
 
@@ -107,16 +91,16 @@ describe('<ChannelOptions />', () => {
     await user.click(pictureElement)
 
     const channelNameElement = screen.queryByText(
-      IS_AUTHENTICATED.user!.currentChannel.name
+      authStateMock.user!.currentChannel.name
     )
 
     expect(channelNameElement).toBeInTheDocument()
   })
 
   it('Should the option menu contain the channel handle', async () => {
-    render(<ChannelPictureOptionsButton />, {
+    render(<MenuButton />, {
       preloadedState: {
-        auth: IS_AUTHENTICATED
+        auth: authStateMock
       }
     })
 
@@ -126,16 +110,16 @@ describe('<ChannelOptions />', () => {
     await user.click(pictureElement)
 
     const channelHandleElement = screen.queryByText(
-      '@' + IS_AUTHENTICATED.user!.currentChannel.handle
+      authStateMock.user!.currentChannel.handle
     )
 
     expect(channelHandleElement).toBeInTheDocument()
   })
 
   it('Should the option menu contain a link to view user channel', async () => {
-    render(<ChannelPictureOptionsButton />, {
+    render(<MenuButton />, {
       preloadedState: {
-        auth: IS_AUTHENTICATED
+        auth: authStateMock
       }
     })
 
@@ -150,14 +134,14 @@ describe('<ChannelOptions />', () => {
 
     expect(viewChannelLink).toHaveAttribute(
       'href',
-      '/@' + IS_AUTHENTICATED.user?.currentChannel.handle
+      '/' + authStateMock.user?.currentChannel.handle
     )
   })
 
   it('Should the option menu contain the logout menu item', async () => {
-    render(<ChannelPictureOptionsButton />, {
+    render(<MenuButton />, {
       preloadedState: {
-        auth: IS_AUTHENTICATED
+        auth: authStateMock
       }
     })
 
@@ -174,9 +158,9 @@ describe('<ChannelOptions />', () => {
   })
 
   it('Should the option menu contain the switch account menu item', async () => {
-    render(<ChannelPictureOptionsButton />, {
+    render(<MenuButton />, {
       preloadedState: {
-        auth: IS_AUTHENTICATED
+        auth: authStateMock
       }
     })
 

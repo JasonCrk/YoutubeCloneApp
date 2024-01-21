@@ -17,3 +17,5 @@ export const protectedChannelEndpoint = axios.create(channelEndpointOptions)
 protectedChannelEndpoint.interceptors.request.use(
   headerAuthorizationInterceptor
 )
+
+export * from './endpoints'

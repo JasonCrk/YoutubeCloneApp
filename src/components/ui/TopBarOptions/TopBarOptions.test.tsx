@@ -1,97 +1,77 @@
-import { screen } from '@testing-library/react'
+import { cleanup, screen } from '@testing-library/react'
 
-import { AuthState } from '@/store/slices/authSlice'
+import { authStateMock, notAuthStateMock } from '@/mocks/store'
 
 import TopBarOptions from '@/components/ui/TopBarOptions'
 
 import { render } from '@/utils/testing/render'
 
-const isAuthState: AuthState = {
-  isAuth: true,
-  accessToken: null,
-  refreshToken: null,
-  user: {
-    id: 1,
-    currentChannel: {
-      handle: 'testHandle',
-      id: 1,
-      name: 'test name',
-      pictureUrl: null
-    }
-  }
-}
-
-const isNotAuthState: AuthState = {
-  isAuth: false,
-  accessToken: null,
-  refreshToken: null,
-  user: null
-}
-
 describe('<TopBarOptions />', () => {
-  it('Should contain <ChannelOptions /> component when user is authenticated', () => {
+  afterEach(cleanup)
+
+  it('Should show the menu button component if the user is authenticated', () => {
     render(<TopBarOptions />, {
       preloadedState: {
-        auth: isAuthState
+        auth: authStateMock
       }
     })
 
-    const channelOptionsComponent = screen.queryByTestId('ChannelOptions')
-    expect(channelOptionsComponent).toBeInTheDocument()
+    const menuButton = screen.queryByTestId('MenuButton')
+    expect(menuButton).toBeInTheDocument()
   })
 
-  it('Should not contain <ChannelOptions /> component when user is not authenticated', () => {
+  it("Shouldn't show the menu button component if the user is not authenticated", () => {
     render(<TopBarOptions />, {
       preloadedState: {
-        auth: isNotAuthState
+        auth: notAuthStateMock
       }
     })
 
-    const channelOptionsComponent = screen.queryByTestId('ChannelOptions')
-    expect(channelOptionsComponent).toBeNull()
+    const menuButton = screen.queryByTestId('MenuButton')
+    expect(menuButton).toBeNull()
   })
 
-  it('Should contain <UploadVideoButton /> component when user is authenticated', () => {
+  it('Should show the upload video button component if the user is authenticated', () => {
     render(<TopBarOptions />, {
       preloadedState: {
-        auth: isAuthState
+        auth: authStateMock
       }
     })
 
-    const uploadVideoComponent = screen.queryByTestId('UploadVideoButton')
-    expect(uploadVideoComponent).toBeInTheDocument()
+    const uploadVideoButton = screen.queryByTestId('UploadVideoButton')
+    expect(uploadVideoButton).toBeInTheDocument()
   })
 
-  it('Should not contain <UploadVideoButton /> component when user is not authenticated', () => {
+  it("Shouldn't show the upload video button component if the user is not authenticated", () => {
     render(<TopBarOptions />, {
       preloadedState: {
-        auth: isNotAuthState
+        auth: notAuthStateMock
       }
     })
 
-    const uploadVideoComponent = screen.queryByTestId('SignInButton')
-    expect(uploadVideoComponent).toBeNull()
+    const uploadVideoButton = screen.queryByTestId('UploadVideoButton')
+    expect(uploadVideoButton).toBeNull()
   })
 
-  it('Should contain a link to open <AuthModal /> when user is not authenticated', () => {
+  it('Should show the sign in button component if the user is not authenticated', () => {
     render(<TopBarOptions />, {
       preloadedState: {
-        auth: isNotAuthState
+        auth: notAuthStateMock
       }
     })
 
-    const signInButton = screen.queryByTestId('signInButton')
-    expect(signInButton).not.toBeNull()
+    const signInButton = screen.queryByTestId('SignInButton')
+    expect(signInButton).toBeInTheDocument()
   })
 
-  it('Should not contain a link to open <AuthModal /> when user is authenticated', () => {
+  it("Shouldn't show the sign in button component if the user is authenticated", () => {
     render(<TopBarOptions />, {
       preloadedState: {
-        auth: isAuthState
+        auth: authStateMock
       }
     })
 
-    const signInButton = screen.queryByTestId('signInButton')
+    const signInButton = screen.queryByTestId('SignInButton')
     expect(signInButton).toBeNull()
   })
 })

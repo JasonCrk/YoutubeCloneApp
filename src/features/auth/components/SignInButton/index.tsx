@@ -20,7 +20,7 @@ const SignInButton: FC = () => {
   return (
     <Button
       startIcon={<AccountCircleOutlinedIcon />}
-      data-testid='signInButton'
+      data-testid='SignInButton'
       variant='outlined'
       onClick={() => handleSignIn()}
       role='button'

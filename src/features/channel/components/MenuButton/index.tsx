@@ -4,9 +4,9 @@ import { useAppSelector } from '@/store/hooks'
 
 import Picture from '@/components/ui/Picture'
 
-import ChannelOptionsMenu from '@/features/channel/components/ChannelOptionsMenu'
+import Menu from '@/features/channel/components/Menu'
 
-const ChannelPictureOptionsButton: FC = () => {
+const OptionsMenuButton: FC = () => {
   const user = useAppSelector(state => state.auth.user)
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -19,7 +19,7 @@ const ChannelPictureOptionsButton: FC = () => {
   if (!user) return null
 
   return (
-    <div data-testid='ChannelOptions'>
+    <div data-testid='MenuButton'>
       <Picture
         name={user.currentChannel.name}
         src={user.currentChannel.pictureUrl}
@@ -27,23 +27,18 @@ const ChannelPictureOptionsButton: FC = () => {
         sx={{
           width: '32px',
           height: '32px',
-          aspectRatio: 1 / 1,
           cursor: 'pointer',
           ':active': {
-            borderWidth: '2px',
-            borderColor: 'primary.main',
-            borderStyle: 'solid'
+            outlineWidth: '2px',
+            outlineColor: 'primary.main',
+            outlineStyle: 'solid'
           }
         }}
       />
 
-      <ChannelOptionsMenu
-        anchorEl={anchorEl}
-        channel={user.currentChannel}
-        onClose={handleCloseMenu}
-      />
+      <Menu anchorEl={anchorEl} onClose={handleCloseMenu} />
     </div>
   )
 }
 
-export default ChannelPictureOptionsButton
+export default OptionsMenuButton
