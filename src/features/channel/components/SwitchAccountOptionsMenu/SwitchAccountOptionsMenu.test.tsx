@@ -42,7 +42,7 @@ describe('<SwitchAccountOptionsMenu />', () => {
     expect(screen.queryByTestId('SwitchAccountOptionsMenu')).toBeInTheDocument()
   })
 
-  it('Should contain a icon button', () => {
+  it('Should contain the back button', () => {
     render(<SwitchAccountOptionsMenu onChangeMenu={onChangeMenuMock} />, {
       preloadedState: {
         auth: authStateMock
@@ -52,6 +52,7 @@ describe('<SwitchAccountOptionsMenu />', () => {
     const backButton = screen.queryByRole('button')
 
     expect(backButton).toBeInTheDocument()
+    expect(backButton).toHaveAttribute('data-testid', 'backButton')
   })
 
   it('Should call the onChangeMenu function prop if user click in the icon button', async () => {
