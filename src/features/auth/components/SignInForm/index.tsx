@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
+import { useMutation } from '@tanstack/react-query'
+
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-
-import { useCallService } from '@/hooks/useCallService.hook'
 
 import { SignInInputs } from '@/features/auth/models'
 import { signInService } from '@/features/auth/services'
@@ -31,18 +31,17 @@ const SignInForm: FC<Props> = ({ onSettled, onSuccess }) => {
     resolver: zodResolver(signInValidator)
   })
 
-  const { callService: callSignInService, isPending } = useCallService({
-    serviceFn: signInService,
+  const { mutate: callSignInService, isPending } = useMutation({
+    mutationFn: signInService,
+    onSettled,
     onSuccess: ({ access, refresh }) => {
       setAccessTokenInLocalStorage(access)
       setRefreshTokenInLocalStorage(refresh)
       if (onSuccess) onSuccess()
-    },
-    onError: () => {},
-    onSettled
+    }
   })
 
-  const handleSignInSubmit = handleSubmit(async credentials => {
+  const handleSignInSubmit = handleSubmit(credentials => {
     callSignInService(credentials)
   })
 

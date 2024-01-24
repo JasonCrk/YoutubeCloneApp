@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
-import { useService } from '@/hooks/useService.hook'
+import { useQuery } from '@tanstack/react-query'
+
 import { listResponseAdapter } from '@/adapters/index'
 
 import { retrieveSubscribedChannelsService } from '@/features/subscription/services'
@@ -15,10 +16,15 @@ const NavbarAsideSubscriptionLinkList: FC = () => {
     data: subscribedChannels,
     isLoading,
     isSuccess
-  } = useService({
-    serviceFn: async () => {
-      const serviceResponse = await retrieveSubscribedChannelsService()
-      return listResponseAdapter(serviceResponse, simpleChannelAdapter)
+  } = useQuery({
+    queryKey: ['subscribedChannels'],
+    queryFn: async () => {
+      const unadaptedSubscribedChannels =
+        await retrieveSubscribedChannelsService()
+      return listResponseAdapter(
+        unadaptedSubscribedChannels,
+        simpleChannelAdapter
+      )
     }
   })
 

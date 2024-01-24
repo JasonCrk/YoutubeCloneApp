@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { useCallService } from '@/hooks/useCallService.hook'
+import { useMutation } from '@tanstack/react-query'
 
 import { ChannelId, ListChannelAdapter } from '@/features/channel/models'
 
@@ -22,8 +22,8 @@ const SelectChannelMenuItem: FC<Props> = ({
   disabled,
   ...channel
 }) => {
-  const { callService: callSwitchChannel } = useCallService({
-    serviceFn: switchChannelService,
+  const { mutate: callSwitchChannel } = useMutation({
+    mutationFn: switchChannelService,
     onSuccess: () => {
       window.location.reload()
     },

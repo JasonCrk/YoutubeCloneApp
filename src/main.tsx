@@ -3,15 +3,17 @@ import { createRoot } from 'react-dom/client'
 
 import { RouterProvider } from 'react-router-dom'
 
-import { CssBaseline, GlobalStyles, ThemeProvider } from '@mui/material'
-
 import { Provider } from 'react-redux'
 
-import { router } from './router'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-import { store } from './store'
+import { CssBaseline, GlobalStyles, ThemeProvider } from '@mui/material'
 
-import { theme } from '@/theme/index'
+import { router } from '@/router'
+
+import { store } from '@/store'
+
+import { theme } from '@/theme'
 import { globalStyles } from '@/theme/globalStyles'
 
 import { Toaster } from 'react-hot-toast'
@@ -21,15 +23,19 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 
+const queryClient = new QueryClient()
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <CssBaseline />
     <GlobalStyles styles={globalStyles} />
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <RouterProvider router={router} />
-        <Toaster position='bottom-left' />
-      </Provider>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+          <Toaster position='bottom-left' />
+        </Provider>
+      </ThemeProvider>
+    </QueryClientProvider>
   </StrictMode>
 )

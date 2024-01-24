@@ -1,9 +1,8 @@
 import { useState, type FC } from 'react'
 
+import { useQuery } from '@tanstack/react-query'
+
 import { useAppSelector } from '@/store/hooks'
-
-import { useService } from '@/hooks/useService.hook'
-
 import { listResponseAdapter } from '@/adapters/listResponse.adapter'
 
 import { OptionsMenuTypes } from '@/features/channel/types'
@@ -25,12 +24,9 @@ const SwitchAccountOptionsMenu: FC<Props> = ({ onChangeMenu }) => {
   const [isLoadingSwitchChannel, setIsLoadingSwitchChannel] =
     useState<boolean>(false)
 
-  const {
-    data: channels,
-    isLoading,
-    isSuccess
-  } = useService({
-    serviceFn: async () => {
+  const { data: channels, isSuccess } = useQuery({
+    queryKey: ['ownChannels'],
+    queryFn: async () => {
       const channelList = await retrieveOwnChannelsService()
       return listResponseAdapter(channelList, listChannelAdapter)
     }
@@ -45,6 +41,7 @@ const SwitchAccountOptionsMenu: FC<Props> = ({ onChangeMenu }) => {
         <IconButton
           role='button'
           size='small'
+          data-testid='backButton'
           onClick={() => onChangeMenu('main')}
         >
           <ArrowBackIcon />
@@ -62,7 +59,7 @@ const SwitchAccountOptionsMenu: FC<Props> = ({ onChangeMenu }) => {
         <Divider sx={{ mt: 1 }} />
       </Box>
 
-      {isLoading ? null : isSuccess && channels ? (
+      {isSuccess && channels ? (
         <Box>
           {channels.map(channel => (
             <SelectChannelMenuItem

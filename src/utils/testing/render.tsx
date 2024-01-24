@@ -10,6 +10,7 @@ import { render as reactTestingRender } from '@testing-library/react'
 import type { RenderOptions } from '@testing-library/react'
 
 import { setupStore, type AppStore, type RootState } from '@/store/index'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>
@@ -26,10 +27,20 @@ export const render = (
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) => {
+  const testQueryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false
+      }
+    }
+  })
+
   const Wrapper = ({ children }: PropsWithChildren): JSX.Element => {
     return (
       <Provider store={store}>
-        <MemoryRouter {...routerOptions}>{children}</MemoryRouter>
+        <QueryClientProvider client={testQueryClient}>
+          <MemoryRouter {...routerOptions}>{children}</MemoryRouter>
+        </QueryClientProvider>
       </Provider>
     )
   }

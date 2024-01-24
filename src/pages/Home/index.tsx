@@ -1,4 +1,5 @@
-import { useService } from '@/hooks/useService.hook'
+import { useQuery } from '@tanstack/react-query'
+
 import { listResponseAdapter } from '@/adapters/listResponse.adapter'
 
 import { retrieveTrendingVideosService } from '@/features/video/services'
@@ -16,10 +17,14 @@ function HomePage() {
     data: trendingVideos,
     isLoading,
     isError
-  } = useService({
-    serviceFn: async () => {
-      const data = await retrieveTrendingVideosService()
-      return listResponseAdapter(data, simpleVideoItemAdapter)
+  } = useQuery({
+    queryKey: ['trendingVideos'],
+    queryFn: async () => {
+      const unadaptedTrendingVideos = await retrieveTrendingVideosService()
+      return listResponseAdapter(
+        unadaptedTrendingVideos,
+        simpleVideoItemAdapter
+      )
     }
   })
 

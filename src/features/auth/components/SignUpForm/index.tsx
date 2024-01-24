@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
+import { useMutation } from '@tanstack/react-query'
+
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-
-import { useCallService } from '@/hooks/useCallService.hook'
 
 import {
   SignUpInputsAdapter,
@@ -33,8 +33,8 @@ const SignUpForm: FC<Props> = ({ onSuccess, onSettled }) => {
     resolver: zodResolver(signUpValidator)
   })
 
-  const { callService: callSignUpService, isPending } = useCallService({
-    serviceFn: signUpService,
+  const { mutate: callSignUpService, isPending } = useMutation({
+    mutationFn: signUpService,
     onSettled,
     onSuccess: signUpData => {
       const adaptedSignUpData = signUpResponseAdapter(signUpData)

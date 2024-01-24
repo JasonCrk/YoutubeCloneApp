@@ -1,6 +1,7 @@
 import { FC } from 'react'
 
-import { useService } from '@/hooks/useService.hook'
+import { useQuery } from '@tanstack/react-query'
+
 import { listResponseAdapter } from '@/adapters/listResponse.adapter'
 
 import { retrieveOwnPlaylistsService } from '@/features/playlist/services'
@@ -17,10 +18,11 @@ const NavbarAsidePlaylistLinkList: FC = () => {
     data: playlists,
     isLoading,
     isSuccess
-  } = useService({
-    serviceFn: async () => {
-      const data = await retrieveOwnPlaylistsService()
-      return listResponseAdapter(data, simplePlaylistAdapter)
+  } = useQuery({
+    queryKey: ['ownPlaylists'],
+    queryFn: async () => {
+      const unadaptedPlaylists = await retrieveOwnPlaylistsService()
+      return listResponseAdapter(unadaptedPlaylists, simplePlaylistAdapter)
     }
   })
 

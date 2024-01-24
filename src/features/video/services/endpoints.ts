@@ -1,5 +1,4 @@
 import { ListResponse, MessageResponse } from '@/models/responses'
-import { ServiceFn } from '@/services/types'
 
 import { SimpleVideoItem } from '@/features/video/models'
 import {
@@ -7,19 +6,17 @@ import {
   videoEndpoint
 } from '@/features/video/services'
 
-export const retrieveTrendingVideosService: ServiceFn<
-  ListResponse<SimpleVideoItem>,
-  undefined
-> = async () => {
+export const retrieveTrendingVideosService = async (): Promise<
+  ListResponse<SimpleVideoItem>
+> => {
   const response =
     await videoEndpoint.get<ListResponse<SimpleVideoItem>>('/trending/')
   return response.data
 }
 
-export const createVideoService: ServiceFn<
-  MessageResponse,
-  FormData
-> = async videoData => {
+export const createVideoService = async (
+  videoData: FormData
+): Promise<MessageResponse> => {
   const response = await protectedVideoEndpoint.post('/create/', videoData)
   return response.data
 }

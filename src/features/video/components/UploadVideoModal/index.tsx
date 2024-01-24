@@ -1,9 +1,9 @@
 import { FC, useContext } from 'react'
 
+import { useMutation } from '@tanstack/react-query'
+
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-
-import { useCallService } from '@/hooks/useCallService.hook'
 
 import { UploadVideoInputs } from '@/features/video/models/UploadVideo.model'
 
@@ -27,15 +27,14 @@ const UploadVideoModal: FC = () => {
     handleSubmit,
     setValue,
     register,
-
     formState: { errors },
     reset
   } = useForm<UploadVideoInputs>({
     resolver: zodResolver(uploadVideoValidator)
   })
 
-  const { callService: callCreateVideoService, isPending } = useCallService({
-    serviceFn: createVideoService,
+  const { mutate: callCreateVideoService, isPending } = useMutation({
+    mutationFn: createVideoService,
     onSuccess: ({ message }) => {
       toast.success(message, {
         duration: 4000
