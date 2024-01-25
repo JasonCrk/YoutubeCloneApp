@@ -6,11 +6,12 @@ import { Provider } from 'react-redux'
 
 import type { PreloadedState } from '@reduxjs/toolkit'
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
 import { render as reactTestingRender } from '@testing-library/react'
 import type { RenderOptions } from '@testing-library/react'
 
 import { setupStore, type AppStore, type RootState } from '@/store/index'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>
@@ -47,6 +48,7 @@ export const render = (
 
   return {
     store,
+    queryClient: testQueryClient,
     ...reactTestingRender(ui, { wrapper: Wrapper, ...renderOptions })
   }
 }
