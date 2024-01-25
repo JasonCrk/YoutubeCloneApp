@@ -1,4 +1,4 @@
-import { ListResponse } from '@/models/responses'
+import { ListResponse, MessageResponse } from '@/models/responses'
 
 import { ListChannel } from '@/features/channel/models'
 
@@ -26,4 +26,8 @@ export const ownChannelsMockResponse: ListResponse<ListChannel> = {
       subscribers: 3
     }
   ]
+}
+
+export const createChannelMockResponse: MessageResponse = {
+  message: 'create channel test message'
 }

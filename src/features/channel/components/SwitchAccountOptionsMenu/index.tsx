@@ -10,6 +10,7 @@ import { retrieveOwnChannelsService } from '@/features/channel/services'
 import { listChannelAdapter } from '@/features/channel/adapters'
 
 import SelectChannelMenuItem from '@/features/channel/components/SelectChannelItem/Menu'
+import CreateChannelMenuOption from '@/features/channel/components/CreateChannelMenuOption'
 
 import { Box, Divider, IconButton, Typography } from '@mui/material'
 
@@ -40,8 +41,8 @@ const SwitchAccountOptionsMenu: FC<Props> = ({ onChangeMenu }) => {
       <Box display='flex' gap={1} alignItems='center' px={1}>
         <IconButton
           role='button'
-          size='small'
           data-testid='backButton'
+          size='small'
           onClick={() => onChangeMenu('main')}
         >
           <ArrowBackIcon />
@@ -74,6 +75,8 @@ const SwitchAccountOptionsMenu: FC<Props> = ({ onChangeMenu }) => {
       ) : null}
 
       <Divider sx={{ my: 1 }} />
+
+      <CreateChannelMenuOption />
     </div>
   )
 }

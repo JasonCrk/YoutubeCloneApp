@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 
 import { Outlet } from 'react-router-dom'
 
@@ -6,6 +6,7 @@ import NavbarAsideProvider from '@/contexts/NavbarAside/Provider'
 
 import AuthModalProvider from '@/features/auth/contexts/AuthModal/Provider'
 import UploadVideoModalProvider from '@/features/video/contexts/UploadVideoModal/Provider'
+import CreateChannelModalProvider from '@/features/channel/contexts/CreateChannelModal/Provider'
 
 import TopBar from '@/components/ui/TopBar'
 import NavbarAside from '@/components/ui/NavbarAside'
@@ -17,11 +18,13 @@ const MainLayout: FC = () => {
     <NavbarAsideProvider>
       <AuthModalProvider>
         <UploadVideoModalProvider>
-          <TopBar />
-          <Box display={'flex'}>
-            <NavbarAside />
-            <Outlet />
-          </Box>
+          <CreateChannelModalProvider>
+            <TopBar />
+            <Box display={'flex'}>
+              <NavbarAside />
+              <Outlet />
+            </Box>
+          </CreateChannelModalProvider>
         </UploadVideoModalProvider>
       </AuthModalProvider>
     </NavbarAsideProvider>
