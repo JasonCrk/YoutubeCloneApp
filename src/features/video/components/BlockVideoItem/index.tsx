@@ -19,7 +19,7 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
   views
 }) => {
   const watchVideoUrl = '/watch?v=' + videoId
-  const channelUrl = '/@' + channel.handle
+  const channelUrl = '/' + channel.handle
 
   const navigate = useNavigate()
 

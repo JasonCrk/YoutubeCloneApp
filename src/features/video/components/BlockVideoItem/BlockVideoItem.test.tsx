@@ -72,7 +72,7 @@ describe('<BlockVideoItem />', () => {
 
     const linkToRedirectChannel = links.filter(
       link =>
-        link.getAttribute('href') === '/@' + blockVideoItemProps.channel.handle
+        link.getAttribute('href') === '/' + blockVideoItemProps.channel.handle
     )[0]
 
     expect(linkToRedirectChannel).toBeInTheDocument()
