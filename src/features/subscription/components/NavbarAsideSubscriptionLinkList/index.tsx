@@ -25,7 +25,8 @@ const NavbarAsideSubscriptionLinkList: FC = () => {
         unadaptedSubscribedChannels,
         simpleChannelAdapter
       )
-    }
+    },
+    refetchOnWindowFocus: false
   })
 
   if (isLoading) return null

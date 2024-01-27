@@ -25,7 +25,8 @@ function HomePage() {
         unadaptedTrendingVideos,
         simpleVideoItemAdapter
       )
-    }
+    },
+    refetchOnWindowFocus: false
   })
 
   if (isLoading)

@@ -30,7 +30,8 @@ const SwitchAccountOptionsMenu: FC<Props> = ({ onChangeMenu }) => {
     queryFn: async () => {
       const channelList = await retrieveOwnChannelsService()
       return listResponseAdapter(channelList, listChannelAdapter)
-    }
+    },
+    refetchOnWindowFocus: false
   })
 
   const handleDisableMenuItem = (value: boolean) =>

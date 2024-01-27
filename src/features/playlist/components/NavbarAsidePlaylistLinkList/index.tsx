@@ -23,7 +23,8 @@ const NavbarAsidePlaylistLinkList: FC = () => {
     queryFn: async () => {
       const unadaptedPlaylists = await retrieveOwnPlaylistsService()
       return listResponseAdapter(unadaptedPlaylists, simplePlaylistAdapter)
-    }
+    },
+    refetchOnWindowFocus: false
   })
 
   if (isLoading) return null
