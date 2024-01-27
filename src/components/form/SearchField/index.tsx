@@ -36,7 +36,7 @@ const SearchField: FC = () => {
       data-testid='SearchField'
       display={'flex'}
       justifyContent={'end'}
-      width={'36%'}
+      width={'42%'}
       mr={5}
     >
       <InputSearch
