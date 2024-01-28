@@ -1,36 +1,44 @@
 import { cleanup, screen } from '@testing-library/react'
 
-import Logo from '.'
+import Logo from '@/components/ui/Logo'
 
 import { renderWithRouter } from '@/utils/testing/routerRender'
 
 describe('<Logo />', () => {
   afterEach(cleanup)
 
-  it('Should contain a element with "link" role', () => {
+  it('Should rende component', () => {
     renderWithRouter(<Logo />)
 
-    const logo = screen.getByRole('link')
-    expect(logo).toBeInTheDocument()
+    expect(screen.queryByTestId('Logo')).toBeInTheDocument()
   })
 
-  it('Should contain the youtube name', () => {
+  it('Should contain the image', () => {
     renderWithRouter(<Logo />)
 
-    expect(screen.getByText(/YouTube/)).toBeInTheDocument()
+    const logoImage = screen.queryByAltText(/^youtube clone$/i)
+    expect(logoImage).toBeInTheDocument()
   })
 
-  it('Should the role element "link" be a <a />', () => {
+  it('Should contain the youtube clone name', () => {
     renderWithRouter(<Logo />)
 
-    const logo = screen.getByRole('link')
-    expect(logo.tagName).toBe('A')
+    expect(screen.queryByText('YouTube')).toBeInTheDocument()
   })
 
   it('The link should redirect to the home page', () => {
     renderWithRouter(<Logo />)
 
-    const logo = screen.getByRole('link')
-    expect(logo.getAttribute('href')).toBe('/')
+    const logoLink = screen.queryByRole('link')
+    expect(logoLink).toHaveAttribute('href', '/')
+  })
+
+  it('Should the link wrap all components', () => {
+    const { container } = renderWithRouter(<Logo />)
+
+    const logoLink = container.children.item(0)
+
+    expect(logoLink).toHaveAttribute('role', 'link')
+    expect(logoLink).toHaveAttribute('href', '/')
   })
 })

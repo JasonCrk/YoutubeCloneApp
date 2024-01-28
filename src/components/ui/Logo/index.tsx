@@ -18,7 +18,7 @@ const Logo: FC = () => {
       gap={'3px'}
       sx={{ textDecoration: 'none' }}
     >
-      <img src={logo} style={{ width: '34px' }} />
+      <img src={logo} alt='youtube clone' style={{ width: '34px' }} />
       <Typography
         component={'span'}
         variant='h6'
