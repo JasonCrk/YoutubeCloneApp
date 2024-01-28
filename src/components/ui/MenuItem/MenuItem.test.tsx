@@ -1,10 +1,15 @@
-import { screen } from '@testing-library/react'
+import { cleanup, screen } from '@testing-library/react'
 
 import MenuItem from '@/components/ui/MenuItem'
 
 import { render } from '@/utils/testing/render'
 
 describe('<MenuItem />', () => {
+  const startIconTestId = 'startIcon'
+  const endIconTestId = 'endIcon'
+
+  afterEach(cleanup)
+
   it('Should render component', () => {
     render(<MenuItem>test</MenuItem>)
 
@@ -18,9 +23,7 @@ describe('<MenuItem />', () => {
     expect(menuItem).toHaveTextContent(/^test$/i)
   })
 
-  it('Should show the startIcon element', () => {
-    const startIconTestId = 'startIcon'
-
+  it('Should show the start icon if the start icon prop exists', () => {
     render(
       <MenuItem startIcon={<div data-testid={startIconTestId}></div>}>
         test
@@ -31,9 +34,14 @@ describe('<MenuItem />', () => {
     expect(startIcon).toBeInTheDocument()
   })
 
-  it('Should show the endIcon element', () => {
-    const endIconTestId = 'endIcon'
+  it("Shouldn't show the start icon if the start icon prop does not exist", () => {
+    render(<MenuItem>test</MenuItem>)
 
+    const startIcon = screen.queryByTestId(startIconTestId)
+    expect(startIcon).toBeNull()
+  })
+
+  it('Should show the end icon if the end icon prop exists', () => {
     render(
       <MenuItem endIcon={<div data-testid={endIconTestId}></div>}>
         test
@@ -42,5 +50,12 @@ describe('<MenuItem />', () => {
 
     const endIcon = screen.queryByTestId(endIconTestId)
     expect(endIcon).toBeInTheDocument()
+  })
+
+  it("Shouldn't show the end icon if the end icon prop does not exist", () => {
+    render(<MenuItem>test</MenuItem>)
+
+    const endIcon = screen.queryByTestId(endIconTestId)
+    expect(endIcon).toBeNull()
   })
 })
