@@ -1,24 +1,10 @@
 import { cleanup, screen } from '@testing-library/react'
 
-import { AuthState } from '@/store/slices/authSlice'
-
 import FullNavbarAside from '@/components/ui/NavbarAside/FullNavbarAside'
 
+import { authStateMock, notAuthStateMock } from '@/mocks/store'
+
 import { render } from '@/utils/testing/render'
-
-const AUTHENTICATED_USER: AuthState = {
-  accessToken: null,
-  isAuth: true,
-  refreshToken: null,
-  user: null
-}
-
-const UNAUTHENTICATED_USER: AuthState = {
-  accessToken: null,
-  isAuth: false,
-  refreshToken: null,
-  user: null
-}
 
 const AUTH_LINKS_ID = 'authLinks'
 const NO_AUTH_LINKS_ID = 'noAuthLinks'
@@ -38,7 +24,7 @@ describe('<FullNavbarAside />', () => {
   it('Should show the links for authenticated user when user is authenticated', () => {
     render(<FullNavbarAside />, {
       preloadedState: {
-        auth: AUTHENTICATED_USER
+        auth: authStateMock
       }
     })
 
@@ -49,7 +35,7 @@ describe('<FullNavbarAside />', () => {
   it("Shouldn't show the links for authenticated user when user is not authenticated", () => {
     render(<FullNavbarAside />, {
       preloadedState: {
-        auth: UNAUTHENTICATED_USER
+        auth: notAuthStateMock
       }
     })
 
@@ -60,7 +46,7 @@ describe('<FullNavbarAside />', () => {
   it('Should show the links for unauthenticated user when user is not authenticated', () => {
     render(<FullNavbarAside />, {
       preloadedState: {
-        auth: UNAUTHENTICATED_USER
+        auth: notAuthStateMock
       }
     })
 
@@ -71,7 +57,7 @@ describe('<FullNavbarAside />', () => {
   it("Shouldn't show the links for unauthenticated user when user is authenticated", () => {
     render(<FullNavbarAside />, {
       preloadedState: {
-        auth: AUTHENTICATED_USER
+        auth: authStateMock
       }
     })
 
@@ -82,7 +68,7 @@ describe('<FullNavbarAside />', () => {
   it('Should show the section for authenticated user when user is authenticated', () => {
     render(<FullNavbarAside />, {
       preloadedState: {
-        auth: AUTHENTICATED_USER
+        auth: authStateMock
       }
     })
 
@@ -93,7 +79,7 @@ describe('<FullNavbarAside />', () => {
   it("Shouldn't show the section for authenticated user when user is not authenticated", () => {
     render(<FullNavbarAside />, {
       preloadedState: {
-        auth: UNAUTHENTICATED_USER
+        auth: notAuthStateMock
       }
     })
 
@@ -104,7 +90,7 @@ describe('<FullNavbarAside />', () => {
   it('Should show the section for unauthenticated user when user is not authenticated', () => {
     render(<FullNavbarAside />, {
       preloadedState: {
-        auth: UNAUTHENTICATED_USER
+        auth: notAuthStateMock
       }
     })
 
@@ -115,7 +101,7 @@ describe('<FullNavbarAside />', () => {
   it("Shouldn't show the section for unauthenticated user when user is authenticated", () => {
     render(<FullNavbarAside />, {
       preloadedState: {
-        auth: AUTHENTICATED_USER
+        auth: authStateMock
       }
     })
 
