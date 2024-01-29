@@ -1,6 +1,6 @@
 import { cleanup, screen } from '@testing-library/react'
 
-import NavbarAsideLink from '.'
+import NavbarAsideLink from '@/components/ui/NavbarAsideLink'
 
 import { render } from '@/utils/testing/render'
 
@@ -23,7 +23,7 @@ describe('<NavbarAsideLink />', () => {
       />
     )
 
-    const link = screen.getByRole('link')
+    const link = screen.queryByRole('link')
     expect(link).toBeInTheDocument()
   })
 
@@ -39,11 +39,11 @@ describe('<NavbarAsideLink />', () => {
       />
     )
 
-    const link = screen.getByRole('link')
+    const link = screen.queryByRole('link')
     expect(link).toHaveTextContent(linkTitle)
   })
 
-  it('Should contain a link with hyper reference (href) attribute', () => {
+  it('Should the link has a href attribute', () => {
     const href = '/'
 
     render(
@@ -55,11 +55,11 @@ describe('<NavbarAsideLink />', () => {
       />
     )
 
-    const link = screen.getByRole('link')
+    const link = screen.queryByRole('link')
     expect(link).toHaveAttribute('href', href)
   })
 
-  it('Should show the active icon when the pathname is equal to the href', () => {
+  it('Should show the active icon if the pathname is equal to the href', () => {
     const pathname = '/'
 
     render(
@@ -77,10 +77,10 @@ describe('<NavbarAsideLink />', () => {
     )
 
     const activeIcon = screen.queryByTestId(ACTIVE_ICON_ID)
-    expect(activeIcon).not.toBeNull()
+    expect(activeIcon).toBeInTheDocument()
   })
 
-  it("Shouldn't contain the active icon when the pathname is not equal to the href", () => {
+  it("Shouldn't contain the active icon if the pathname is not equal to the href", () => {
     render(
       <NavbarAsideLink
         activeIcon={<HomeIcon data-testid={ACTIVE_ICON_ID} />}
@@ -99,7 +99,7 @@ describe('<NavbarAsideLink />', () => {
     expect(activeIcon).toBeNull()
   })
 
-  it('Should contain the no active icon when the pathname is not equal to the href', () => {
+  it('Should contain the no active icon if the pathname is not equal to the href', () => {
     render(
       <NavbarAsideLink
         activeIcon={<HomeIcon />}
@@ -115,10 +115,10 @@ describe('<NavbarAsideLink />', () => {
     )
 
     const noActiveIcon = screen.queryByTestId(NO_ACTIVE_ICON_ID)
-    expect(noActiveIcon).not.toBeNull()
+    expect(noActiveIcon).toBeInTheDocument()
   })
 
-  it("Shouldn't contain the no active icon when the pathname is equal to the href", () => {
+  it("Shouldn't contain the no active icon if the pathname is equal to the href", () => {
     const pathname = '/'
 
     render(
