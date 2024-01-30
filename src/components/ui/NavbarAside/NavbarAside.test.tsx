@@ -1,76 +1,72 @@
 import { cleanup, screen } from '@testing-library/react'
 
-import {
-  NavbarAsideContext,
-  NavbarAsideState,
-  navbarAsideContext
-} from '@/contexts/NavbarAside'
+import { NavbarAsideState } from '@/contexts/NavbarAside'
+import NavbarAsideProvider from '@/contexts/NavbarAside/Provider'
 
-import NavbarAside from '.'
+import NavbarAside from '@/components/ui/NavbarAside'
 
 import { render } from '@/utils/testing/render'
 
-const fullNavbarAsideValue: NavbarAsideContext = {
-  toggleNavbarAside: () => {},
-  state: NavbarAsideState.FULL
-}
-
-const shortNavbarAsideValue: NavbarAsideContext = {
-  toggleNavbarAside: () => {},
-  state: NavbarAsideState.SHORT
-}
-
-const floatNavbarAsideValue: NavbarAsideContext = {
-  toggleNavbarAside: () => {},
-  state: NavbarAsideState.FLOAT
-}
-
-const closeNavbarAsideValue: NavbarAsideContext = {
-  toggleNavbarAside: () => {},
-  state: NavbarAsideState.CLOSE
-}
-
 describe('<NavbarAside />', () => {
+  const fullNavbarAsideTestId = 'FullNavbarAside'
+  const shortNavbarAsideTestId = 'ShortNavbarAside'
+  const floatNavbarAsideTestId = 'FloatNavbarAside'
+
   afterEach(cleanup)
 
-  it('Should show the <FullNavbarAside /> when the state is FULL', () => {
+  it('Should show the <FullNavbarAside /> if the state is FULL', () => {
     render(
-      <navbarAsideContext.Provider value={fullNavbarAsideValue}>
+      <NavbarAsideProvider defaultStates={{ state: NavbarAsideState.FULL }}>
         <NavbarAside />
-      </navbarAsideContext.Provider>
+      </NavbarAsideProvider>
     )
 
-    const fullNavbarAside = screen.queryByTestId('FullNavbarAside')
-    expect(fullNavbarAside).not.toBeNull()
+    const fullNavbarAside = screen.queryByTestId(fullNavbarAsideTestId)
+    const shortNavbarAside = screen.queryByTestId(shortNavbarAsideTestId)
+    const floatNavbarAside = screen.queryByTestId(floatNavbarAsideTestId)
+
+    expect(fullNavbarAside).toBeInTheDocument()
+    expect(shortNavbarAside).toBeNull()
+    expect(floatNavbarAside).toBeNull()
   })
 
-  it('Should show the <ShortNavbarAside /> when the state is SHORT', () => {
+  it('Should show the <ShortNavbarAside /> if the state is SHORT', () => {
     render(
-      <navbarAsideContext.Provider value={shortNavbarAsideValue}>
+      <NavbarAsideProvider defaultStates={{ state: NavbarAsideState.SHORT }}>
         <NavbarAside />
-      </navbarAsideContext.Provider>
+      </NavbarAsideProvider>
     )
 
-    const shortNavbarAside = screen.queryByTestId('ShortNavbarAside')
-    expect(shortNavbarAside).not.toBeNull()
+    const fullNavbarAside = screen.queryByTestId(fullNavbarAsideTestId)
+    const shortNavbarAside = screen.queryByTestId(shortNavbarAsideTestId)
+    const floatNavbarAside = screen.queryByTestId(floatNavbarAsideTestId)
+
+    expect(fullNavbarAside).toBeNull()
+    expect(shortNavbarAside).toBeInTheDocument()
+    expect(floatNavbarAside).toBeNull()
   })
 
-  it('Should show the <FloatNavbarAside /> when the state is FLOAT', () => {
+  it('Should show the <FloatNavbarAside /> if the state is FLOAT', () => {
     render(
-      <navbarAsideContext.Provider value={floatNavbarAsideValue}>
+      <NavbarAsideProvider defaultStates={{ state: NavbarAsideState.FLOAT }}>
         <NavbarAside />
-      </navbarAsideContext.Provider>
+      </NavbarAsideProvider>
     )
 
-    const floatNavbarAside = screen.queryByTestId('FloatNavbarAside')
+    const fullNavbarAside = screen.queryByTestId(fullNavbarAsideTestId)
+    const shortNavbarAside = screen.queryByTestId(shortNavbarAsideTestId)
+    const floatNavbarAside = screen.queryByTestId(floatNavbarAsideTestId)
+
     expect(floatNavbarAside).toBeInTheDocument()
+    expect(fullNavbarAside).toBeInTheDocument()
+    expect(shortNavbarAside).toBeNull()
   })
 
-  it('Should show nothing when the state is CLOSE', () => {
+  it('Should show nothing if the state is CLOSE', () => {
     const { container } = render(
-      <navbarAsideContext.Provider value={closeNavbarAsideValue}>
+      <NavbarAsideProvider defaultStates={{ state: NavbarAsideState.CLOSE }}>
         <NavbarAside />
-      </navbarAsideContext.Provider>
+      </NavbarAsideProvider>
     )
 
     expect(container.children.length).toBe(0)
