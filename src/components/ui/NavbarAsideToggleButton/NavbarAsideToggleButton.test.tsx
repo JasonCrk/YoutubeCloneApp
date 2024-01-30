@@ -1,21 +1,45 @@
 import { render, screen, cleanup } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
-import NavbarAsideToggleButton from '.'
+import { NavbarAsideState, navbarAsideContext } from '@/contexts/NavbarAside'
+import NavbarAsideProvider from '@/contexts/NavbarAside/Provider'
+
+import NavbarAsideToggleButton from '@/components/ui/NavbarAsideToggleButton'
 
 describe('<NavbarAsideToggleButton />', () => {
   afterEach(cleanup)
 
-  it('Should contain a element with "button" role', () => {
-    render(<NavbarAsideToggleButton />)
+  it('Should contain a button', () => {
+    render(
+      <NavbarAsideProvider>
+        <NavbarAsideToggleButton />
+      </NavbarAsideProvider>
+    )
 
-    const button = screen.getByRole('button')
+    const button = screen.queryByRole('button')
     expect(button).toBeInTheDocument()
   })
 
-  it('Should the role element "button" be a <button />', () => {
-    render(<NavbarAsideToggleButton />)
+  it('Should call the toggle navbar aside if the user click the button', async () => {
+    const toggleNavbarAsideMock = vi.fn()
+
+    render(
+      <navbarAsideContext.Provider
+        value={{
+          state: NavbarAsideState.CLOSE,
+          toggleNavbarAside: toggleNavbarAsideMock
+        }}
+      >
+        <NavbarAsideToggleButton />
+      </navbarAsideContext.Provider>
+    )
+
+    const user = userEvent.setup()
 
     const button = screen.getByRole('button')
-    expect(button.tagName).toBe('BUTTON')
+
+    await user.click(button)
+
+    expect(toggleNavbarAsideMock).toHaveBeenCalledOnce()
   })
 })
