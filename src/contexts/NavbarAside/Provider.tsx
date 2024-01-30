@@ -2,9 +2,18 @@ import { FC, ReactNode, useEffect, useState } from 'react'
 
 import { useMediaQuery, useTheme } from '@mui/material'
 
-import { navbarAsideContext, NavbarAsideState, NavbarAsideContext } from '.'
+import {
+  navbarAsideContext,
+  NavbarAsideState,
+  NavbarAsideContext
+} from '@/contexts/NavbarAside'
 
-const NavbarAsideProvider: FC<{ children: ReactNode }> = ({ children }) => {
+interface Props {
+  children: ReactNode
+  defaultStates?: Pick<NavbarAsideContext, 'state'>
+}
+
+const NavbarAsideProvider: FC<Props> = ({ children, defaultStates }) => {
   const theme = useTheme()
 
   const isFull = useMediaQuery(theme.breakpoints.up('lg'))
@@ -30,18 +39,30 @@ const NavbarAsideProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   const toggleNavbarAside: NavbarAsideContext['toggleNavbarAside'] = () => {
     if (isFull) {
-      setState(state === NavbarAsideState.FULL ? NavbarAsideState.SHORT : NavbarAsideState.FULL)
+      setState(
+        state === NavbarAsideState.FULL
+          ? NavbarAsideState.SHORT
+          : NavbarAsideState.FULL
+      )
     } else if (isShort) {
-      setState(state === NavbarAsideState.FLOAT ? NavbarAsideState.SHORT : NavbarAsideState.FLOAT)
+      setState(
+        state === NavbarAsideState.FLOAT
+          ? NavbarAsideState.SHORT
+          : NavbarAsideState.FLOAT
+      )
     } else {
-      setState(state === NavbarAsideState.CLOSE ? NavbarAsideState.FLOAT : NavbarAsideState.CLOSE)
+      setState(
+        state === NavbarAsideState.CLOSE
+          ? NavbarAsideState.FLOAT
+          : NavbarAsideState.CLOSE
+      )
     }
   }
 
   return (
     <navbarAsideContext.Provider
       value={{
-        state,
+        state: defaultStates?.state ?? state,
         toggleNavbarAside
       }}
     >
