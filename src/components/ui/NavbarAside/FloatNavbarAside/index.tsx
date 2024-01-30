@@ -1,6 +1,8 @@
-import { FC, useContext } from 'react'
+import type { FC } from 'react'
 
-import { NavbarAsideState, navbarAsideContext } from '@/contexts/NavbarAside'
+import { NavbarAsideState } from '@/contexts/NavbarAside'
+
+import { useNavbarAsideContext } from '@/hooks'
 
 import FullNavbarAside from '@/components/ui/NavbarAside/FullNavbarAside'
 import NavbarAsideToggleButton from '@/components/ui/NavbarAsideToggleButton'
@@ -9,7 +11,7 @@ import Logo from '@/components/ui/Logo'
 import { Box, Drawer } from '@mui/material'
 
 const FloatNavbarAside: FC = () => {
-  const { state, toggleNavbarAside } = useContext(navbarAsideContext)
+  const { state, toggleNavbarAside } = useNavbarAsideContext()
 
   const isOpen = state === NavbarAsideState.FLOAT
 

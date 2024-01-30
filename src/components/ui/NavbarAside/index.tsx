@@ -1,13 +1,15 @@
-import { FC, useContext } from 'react'
+import type { FC } from 'react'
 
-import { NavbarAsideState, navbarAsideContext } from '@/contexts/NavbarAside'
+import { useNavbarAsideContext } from '@/hooks'
+
+import { NavbarAsideState } from '@/contexts/NavbarAside'
 
 import FullNavbarAside from './FullNavbarAside'
 import ShortNavbarAside from './ShortNavbarAside'
 import FloatNavbarAside from './FloatNavbarAside'
 
 const NavbarAside: FC = () => {
-  const { state } = useContext(navbarAsideContext)
+  const { state } = useNavbarAsideContext()
 
   return (
     <>
