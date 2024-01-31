@@ -1,16 +1,15 @@
-import { FC, useContext } from 'react'
+import type { FC } from 'react'
 
-import {
-  AuthenticationOptions,
-  authModalContext
-} from '@/features/auth/contexts/AuthModal'
+import { AuthenticationOptions } from '@/features/auth/contexts/AuthModal'
+
+import { useAuthModalContext } from '@/features/auth/hooks'
 
 import { Button } from '@mui/material'
 
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined'
 
 const SignInButton: FC = () => {
-  const { onOpen, changeAuthForm } = useContext(authModalContext)
+  const { onOpen, changeAuthForm } = useAuthModalContext()
 
   const handleSignIn = () => {
     changeAuthForm(AuthenticationOptions.SIGN_IN)

@@ -1,19 +1,18 @@
-import { FC, useContext } from 'react'
+import type { FC } from 'react'
 
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import {
-  AuthenticationOptions,
-  authModalContext
-} from '@/features/auth/contexts/AuthModal'
+import { AuthenticationOptions } from '@/features/auth/contexts/AuthModal'
+
+import { useAuthModalContext } from '@/features/auth/hooks'
+
 import SignInForm from '@/features/auth/components/SignInForm'
 import SignUpForm from '@/features/auth/components/SignUpForm'
 
 import { Box, Modal, Typography } from '@mui/material'
 
 const AuthModal: FC = () => {
-  const { isOpen, authForm, onClose, changeAuthForm } =
-    useContext(authModalContext)
+  const { isOpen, authForm, onClose, changeAuthForm } = useAuthModalContext()
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -23,9 +22,8 @@ const AuthModal: FC = () => {
     else navigate('/')
   }
 
-  const handleSignUpSuccess = () => {
+  const handleSignUpSuccess = () =>
     changeAuthForm(AuthenticationOptions.SIGN_IN)
-  }
 
   return (
     <Modal open={isOpen} onClose={onClose}>
