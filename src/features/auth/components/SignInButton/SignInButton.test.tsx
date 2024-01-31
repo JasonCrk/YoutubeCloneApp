@@ -1,5 +1,4 @@
 import { cleanup, screen } from '@testing-library/react'
-
 import userEvent from '@testing-library/user-event'
 
 import {
@@ -7,6 +6,7 @@ import {
   AuthenticationOptions
 } from '@/features/auth/contexts/AuthModal'
 import AuthModalProvider from '@/features/auth/contexts/AuthModal/Provider'
+
 import SignInButton from '@/features/auth/components/SignInButton'
 
 import { render } from '@/utils/testing/render'
@@ -31,7 +31,7 @@ describe('<SignInButton />', () => {
       </AuthModalProvider>
     )
 
-    const signInButton = screen.getByRole('button')
+    const signInButton = screen.queryByTestId('SignInButton')
     expect(signInButton).toBeInTheDocument()
   })
 
@@ -42,20 +42,23 @@ describe('<SignInButton />', () => {
       </AuthModalProvider>
     )
 
-    const signInButton = screen.getByText(/Sign in/i)
-    expect(signInButton).not.toBeNull()
+    const signInButton = screen.queryByRole('button', { name: /Sign in/i })
+    expect(signInButton).toBeInTheDocument()
   })
 
-  it('Should open the <AuthModal /> when user click in the button', async () => {
-    const user = userEvent.setup()
-
+  it('Should open the <AuthModal /> if the user click the button', async () => {
     render(
       <AuthModalProvider defaultStates={IS_NOT_OPEN_MODAL}>
         <SignInButton />
       </AuthModalProvider>
     )
 
-    const signInButton = screen.getByRole('button')
+    const user = userEvent.setup()
+
+    const notExistAuthModal = screen.queryByTestId('AuthModal')
+    expect(notExistAuthModal).toBeNull()
+
+    const signInButton = screen.getByRole('button', { name: /Sign in/i })
 
     await user.click(signInButton)
 
@@ -63,22 +66,20 @@ describe('<SignInButton />', () => {
     expect(authModal).toBeInTheDocument()
   })
 
-  it('Should select the sign in form when user click in the button', async () => {
-    const user = userEvent.setup()
-
+  it('Should show the sign in form if the user click the button', async () => {
     render(
       <AuthModalProvider defaultStates={IS_NOT_SIGN_IN_FORM_MODAL}>
         <SignInButton />
       </AuthModalProvider>
     )
 
-    const signInButton = screen.getByRole('button')
+    const user = userEvent.setup()
+
+    const signInButton = screen.getByRole('button', { name: /Sign in/i })
 
     await user.click(signInButton)
 
-    const authModal = screen.getByTestId('AuthModal')
-    const signInForm = authModal.querySelector('[data-testid="SignInForm"]')
-
-    expect(signInForm).not.toBeNull()
+    const signInForm = screen.queryByTestId('SignInForm')
+    expect(signInForm).toBeInTheDocument()
   })
 })
