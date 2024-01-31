@@ -8,7 +8,7 @@ import { render } from '@/utils/testing/render'
 describe('<AuthModal />', () => {
   afterEach(cleanup)
 
-  it('Should render component if the modal is open', () => {
+  it('Should show the modal if the context state is open', () => {
     render(
       <AuthModalProvider
         defaultStates={{
@@ -24,7 +24,7 @@ describe('<AuthModal />', () => {
     expect(authModal).toBeInTheDocument()
   })
 
-  it("Shouldn't render component if the modal is not open", () => {
+  it("Shouldn't show the modal if the context state is not open", () => {
     render(
       <AuthModalProvider
         defaultStates={{
@@ -37,7 +37,7 @@ describe('<AuthModal />', () => {
     )
 
     const authModal = screen.queryByTestId('AuthModal')
-    expect(authModal).toBeDefined()
+    expect(authModal).toBeNull()
   })
 
   it('Should show the <SignInForm /> when sign in form is selected', () => {
@@ -53,7 +53,10 @@ describe('<AuthModal />', () => {
     )
 
     const signInForm = screen.queryByTestId('SignInForm')
+    const signUpForm = screen.queryByTestId('SignUpForm')
+
     expect(signInForm).toBeInTheDocument()
+    expect(signUpForm).toBeNull()
   })
 
   it("Shouldn't show the <SignUpForm /> when sign up form is selected", () => {
@@ -68,7 +71,10 @@ describe('<AuthModal />', () => {
       </AuthModalProvider>
     )
 
+    const signInForm = screen.queryByTestId('SignInForm')
     const signUpForm = screen.queryByTestId('SignUpForm')
+
+    expect(signInForm).toBeNull()
     expect(signUpForm).toBeInTheDocument()
   })
 })
