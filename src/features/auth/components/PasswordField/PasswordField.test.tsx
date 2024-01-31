@@ -57,7 +57,7 @@ describe('<PasswordField />', () => {
     render(<PasswordField id='password' name='password' />)
 
     const visibilityIcon = screen.queryByTestId('visibilityIcon')
-    expect(visibilityIcon).not.toBeNull()
+    expect(visibilityIcon).toBeInTheDocument()
   })
 
   it('Shouldn\'t show the "visibility" icon if the user click in the button for the first time', async () => {
@@ -81,7 +81,7 @@ describe('<PasswordField />', () => {
     await user.click(button)
 
     const visibilityOffIcon = screen.queryByTestId('visibilityOffIcon')
-    expect(visibilityOffIcon).not.toBeNull()
+    expect(visibilityOffIcon).toBeInTheDocument()
   })
 
   it('Shouldn\'t show the "visibility off" icon if the user click in the button for the second time', async () => {
@@ -95,5 +95,40 @@ describe('<PasswordField />', () => {
 
     const visibilityOffIcon = screen.queryByTestId('visibilityOffIcon')
     expect(visibilityOffIcon).toBeNull()
+  })
+
+  it('Should call the register prop if the password field has it', () => {
+    const registerMock = vi.fn()
+    const name = 'password'
+
+    render(<PasswordField id='password' name={name} register={registerMock} />)
+
+    expect(registerMock).toHaveBeenCalledOnce()
+    expect(registerMock).toHaveBeenCalledWith(name)
+  })
+
+  it("Shouldn't show the error message if it does not have the errorMessage prop", () => {
+    render(<PasswordField id='password' name='password' />)
+
+    const passwordFieldHelperText = screen.queryByTestId('errorMessage')
+
+    expect(passwordFieldHelperText).toBeNull()
+  })
+
+  it('Should show the error message if itt does have the errorMessage prop', () => {
+    const errorMessage = 'error message'
+
+    render(
+      <PasswordField
+        id='password'
+        name='password'
+        errorMessage={errorMessage}
+      />
+    )
+
+    const passwordFieldHelperText = screen.queryByTestId('errorMessage')
+
+    expect(passwordFieldHelperText).toBeInTheDocument()
+    expect(passwordFieldHelperText).toHaveTextContent(errorMessage)
   })
 })

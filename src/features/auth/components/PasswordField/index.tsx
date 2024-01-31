@@ -1,5 +1,7 @@
 import { FC, useState } from 'react'
 
+import { UseFormRegister } from 'react-hook-form'
+
 import {
   FormControl,
   FormHelperText,
@@ -14,7 +16,6 @@ import {
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon
 } from '@mui/icons-material'
-import { UseFormRegister } from 'react-hook-form'
 
 interface Props extends Omit<OutlinedInputProps, 'name'> {
   id: string
@@ -44,6 +45,7 @@ const PasswordField: FC<Props> = ({
       <InputLabel htmlFor={id} error={inputProps.error}>
         {label}
       </InputLabel>
+
       <OutlinedInput
         id={id}
         {...inputProps}
@@ -68,7 +70,12 @@ const PasswordField: FC<Props> = ({
           </InputAdornment>
         }
       />
-      {errorMessage && <FormHelperText error>{errorMessage}</FormHelperText>}
+
+      {errorMessage && (
+        <FormHelperText data-testid='errorMessage' error>
+          {errorMessage}
+        </FormHelperText>
+      )}
     </FormControl>
   )
 }
