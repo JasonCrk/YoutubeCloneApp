@@ -1,15 +1,20 @@
-import { afterEach, describe, expect, it } from 'vitest'
-
 import { cleanup, screen } from '@testing-library/react'
 
-import TopBar from '.'
+import TopBar from '@/components/ui/TopBar'
 
 import { render } from '@/utils/testing/render'
 
 describe('<TopBar />', () => {
   afterEach(cleanup)
 
-  it('Should contain <NavbarAsideToggleButton /> component', () => {
+  it('Should render component', () => {
+    render(<TopBar />)
+
+    const topBar = screen.queryByTestId('TopBar')
+    expect(topBar).toBeInTheDocument()
+  })
+
+  it('Should contain the <NavbarAsideToggleButton /> component', () => {
     render(<TopBar />)
 
     const navbarAsideToggleButton = screen.queryByTestId(
@@ -18,14 +23,14 @@ describe('<TopBar />', () => {
     expect(navbarAsideToggleButton).toBeInTheDocument()
   })
 
-  it('Should contain <Logo /> component', () => {
+  it('Should contain the <Logo /> component', () => {
     render(<TopBar />)
 
     const logoComponent = screen.queryByTestId('Logo')
     expect(logoComponent).toBeInTheDocument()
   })
 
-  it('Should contain <InputSearch /> component', () => {
+  it('Should contain <SearchField /> component', () => {
     render(<TopBar />)
 
     const searchField = screen.queryByTestId('SearchField')
