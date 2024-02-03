@@ -1,4 +1,4 @@
-import { cleanup, screen, waitFor } from '@testing-library/react'
+import { cleanup, screen } from '@testing-library/react'
 
 import { setupServer } from 'msw/node'
 
@@ -29,26 +29,26 @@ describe('<NavbarAsideSubscriptionLinkList />', () => {
   it('Should show component if the subscribed channel list is ready', async () => {
     render(<NavbarAsideSubscriptionLinkList />)
 
-    const component = await waitFor(() =>
-      screen.getByTestId('NavbarAsideSubscriptionLinkList')
+    const subscriptionListList = await screen.findByTestId(
+      'NavbarAsideSubscriptionLinkList'
     )
-
-    expect(component).toBeInTheDocument()
+    expect(subscriptionListList).toBeInTheDocument()
   })
 
   it("Shouldn't show component if the subscribed channel list is loading", () => {
     render(<NavbarAsideSubscriptionLinkList />)
 
-    const component = screen.queryByTestId('NavbarAsideSubscriptionLinkList')
-
-    expect(component).toBeNull()
+    const subscriptionListList = screen.queryByTestId(
+      'NavbarAsideSubscriptionLinkList'
+    )
+    expect(subscriptionListList).toBeNull()
   })
 
   it('Should show the subscription links if the subscribed channel list is ready', async () => {
     render(<NavbarAsideSubscriptionLinkList />)
 
-    const subscribedChannelLinks = await waitFor(() =>
-      screen.getAllByTestId('NavbarAsideSubscriptionLink')
+    const subscribedChannelLinks = await screen.findAllByTestId(
+      'NavbarAsideSubscriptionLink'
     )
 
     expect(subscribedChannelLinks).toHaveLength(
