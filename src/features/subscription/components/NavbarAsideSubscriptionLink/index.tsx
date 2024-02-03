@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 
 import { SimpleChannelAdapter } from '@/features/channel/models'
 
@@ -15,7 +15,7 @@ const NavbarAsideSubscriptionLink: FC<SimpleChannelAdapter> = ({
 }) => {
   return (
     <ListItemLinkWrapper
-      href={`/@${handle}`}
+      href={`/${handle}`}
       testId='NavbarAsideSubscriptionLink'
     >
       {isActive => (
