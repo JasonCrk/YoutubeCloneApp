@@ -6,11 +6,12 @@ import VideoField from '@/features/video/components/VideoField'
 
 import { render } from '@/utils/testing/render'
 
-const MESSAGE_WITHOUT_VIDEO = /^video no seleccionado$/i
-
-const setValueMock = vi.fn()
+const MESSAGE_WITHOUT_VIDEO = 'Video no seleccionado'
+const ERROR_MESSAGE_TEST_ID = 'videoFieldErrorMessage'
 
 describe('<VideoField />', () => {
+  const setValueMock = vi.fn()
+
   afterEach(() => {
     cleanup()
     setValueMock.mockClear()
@@ -40,6 +41,28 @@ describe('<VideoField />', () => {
 
     const videoInput = screen.queryByLabelText(MESSAGE_WITHOUT_VIDEO)
     expect(videoInput).toHaveAttribute('accept', 'video/mp4')
+  })
+
+  it("Shouldn't show the error message if the component not receives the errorMessage prop and the error prop", () => {
+    render(<VideoField setValue={setValueMock} />)
+
+    const errorMessageElement = screen.queryByTestId(ERROR_MESSAGE_TEST_ID)
+    expect(errorMessageElement).toBeNull()
+  })
+
+  it('Should show the error message if the component receives the errorMessage prop and the error prop', () => {
+    const testErrorMessageContent = 'test error message'
+
+    render(
+      <VideoField
+        setValue={setValueMock}
+        errorMessage={testErrorMessageContent}
+      />
+    )
+
+    const errorMessageElement = screen.queryByText(ERROR_MESSAGE_TEST_ID)
+
+    expect(errorMessageElement).toHaveTextContent(testErrorMessageContent)
   })
 
   it("Shouldn't show the message if user select a video", async () => {

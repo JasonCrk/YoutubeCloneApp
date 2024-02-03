@@ -69,7 +69,13 @@ const VideoField: FC<Props> = ({ setValue, error, errorMessage }) => {
       </Typography>
 
       {errorMessage && error && (
-        <Typography color='error' fontSize='0.75rem' mt='3px' ml='14px'>
+        <Typography
+          color='error'
+          fontSize='0.75rem'
+          mt='3px'
+          ml='14px'
+          data-testid='videoFieldErrorMessage'
+        >
           {errorMessage}
         </Typography>
       )}
