@@ -7,11 +7,15 @@ import VideoThumbnailField from '@/features/video/components/VideoThumbnailField
 import { render } from '@/utils/testing/render'
 
 const IMAGE_LOCAL_URL = 'http://127.0.0.1:5050/image.png'
+const TEST_IMAGE_FILE = new File(['test image'], 'image.png', {
+  type: 'image/png'
+})
 
 global.URL.createObjectURL = vi.fn().mockReturnValue(IMAGE_LOCAL_URL)
-const setValueMock = vi.fn()
 
 describe('<VideoThumbnailField />', () => {
+  const setValueMock = vi.fn()
+
   afterEach(() => {
     cleanup()
     setValueMock.mockClear()
@@ -70,7 +74,7 @@ describe('<VideoThumbnailField />', () => {
   it("Should show the video thumbnail input label if user don't upload image", () => {
     render(<VideoThumbnailField setValue={setValueMock} />)
 
-    const thumbnailInput = screen.queryByLabelText('', { selector: 'input' })
+    const thumbnailInput = screen.queryByLabelText('')
     expect(thumbnailInput).toBeInTheDocument()
   })
 
@@ -79,11 +83,9 @@ describe('<VideoThumbnailField />', () => {
 
     const user = userEvent.setup()
 
-    const thumbnailInput = screen.getByLabelText('', { selector: 'input' })
+    const thumbnailInput = screen.getByLabelText('')
 
-    const file = new File(['hello'], 'file.png', { type: 'image/png' })
-
-    await user.upload(thumbnailInput, file)
+    await user.upload(thumbnailInput, TEST_IMAGE_FILE)
 
     expect(setValueMock).toHaveBeenCalledOnce()
   })
@@ -93,13 +95,11 @@ describe('<VideoThumbnailField />', () => {
 
     const user = userEvent.setup()
 
-    const thumbnailInput = screen.getByLabelText('', { selector: 'input' })
+    const thumbnailInput = screen.getByLabelText('')
 
-    const file = new File(['hello'], 'file.png', { type: 'image/png' })
+    await user.upload(thumbnailInput, TEST_IMAGE_FILE)
 
-    await user.upload(thumbnailInput, file)
-
-    const thumbnailLabel = screen.queryByLabelText('', { selector: 'input' })
+    const thumbnailLabel = screen.queryByLabelText('')
     expect(thumbnailLabel).toBeNull()
   })
 
@@ -115,11 +115,9 @@ describe('<VideoThumbnailField />', () => {
 
     const user = userEvent.setup()
 
-    const thumbnailInput = screen.getByLabelText('', { selector: 'input' })
+    const thumbnailInput = screen.getByLabelText('')
 
-    const file = new File(['hello'], 'file.png', { type: 'image/png' })
-
-    await user.upload(thumbnailInput, file)
+    await user.upload(thumbnailInput, TEST_IMAGE_FILE)
 
     const removeThumbnailButton = screen.queryByRole('button')
     expect(removeThumbnailButton).toBeInTheDocument()
@@ -130,11 +128,9 @@ describe('<VideoThumbnailField />', () => {
 
     const user = userEvent.setup()
 
-    const thumbnailInput = screen.getByLabelText('', { selector: 'input' })
+    const thumbnailInput = screen.getByLabelText('')
 
-    const file = new File(['hello'], 'file.png', { type: 'image/png' })
-
-    await user.upload(thumbnailInput, file)
+    await user.upload(thumbnailInput, TEST_IMAGE_FILE)
 
     const previewThumbnailElement = screen.queryByRole('img')
     expect(previewThumbnailElement).toBeInTheDocument()
@@ -145,11 +141,9 @@ describe('<VideoThumbnailField />', () => {
 
     const user = userEvent.setup()
 
-    const thumbnailInput = screen.getByLabelText('', { selector: 'input' })
+    const thumbnailInput = screen.getByLabelText('')
 
-    const file = new File(['hello'], 'file.png', { type: 'image/png' })
-
-    await user.upload(thumbnailInput, file)
+    await user.upload(thumbnailInput, TEST_IMAGE_FILE)
 
     const previewThumbnailElement = screen.queryByRole('img')
     expect(previewThumbnailElement).toHaveAttribute('src', IMAGE_LOCAL_URL)
