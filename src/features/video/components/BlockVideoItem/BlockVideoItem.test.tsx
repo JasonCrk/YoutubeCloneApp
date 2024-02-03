@@ -1,64 +1,52 @@
 import { cleanup, screen } from '@testing-library/react'
 
-import { SimpleVideoItemAdapter } from '@/features/video/models'
+import { simpleVideoItemAdapterMock } from '@/features/video/mocks/models'
 
 import BlockVideoItem from '@/features/video/components/BlockVideoItem'
 
 import { render } from '@/utils/testing/render'
-import { getTimeAgo } from '@/utils/datetimeFormats'
 
-const blockVideoItemProps: SimpleVideoItemAdapter = {
-  channel: {
-    id: 1,
-    handle: 'JasonCrk',
-    name: 'Emerzon Javier Kolki',
-    pictureUrl:
-      'https://static.vecteezy.com/system/resources/thumbnails/025/181/412/small/picture-a-captivating-scene-of-a-tranquil-lake-at-sunset-ai-generative-photo.jpg'
-  },
-  id: 1,
-  publicationDate: new Date(),
-  thumbnailUrl:
-    'https://static.vecteezy.com/system/resources/thumbnails/025/181/412/small/picture-a-captivating-scene-of-a-tranquil-lake-at-sunset-ai-generative-photo.jpg',
-  title: 'title',
-  views: 10
-}
+import { getTimeAgo } from '@/utils/datetimeFormats'
 
 describe('<BlockVideoItem />', () => {
   afterEach(cleanup)
 
   it('Should render component', () => {
-    render(<BlockVideoItem {...blockVideoItemProps} />)
+    render(<BlockVideoItem {...simpleVideoItemAdapterMock} />)
 
     const component = screen.queryByTestId('BlockVideoItem')
     expect(component).toBeInTheDocument()
   })
 
   it('Should contain the thumbnail image element', () => {
-    render(<BlockVideoItem {...blockVideoItemProps} />)
+    render(<BlockVideoItem {...simpleVideoItemAdapterMock} />)
 
-    const thumbnailImgElement = screen.queryByAltText(blockVideoItemProps.title)
+    const thumbnailImgElement = screen.queryByAltText(
+      simpleVideoItemAdapterMock.title
+    )
 
-    expect(thumbnailImgElement).toBeInTheDocument()
     expect(thumbnailImgElement).toHaveAttribute(
       'src',
-      blockVideoItemProps.thumbnailUrl
+      simpleVideoItemAdapterMock.thumbnailUrl
     )
   })
 
   it('Should contain the link to watch the video', () => {
-    render(<BlockVideoItem {...blockVideoItemProps} />)
+    render(<BlockVideoItem {...simpleVideoItemAdapterMock} />)
 
     const links = screen.getAllByRole('link')
 
     const linkToWatchVideo = links.filter(
-      link => link.getAttribute('href') === '/watch?v=' + blockVideoItemProps.id
+      link =>
+        link.getAttribute('href') ===
+        '/watch?v=' + simpleVideoItemAdapterMock.id
     )[0]
 
     expect(linkToWatchVideo).toBeInTheDocument()
   })
 
   it('Should contain the channel picture', () => {
-    render(<BlockVideoItem {...blockVideoItemProps} />)
+    render(<BlockVideoItem {...simpleVideoItemAdapterMock} />)
 
     const channelPictureElement = screen.queryByTestId('Picture')
 
@@ -66,52 +54,52 @@ describe('<BlockVideoItem />', () => {
   })
 
   it('Should contain the link to redirect to the channel', () => {
-    render(<BlockVideoItem {...blockVideoItemProps} />)
+    render(<BlockVideoItem {...simpleVideoItemAdapterMock} />)
 
     const links = screen.getAllByRole('link')
 
     const linkToRedirectChannel = links.filter(
       link =>
-        link.getAttribute('href') === '/' + blockVideoItemProps.channel.handle
+        link.getAttribute('href') ===
+        '/' + simpleVideoItemAdapterMock.channel.handle
     )[0]
 
     expect(linkToRedirectChannel).toBeInTheDocument()
   })
 
   it('Should show the video title', () => {
-    render(<BlockVideoItem {...blockVideoItemProps} />)
+    render(<BlockVideoItem {...simpleVideoItemAdapterMock} />)
 
-    const titleElement = screen.queryByTitle(blockVideoItemProps.title)
+    const titleElement = screen.queryByTitle(simpleVideoItemAdapterMock.title)
 
-    expect(titleElement).toBeInTheDocument()
-    expect(titleElement).toHaveTextContent(blockVideoItemProps.title)
+    expect(titleElement).toHaveTextContent(simpleVideoItemAdapterMock.title)
   })
 
   it('Should show the channel name', () => {
-    render(<BlockVideoItem {...blockVideoItemProps} />)
+    render(<BlockVideoItem {...simpleVideoItemAdapterMock} />)
 
     const channelNameElement = screen.queryByText(
-      blockVideoItemProps.channel.name
+      simpleVideoItemAdapterMock.channel.name
     )
 
     expect(channelNameElement).toBeInTheDocument()
   })
 
   it('Should show the video views', () => {
-    render(<BlockVideoItem {...blockVideoItemProps} />)
+    render(<BlockVideoItem {...simpleVideoItemAdapterMock} />)
 
     const videoViewsElement = screen.queryByText(
-      new RegExp(`${blockVideoItemProps.views} views`, 'i')
+      new RegExp(`${simpleVideoItemAdapterMock.views} views`, 'i')
     )
 
     expect(videoViewsElement).toBeInTheDocument()
   })
 
   it('Should show the "time ago" of the video\'s publication date', () => {
-    render(<BlockVideoItem {...blockVideoItemProps} />)
+    render(<BlockVideoItem {...simpleVideoItemAdapterMock} />)
 
     const timeAgoPublicationDateElement = screen.queryByText(
-      new RegExp(getTimeAgo(blockVideoItemProps.publicationDate))
+      new RegExp(getTimeAgo(simpleVideoItemAdapterMock.publicationDate))
     )
 
     expect(timeAgoPublicationDateElement).toBeInTheDocument()
