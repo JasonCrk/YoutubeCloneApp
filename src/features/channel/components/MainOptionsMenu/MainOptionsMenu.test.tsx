@@ -1,11 +1,11 @@
 import { cleanup, screen } from '@testing-library/react'
 
+import { authStateMock } from '@/mocks/store'
 import { currentChannelAdapterMock } from '@/features/channel/mocks/models'
 
 import MainOptionsMenu from '@/features/channel/components/MainOptionsMenu'
 
 import { render } from '@/utils/testing/render'
-import { authStateMock } from '@/mocks/store'
 
 describe('<MainOptionsMenu />', () => {
   const onChangeMenuMock = vi.fn()
