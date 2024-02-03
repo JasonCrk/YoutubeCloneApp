@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react'
+import type { FC } from 'react'
 
 import { useMutation } from '@tanstack/react-query'
 
@@ -7,9 +7,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { UploadVideoInputs } from '@/features/video/models/UploadVideo.model'
 
-import { uploadVideoModalContext } from '@/features/video/contexts/UploadVideoModal'
-
 import { createVideoService } from '@/features/video/services'
+
+import { useUploadVideoModalContext } from '@/features/video/hooks'
 
 import { uploadVideoValidator } from '@/features/video/validations'
 
@@ -21,7 +21,7 @@ import { Box, Button, Modal, Stack, TextField } from '@mui/material'
 import toast from 'react-hot-toast'
 
 const UploadVideoModal: FC = () => {
-  const { isOpen, onClose } = useContext(uploadVideoModalContext)
+  const { isOpen, onClose } = useUploadVideoModalContext()
 
   const {
     handleSubmit,
