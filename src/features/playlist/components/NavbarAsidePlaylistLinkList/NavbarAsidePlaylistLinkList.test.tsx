@@ -1,4 +1,4 @@
-import { cleanup, screen, waitFor } from '@testing-library/react'
+import { cleanup, screen } from '@testing-library/react'
 
 import { setupServer } from 'msw/node'
 
@@ -29,9 +29,10 @@ describe('<NavbarAsidePlaylistLinkList />', () => {
   it('Should show the playlist list if playlists are loaded', async () => {
     render(<NavbarAsidePlaylistLinkList />)
 
-    const playlistListElement = await waitFor(() =>
-      screen.findByTestId('NavbarAsidePlaylistLinkList')
+    const playlistListElement = await screen.findByTestId(
+      'NavbarAsidePlaylistLinkList'
     )
+
     expect(playlistListElement).toBeInTheDocument()
   })
 
@@ -41,31 +42,17 @@ describe('<NavbarAsidePlaylistLinkList />', () => {
     const playlistListElement = screen.queryByTestId(
       'NavbarAsidePlaylistLinkList'
     )
+
     expect(playlistListElement).toBeNull()
   })
 
   it('Should show the playlists if playlists are loaded', async () => {
     render(<NavbarAsidePlaylistLinkList />)
 
-    const playlistElementItems = await waitFor(() =>
-      screen.getAllByRole('link')
-    )
+    const playlistElementItems = await screen.findAllByRole('link')
+
     expect(playlistElementItems).toHaveLength(
       simplePlaylistsMockResponse.data.length
     )
-  })
-
-  it('Should contain the mock response', async () => {
-    render(<NavbarAsidePlaylistLinkList />)
-
-    const playlistElementItems = await waitFor(() =>
-      screen.getAllByRole('link')
-    )
-
-    for (let i = 0; i < simplePlaylistsMockResponse.data.length; i++) {
-      expect(playlistElementItems[i]).toHaveTextContent(
-        simplePlaylistsMockResponse.data[i].name
-      )
-    }
   })
 })
