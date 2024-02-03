@@ -6,6 +6,7 @@ import VideoThumbnailField from '@/features/video/components/VideoThumbnailField
 
 import { render } from '@/utils/testing/render'
 
+const ERROR_MESSAGE_TEST_ID = 'errorMessage'
 const IMAGE_LOCAL_URL = 'http://127.0.0.1:5050/image.png'
 const TEST_IMAGE_FILE = new File(['test image'], 'image.png', {
   type: 'image/png'
@@ -76,6 +77,29 @@ describe('<VideoThumbnailField />', () => {
 
     const thumbnailInput = screen.queryByLabelText('')
     expect(thumbnailInput).toBeInTheDocument()
+  })
+
+  it('Should show the error message if the component receives the errorMessage prop and the error prop', () => {
+    const errorMessageContent = 'test error message'
+
+    render(
+      <VideoThumbnailField
+        setValue={setValueMock}
+        errorMessage={errorMessageContent}
+        error
+      />
+    )
+
+    const thumbnailInput = screen.queryByTestId(ERROR_MESSAGE_TEST_ID)
+
+    expect(thumbnailInput).toHaveTextContent(errorMessageContent)
+  })
+
+  it("Shouldn't show the error message if the component not receives the errorMessage prop and the error prop", () => {
+    render(<VideoThumbnailField setValue={setValueMock} />)
+
+    const thumbnailInput = screen.queryByTestId(ERROR_MESSAGE_TEST_ID)
+    expect(thumbnailInput).toBeNull()
   })
 
   it('Should call the setValue function prop if user upload image', async () => {

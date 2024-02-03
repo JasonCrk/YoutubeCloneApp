@@ -118,7 +118,13 @@ const VideoThumbnailField: FC<Props> = ({ setValue, error, errorMessage }) => {
       </Box>
 
       {errorMessage && error && (
-        <Typography color='error' fontSize='0.75rem' mt='3px' ml='14px'>
+        <Typography
+          color='error'
+          fontSize='0.75rem'
+          mt='3px'
+          ml='14px'
+          data-testid='errorMessage'
+        >
           {errorMessage}
         </Typography>
       )}
