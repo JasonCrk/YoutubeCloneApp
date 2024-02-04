@@ -1,6 +1,6 @@
-import { LoaderFunction } from 'react-router-dom'
+import { QueryClient } from '@tanstack/react-query'
 
-import { store } from '@/store/index'
+import { store } from '@/store'
 import { logout, setAuthTokens, setUser } from '@/store/slices/authSlice'
 
 import {
@@ -25,39 +25,51 @@ const rejectAuthentication = () => {
   return null
 }
 
-export const verifyAuthentication: LoaderFunction = async () => {
-  const { accessToken, isAuth, refreshToken } = store.getState().auth
-  const dispatch = store.dispatch
+export const verifyAuthentication = (queryClient: QueryClient) => {
+  return async () => {
+    const { accessToken, isAuth, refreshToken } = store.getState().auth
+    const dispatch = store.dispatch
 
-  if (!isAuth && !accessToken) {
-    dispatch(logout())
-    return null
-  }
+    if (!isAuth && !accessToken) {
+      dispatch(logout())
+      return null
+    }
 
-  let validAccessToken = accessToken
-
-  try {
-    await verifyTokenService(validAccessToken)
-  } catch (e) {
-    if (!refreshToken) return rejectAuthentication()
+    let validAccessToken = accessToken
 
     try {
-      const { access } = await refreshTokensService(refreshToken)
-      validAccessToken = access
+      await verifyTokenService(validAccessToken)
+    } catch (e) {
+      if (!refreshToken) return rejectAuthentication()
+
+      try {
+        const { access: newAccessToken } = await queryClient.fetchQuery({
+          queryKey: ['refreshAccessToken', validAccessToken],
+          queryFn: () => refreshTokensService(validAccessToken)
+        })
+
+        validAccessToken = newAccessToken
+      } catch (e) {
+        return rejectAuthentication()
+      }
+    }
+
+    try {
+      const authenticatedUser = await queryClient.fetchQuery({
+        queryKey: ['userAuth', validAccessToken],
+        queryFn: async () => {
+          const userData =
+            await retrieveUserWithAccessTokenService(validAccessToken)
+          return authenticatedUserAdapter(userData)
+        }
+      })
+
+      dispatch(setUser(authenticatedUser))
+      dispatch(setAuthTokens({ accessToken: validAccessToken, refreshToken }))
     } catch (e) {
       return rejectAuthentication()
     }
+
+    return null
   }
-
-  try {
-    const userData = await retrieveUserWithAccessTokenService(validAccessToken)
-    const userAdapted = authenticatedUserAdapter(userData)
-
-    dispatch(setUser(userAdapted))
-    dispatch(setAuthTokens({ accessToken: validAccessToken, refreshToken }))
-  } catch (e) {
-    return rejectAuthentication()
-  }
-
-  return null
 }

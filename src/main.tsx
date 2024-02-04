@@ -32,7 +32,7 @@ createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <RouterProvider router={router} />
+          <RouterProvider router={router(queryClient)} />
           <Toaster position='bottom-left' />
         </Provider>
       </ThemeProvider>
