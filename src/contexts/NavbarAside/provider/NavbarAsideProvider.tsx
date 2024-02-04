@@ -13,7 +13,7 @@ interface Props {
   defaultStates?: Pick<NavbarAsideContext, 'state'>
 }
 
-const NavbarAsideProvider: FC<Props> = ({ children, defaultStates }) => {
+export const NavbarAsideProvider: FC<Props> = ({ children, defaultStates }) => {
   const theme = useTheme()
 
   const isFull = useMediaQuery(theme.breakpoints.up('lg'))
@@ -70,5 +70,3 @@ const NavbarAsideProvider: FC<Props> = ({ children, defaultStates }) => {
     </navbarAsideContext.Provider>
   )
 }
-
-export default NavbarAsideProvider

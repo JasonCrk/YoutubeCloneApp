@@ -2,7 +2,7 @@ import type { FC } from 'react'
 
 import { Outlet } from 'react-router-dom'
 
-import NavbarAsideProvider from '@/contexts/NavbarAside/Provider'
+import { NavbarAsideProvider } from '@/contexts/NavbarAside/provider'
 
 import AuthModalProvider from '@/features/auth/contexts/AuthModal/Provider'
 import UploadVideoModalProvider from '@/features/video/contexts/UploadVideoModal/Provider'

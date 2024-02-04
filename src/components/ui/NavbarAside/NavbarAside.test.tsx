@@ -1,7 +1,7 @@
 import { cleanup, screen } from '@testing-library/react'
 
 import { NavbarAsideState } from '@/contexts/NavbarAside'
-import NavbarAsideProvider from '@/contexts/NavbarAside/Provider'
+import { NavbarAsideProvider } from '@/contexts/NavbarAside/provider'
 
 import NavbarAside from '@/components/ui/NavbarAside'
 

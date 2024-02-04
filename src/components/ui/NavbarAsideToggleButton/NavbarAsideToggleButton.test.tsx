@@ -2,7 +2,7 @@ import { render, screen, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { NavbarAsideState, navbarAsideContext } from '@/contexts/NavbarAside'
-import NavbarAsideProvider from '@/contexts/NavbarAside/Provider'
+import { NavbarAsideProvider } from '@/contexts/NavbarAside/provider'
 
 import NavbarAsideToggleButton from '@/components/ui/NavbarAsideToggleButton'
 
