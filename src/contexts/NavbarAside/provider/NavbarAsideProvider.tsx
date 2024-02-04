@@ -5,12 +5,13 @@ import { useMediaQuery, useTheme } from '@mui/material'
 import {
   navbarAsideContext,
   NavbarAsideState,
-  NavbarAsideContext
+  NavbarAsideContext,
+  NavbarAsideContextDefaultStates
 } from '@/contexts/NavbarAside'
 
 interface Props {
   children: ReactNode
-  defaultStates?: Pick<NavbarAsideContext, 'state'>
+  defaultStates?: NavbarAsideContextDefaultStates
 }
 
 export const NavbarAsideProvider: FC<Props> = ({ children, defaultStates }) => {

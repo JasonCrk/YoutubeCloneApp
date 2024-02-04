@@ -14,5 +14,7 @@ export interface NavbarAsideContext {
 
 export const navbarAsideContext = createContext<NavbarAsideContext>({
   state: NavbarAsideState.FULL,
-  toggleNavbarAside: () => {},
+  toggleNavbarAside: () => {}
 })
+
+export type NavbarAsideContextDefaultStates = Pick<NavbarAsideContext, 'state'>
