@@ -1,9 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
-
-import { listResponseAdapter } from '@/adapters/listResponse.adapter'
-
-import { retrieveTrendingVideosService } from '@/features/video/services'
-import { simpleVideoItemAdapter } from '@/features/video/adapters'
+import { useFetchTrendingVideos } from '@/features/video/hooks'
 
 import BlockVideoItem from '@/features/video/components/BlockVideoItem'
 import BlockVideoItemSkeleton from '@/features/video/components/BlockVideoItemSkeleton'
@@ -13,21 +8,7 @@ import { Box, Grid, Typography } from '@mui/material'
 import ErrorIcon from '@mui/icons-material/Error'
 
 function HomePage() {
-  const {
-    data: trendingVideos,
-    isLoading,
-    isError
-  } = useQuery({
-    queryKey: ['trendingVideos'],
-    queryFn: async () => {
-      const unadaptedTrendingVideos = await retrieveTrendingVideosService()
-      return listResponseAdapter(
-        unadaptedTrendingVideos,
-        simpleVideoItemAdapter
-      )
-    },
-    refetchOnWindowFocus: false
-  })
+  const { data: trendingVideos, isLoading, isError } = useFetchTrendingVideos()
 
   if (isLoading)
     return (
