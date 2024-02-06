@@ -1,4 +1,4 @@
-import {
+import type {
   SimpleVideoItem,
   SimpleVideoItemAdapter
 } from '@/features/video/models'

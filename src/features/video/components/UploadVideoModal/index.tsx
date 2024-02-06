@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { UploadVideoInputs } from '@/features/video/models/UploadVideo.model'
+import type { UploadVideoInputs } from '@/features/video/models'
 
 import { createVideoService } from '@/features/video/services'
 

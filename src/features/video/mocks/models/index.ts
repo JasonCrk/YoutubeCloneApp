@@ -1,4 +1,4 @@
-import { SimpleVideoItemAdapter } from '@/features/video/models'
+import type { SimpleVideoItemAdapter } from '@/features/video/models'
 
 import { simpleChannelAdapterMock } from '@/features/channel/mocks/models'
 

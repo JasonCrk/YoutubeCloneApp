@@ -1,4 +1,4 @@
-import { UploadVideoInputs } from '@/features/video/models/UploadVideo.model'
+import type { UploadVideoInputs } from '@/features/video/models'
 
 export const createVideoMockData: UploadVideoInputs = {
   description: 'test description',

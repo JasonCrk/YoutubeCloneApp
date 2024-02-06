@@ -2,7 +2,7 @@ import { FC, MouseEvent } from 'react'
 
 import { Link, useNavigate } from 'react-router-dom'
 
-import { SimpleVideoItemAdapter } from '@/features/video/models'
+import type { SimpleVideoItemAdapter } from '@/features/video/models'
 
 import Picture from '@/components/ui/Picture'
 
