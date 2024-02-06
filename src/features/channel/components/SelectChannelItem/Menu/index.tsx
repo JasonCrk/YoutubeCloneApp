@@ -1,8 +1,9 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 
 import { useMutation } from '@tanstack/react-query'
 
-import { ChannelId, ListChannelAdapter } from '@/features/channel/models'
+import { ListChannelAdapter } from '@/features/channel/models'
+import { ChannelId } from '@/features/channel/types'
 
 import { switchChannelService } from '@/features/channel/services'
 

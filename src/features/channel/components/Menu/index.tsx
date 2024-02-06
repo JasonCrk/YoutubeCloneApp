@@ -1,6 +1,6 @@
 import { useState, type FC } from 'react'
 
-import { OptionsMenuTypes } from '@/features/channel/models'
+import { OptionsMenuTypes } from '@/features/channel/types'
 
 import MainOptionsMenu from '@/features/channel/components/MainOptionsMenu'
 import SwitchAccountOptionsMenu from '@/features/channel/components/SwitchAccountOptionsMenu'

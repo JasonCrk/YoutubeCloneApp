@@ -1,4 +1,9 @@
-import { ChannelHandle, ChannelId, ChannelName, ChannelPictureUrl } from '.'
+import {
+  ChannelHandle,
+  ChannelId,
+  ChannelName,
+  ChannelPictureUrl
+} from '@/features/channel/types'
 
 export interface CurrentChannel {
   id: ChannelId

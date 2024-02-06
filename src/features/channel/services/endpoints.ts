@@ -1,10 +1,7 @@
 import { ListResponse, MessageResponse } from '@/models/responses'
 
-import {
-  ChannelId,
-  ListChannel,
-  CreateChannelInputs
-} from '@/features/channel/models'
+import { ListChannel, CreateChannelInputs } from '@/features/channel/models'
+import { ChannelId } from '@/features/channel/types'
 import { protectedChannelEndpoint } from '@/features/channel/services'
 
 export const retrieveOwnChannelsService = async (): Promise<

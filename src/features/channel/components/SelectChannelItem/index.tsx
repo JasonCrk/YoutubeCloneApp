@@ -1,6 +1,7 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 
-import { ChannelId, ListChannelAdapter } from '@/features/channel/models'
+import { ListChannelAdapter } from '@/features/channel/models'
+import { ChannelId } from '@/features/channel/types'
 
 import Picture from '@/components/ui/Picture'
 
