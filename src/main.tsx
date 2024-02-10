@@ -6,6 +6,7 @@ import { RouterProvider } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import { CssBaseline, GlobalStyles, ThemeProvider } from '@mui/material'
 
@@ -36,6 +37,7 @@ createRoot(document.getElementById('root')!).render(
           <Toaster position='bottom-left' />
         </Provider>
       </ThemeProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </StrictMode>
 )
