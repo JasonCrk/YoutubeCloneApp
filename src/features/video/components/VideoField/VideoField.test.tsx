@@ -56,11 +56,12 @@ describe('<VideoField />', () => {
     render(
       <VideoField
         setValue={setValueMock}
+        error
         errorMessage={testErrorMessageContent}
       />
     )
 
-    const errorMessageElement = screen.queryByText(ERROR_MESSAGE_TEST_ID)
+    const errorMessageElement = screen.queryByTestId(ERROR_MESSAGE_TEST_ID)
 
     expect(errorMessageElement).toHaveTextContent(testErrorMessageContent)
   })
