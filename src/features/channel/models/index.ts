@@ -1,4 +1,5 @@
 export * from './SimpleChannel.model'
 export * from './CurrentChannel.model'
 export * from './ListChannel.model'
+export * from './ChannelWithSubscribed.model'
 export * from './CreateChannel.model'
