@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
@@ -7,10 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import toast from 'react-hot-toast'
 
-import { CreateChannelInputs } from '@/features/channel/models'
+import type { CreateChannelInputs } from '@/features/channel/models'
 import { useCreateChannelModalContext } from '@/features/channel/hooks'
 import { createChannelService } from '@/features/channel/services'
-import { createChannelValidator } from '@/features/channel/validations'
+import { createChannelValidator } from '@/features/channel/validators'
 
 import { Box, Button, Modal, TextField, Typography } from '@mui/material'
 
