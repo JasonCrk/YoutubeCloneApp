@@ -29,7 +29,7 @@ interface Props {
   isDislike: boolean
 }
 
-const LikeAndDislikeButtonGroups: FC<Props> = ({
+const LikeAndDislikeVideoButtons: FC<Props> = ({
   videoId,
   totalDislikes,
   totalLikes,
@@ -108,4 +108,4 @@ const LikeAndDislikeButtonGroups: FC<Props> = ({
   )
 }
 
-export default LikeAndDislikeButtonGroups
+export default LikeAndDislikeVideoButtons
