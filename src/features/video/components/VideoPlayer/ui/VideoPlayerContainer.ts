@@ -8,7 +8,7 @@ interface VideoPlayerContainerProps extends HTMLAttributes<HTMLDivElement> {
 
 interface VideoPlayerControlsContainerProps
   extends HTMLAttributes<HTMLDialogElement> {
-  isVideoPaused: boolean
+  isVideoPlaying: boolean
 }
 
 export const VideoPlayerContainer = styled('div', {
@@ -25,15 +25,15 @@ export const VideoPlayerContainer = styled('div', {
   }
 }))
 
-export const VideoPlayerControlsContainer = styled(
-  'div'
-)<VideoPlayerControlsContainerProps>(({ isVideoPaused }) => ({
+export const VideoPlayerControlsContainer = styled('div', {
+  shouldForwardProp: prop => prop != 'isVideoPlaying'
+})<VideoPlayerControlsContainerProps>(({ isVideoPlaying }) => ({
   position: 'absolute',
   width: '100%',
   zIndex: 10,
   bottom: 6,
   left: 0,
-  visibility: isVideoPaused ? 'hidden' : 'visible',
-  transition: 'visibility 0.15s, opacity 0.15s',
-  opacity: isVideoPaused ? 0 : 1
+  visibility: isVideoPlaying ? 'hidden' : 'visible',
+  transition: 'visibility 200ms, opacity 200ms',
+  opacity: isVideoPlaying ? 0 : 1
 }))

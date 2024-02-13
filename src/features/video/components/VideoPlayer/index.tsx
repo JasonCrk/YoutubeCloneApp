@@ -46,7 +46,7 @@ interface Props {
 }
 
 interface States {
-  isVideoPaused: boolean
+  isVideoPlaying: boolean
   currentVideoTime: string
   totalVideoTime: string
   isScrubbing: boolean
@@ -62,8 +62,8 @@ const VideoPlayer: FC<Props> = ({
   isTheaterViewMode,
   setIsTheaterViewMode
 }) => {
-  const [isVideoPaused, setIsVideoPaused] =
-    useState<States['isVideoPaused']>(false)
+  const [isVideoPlaying, setIsVideoPlaying] =
+    useState<States['isVideoPlaying']>(false)
   const [currentVideoTime, setCurrentVideoTime] =
     useState<States['currentVideoTime']>('0:00')
   const [totalVideoTime, setTotalVideoTime] =
@@ -84,6 +84,7 @@ const VideoPlayer: FC<Props> = ({
     document.addEventListener('mouseup', event => {
       if (isScrubbingRef.current) handleToggleScrubbing(event)
     })
+    setIsVideoPlaying(true)
   }, [])
 
   const handleLoadedVideoData = (event: SyntheticEvent<HTMLVideoElement>) => {
@@ -95,7 +96,7 @@ const VideoPlayer: FC<Props> = ({
       ? videoRef.current.play()
       : videoRef.current?.pause()
 
-    setIsVideoPaused(prevValue => !prevValue)
+    setIsVideoPlaying(prevValue => !prevValue)
   }
 
   const handleFullScreenVideo = () => {
@@ -160,14 +161,14 @@ const VideoPlayer: FC<Props> = ({
     if (isScrubbingRef.current) {
       wasVideoPausedRef.current = Boolean(videoRef.current?.paused)
       videoRef.current?.pause()
-      setIsVideoPaused(false)
+      setIsVideoPlaying(false)
     } else {
       videoRef.current!.currentTime = percent * videoRef.current!.duration
     }
 
     if (!wasVideoPausedRef.current) {
       videoRef.current?.play()
-      setIsVideoPaused(true)
+      setIsVideoPlaying(true)
     }
   }
 
@@ -191,7 +192,7 @@ const VideoPlayer: FC<Props> = ({
         <source src={videoUrl} type='video/mp4'></source>
       </Video>
 
-      <VideoPlayerControlsContainer isVideoPaused={isVideoPaused}>
+      <VideoPlayerControlsContainer isVideoPlaying={isVideoPlaying}>
         <VideoPlayerTimelineContainer
           ref={timelineContainerRef}
           onMouseDown={handleToggleScrubbing}
@@ -205,10 +206,10 @@ const VideoPlayer: FC<Props> = ({
           <Stack spacing={0.5} direction='row' alignItems='center'>
             <VideoPlayerControl
               padding='8px 8px 8px 14px'
-              tooltipTitle={isVideoPaused ? 'Pause' : 'Play'}
+              tooltipTitle={isVideoPlaying ? 'Pause' : 'Play'}
               onClick={handlePlayVideo}
               icon={
-                isVideoPaused ? (
+                isVideoPlaying ? (
                   <PauseIcon fontSize='large' />
                 ) : (
                   <PlayArrowIcon fontSize='large' />
