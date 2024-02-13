@@ -12,7 +12,7 @@ import { useAuthModalContext } from '@/features/auth/hooks'
 import {
   UiDislikeButton,
   UiLikeButton
-} from '@/features/video/components/LikeAndDislikeButtonGroups/ui'
+} from '@/features/video/components/LikeAndDislikeVideoButtons/ui'
 
 import { ButtonGroup, Typography } from '@mui/material'
 
@@ -72,7 +72,7 @@ const LikeAndDislikeButtonGroups: FC<Props> = ({
   }
 
   return (
-    <ButtonGroup data-testid='LikeAndDislikeButtonGroups'>
+    <ButtonGroup data-testid='LikeAndDislikeVideoButtons'>
       <UiLikeButton
         isActive={isLike}
         title='I like this'

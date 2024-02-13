@@ -6,7 +6,7 @@ import type { VideoDetailsAdapter } from '@/features/video/models'
 
 import ChannelInfo from '@/features/channel/components/ChannelInfo'
 import SubscribeButton from '@/features/subscription/components/SubscribeButton'
-import LikeAndDislikeButtonGroups from '@/features/video/components/LikeAndDislikeButtonGroups'
+import LikeAndDislikeVideoButtons from '@/features/video/components/LikeAndDislikeVideoButtons'
 
 import { Box, Typography } from '@mui/material'
 
@@ -40,7 +40,7 @@ const VideoSection: FC<Props> = ({ video }) => {
         </Box>
 
         <Box display='flex' gap={1} alignItems='center'>
-          <LikeAndDislikeButtonGroups
+          <LikeAndDislikeVideoButtons
             videoId={video.id}
             totalDislikes={video.totalDislikes}
             totalLikes={video.totalLikes}

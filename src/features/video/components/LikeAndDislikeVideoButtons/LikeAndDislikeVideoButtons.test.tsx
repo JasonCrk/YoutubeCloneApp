@@ -1,16 +1,16 @@
 import { screen } from '@testing-library/react'
 
-import LikeAndDislikeButtonGroups from '@/features/video/components/LikeAndDislikeButtonGroups'
+import LikeAndDislikeVideoButtons from '@/features/video/components/LikeAndDislikeVideoButtons'
 
 import { render } from '@/utils/testing/render'
 
 const LIKE_BUTTON_TITLE = 'I like this'
 const DISLIKE_BUTTON_TITLE = 'I dislike this'
 
-describe('<LikeAndDislikeButtonGroups />', () => {
+describe('<LikeAndDislikeVideoButtons />', () => {
   it('Should render component', () => {
     render(
-      <LikeAndDislikeButtonGroups
+      <LikeAndDislikeVideoButtons
         videoId={1}
         totalDislikes={0}
         totalLikes={0}
@@ -20,13 +20,13 @@ describe('<LikeAndDislikeButtonGroups />', () => {
     )
 
     expect(
-      screen.queryByTestId('LikeAndDislikeButtonGroups')
+      screen.queryByTestId('LikeAndDislikeVideoButtons')
     ).toBeInTheDocument()
   })
 
   it('Should contain a like button', () => {
     render(
-      <LikeAndDislikeButtonGroups
+      <LikeAndDislikeVideoButtons
         videoId={1}
         totalDislikes={0}
         totalLikes={0}
@@ -42,7 +42,7 @@ describe('<LikeAndDislikeButtonGroups />', () => {
 
   it('Should contain a dislike button', () => {
     render(
-      <LikeAndDislikeButtonGroups
+      <LikeAndDislikeVideoButtons
         videoId={1}
         totalDislikes={0}
         totalLikes={0}
@@ -60,7 +60,7 @@ describe('<LikeAndDislikeButtonGroups />', () => {
     const totalLikes = 100
 
     render(
-      <LikeAndDislikeButtonGroups
+      <LikeAndDislikeVideoButtons
         videoId={1}
         totalDislikes={0}
         totalLikes={totalLikes}
@@ -78,7 +78,7 @@ describe('<LikeAndDislikeButtonGroups />', () => {
     const totalDislikes = 100
 
     render(
-      <LikeAndDislikeButtonGroups
+      <LikeAndDislikeVideoButtons
         videoId={1}
         totalDislikes={totalDislikes}
         totalLikes={0}
@@ -94,7 +94,7 @@ describe('<LikeAndDislikeButtonGroups />', () => {
 
   it('Should show the like icon is activate if the isLike prop is true', () => {
     render(
-      <LikeAndDislikeButtonGroups
+      <LikeAndDislikeVideoButtons
         videoId={1}
         totalDislikes={0}
         totalLikes={0}
@@ -110,7 +110,7 @@ describe('<LikeAndDislikeButtonGroups />', () => {
 
   it("Shouldn't show the like icon is activate if the isLike prop is true", () => {
     render(
-      <LikeAndDislikeButtonGroups
+      <LikeAndDislikeVideoButtons
         videoId={1}
         totalDislikes={0}
         totalLikes={0}
@@ -126,7 +126,7 @@ describe('<LikeAndDislikeButtonGroups />', () => {
 
   it('Should show the like icon is activate if the isLike prop is true', () => {
     render(
-      <LikeAndDislikeButtonGroups
+      <LikeAndDislikeVideoButtons
         videoId={1}
         totalDislikes={0}
         totalLikes={0}
@@ -142,7 +142,7 @@ describe('<LikeAndDislikeButtonGroups />', () => {
 
   it("Shouldn't show the like icon is activate if the isLike prop is true", () => {
     render(
-      <LikeAndDislikeButtonGroups
+      <LikeAndDislikeVideoButtons
         videoId={1}
         totalDislikes={0}
         totalLikes={0}
