@@ -19,11 +19,22 @@ const AuthModal: FC = () => {
 
   const handleSignInSuccess = () => {
     if (location.pathname === '/') window.location.reload()
-    else navigate('/')
+    else {
+      navigate('/')
+      window.location.reload()
+    }
   }
 
   const handleSignUpSuccess = () =>
     changeAuthForm(AuthenticationOptions.SIGN_IN)
+
+  const handleChangeAuthForm = () => {
+    if (authForm === AuthenticationOptions.SIGN_IN) {
+      changeAuthForm(AuthenticationOptions.SIGN_UP)
+    } else if (authForm === AuthenticationOptions.SIGN_UP) {
+      changeAuthForm(AuthenticationOptions.SIGN_IN)
+    }
+  }
 
   return (
     <Modal open={isOpen} onClose={onClose}>
@@ -42,58 +53,32 @@ const AuthModal: FC = () => {
       >
         <Box width='400px' color={'white'}>
           {authForm === AuthenticationOptions.SIGN_IN ? (
-            <>
-              <SignInForm onSuccess={handleSignInSuccess} />
-              <Typography
-                component='div'
-                textAlign='center'
-                color='white'
-                mt={2}
-              >
-                You are not registered? Sign up{' '}
-                <Typography
-                  component='span'
-                  color='primary'
-                  onClick={() => changeAuthForm(AuthenticationOptions.SIGN_UP)}
-                  sx={{
-                    cursor: 'pointer',
-                    ':hover': {
-                      textDecoration: 'underline',
-                      textUnderlineOffset: 3
-                    }
-                  }}
-                >
-                  HERE
-                </Typography>
-              </Typography>
-            </>
+            <SignInForm onSuccess={handleSignInSuccess} />
           ) : authForm === AuthenticationOptions.SIGN_UP ? (
-            <>
-              <SignUpForm onSuccess={handleSignUpSuccess} />
-              <Typography
-                component='div'
-                textAlign='center'
-                color='white'
-                mt={2}
-              >
-                You are registered? Sign in{' '}
-                <Typography
-                  component='span'
-                  color='primary'
-                  onClick={() => changeAuthForm(AuthenticationOptions.SIGN_IN)}
-                  sx={{
-                    cursor: 'pointer',
-                    ':hover': {
-                      textDecoration: 'underline',
-                      textUnderlineOffset: 3
-                    }
-                  }}
-                >
-                  HERE
-                </Typography>
-              </Typography>
-            </>
+            <SignUpForm onSuccess={handleSignUpSuccess} />
           ) : null}
+
+          <Typography component='div' textAlign='center' color='white' mt={2}>
+            {authForm === AuthenticationOptions.SIGN_IN
+              ? 'You are registered? Sign in '
+              : authForm === AuthenticationOptions.SIGN_UP
+                ? 'You are not registered? Sign up '
+                : null}
+            <Typography
+              component='span'
+              color='primary'
+              onClick={handleChangeAuthForm}
+              sx={{
+                cursor: 'pointer',
+                ':hover': {
+                  textDecoration: 'underline',
+                  textUnderlineOffset: 3
+                }
+              }}
+            >
+              HERE
+            </Typography>
+          </Typography>
         </Box>
       </Box>
     </Modal>
