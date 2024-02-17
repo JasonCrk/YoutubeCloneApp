@@ -2,11 +2,14 @@ import type { FC } from 'react'
 
 import { useQueryClient } from '@tanstack/react-query'
 
+import { useLazyLoad } from '@/hooks'
+
 import type { VideoDetailsAdapter } from '@/features/video/models'
 
 import ChannelInfo from '@/features/channel/components/ChannelInfo'
 import SubscribeButton from '@/features/subscription/components/SubscribeButton'
 import LikeAndDislikeVideoButtons from '@/features/video/components/LikeAndDislikeVideoButtons'
+import VideoCommentsSection from '@/features/comment/components/VideoCommentsSection'
 
 import { Box, Typography } from '@mui/material'
 
@@ -19,8 +22,10 @@ interface Props {
 const VideoSection: FC<Props> = ({ video }) => {
   const queryClient = useQueryClient()
 
+  const [ref, isVisible] = useLazyLoad()
+
   return (
-    <>
+    <Box>
       <Typography component='h3' variant='h5' fontWeight='bold' mt={0.5}>
         {video.title}
       </Typography>
@@ -59,7 +64,16 @@ const VideoSection: FC<Props> = ({ video }) => {
           {video.description}
         </Typography>
       </Box>
-    </>
+
+      <div ref={ref}>
+        {isVisible && (
+          <VideoCommentsSection
+            videoId={video.id}
+            totalComments={video.totalComments}
+          />
+        )}
+      </div>
+    </Box>
   )
 }
 
