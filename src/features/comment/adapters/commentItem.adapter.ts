@@ -14,5 +14,5 @@ export const commentItemAdapter = (
   likes: comment.likes,
   publicationDate: new Date(comment.publication_date),
   wasEdited: comment.was_edited,
-  hasComments: comment.has_comments
+  comments: comment.comments
 })

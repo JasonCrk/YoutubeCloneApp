@@ -47,6 +47,7 @@ const CommentItem: FC<Props> = ({ isVideoComment, parentId, ...comment }) => {
 
   const isOwnComment = authUser?.currentChannel.id === comment.channel.id
   const channelProfileUrl = '/channel/' + comment.channel.id
+  const hasComments = comment.comments > 0
 
   return (
     <Box display='flex' gap={1.5}>
@@ -115,7 +116,7 @@ const CommentItem: FC<Props> = ({ isVideoComment, parentId, ...comment }) => {
             {openCommentForm && (
               <Box py={0.5}>
                 <CreateCommentForCommentForm
-                  hasComments={comment.hasComments}
+                  hasComments={hasComments}
                   commentParentId={parentId}
                   commentId={comment.id}
                   onCloseForm={() => setOpenCommentForm(false)}
@@ -133,14 +134,14 @@ const CommentItem: FC<Props> = ({ isVideoComment, parentId, ...comment }) => {
           />
         )}
 
-        {comment.hasComments && (
+        {hasComments && (
           <Button
             bgcolor='#3ea6ff'
             color='#3ea6ff'
             startIcon={<ArrowDropDownIcon />}
             onClick={() => setShowComments(prevState => !prevState)}
           >
-            Replies
+            {comment.comments} Replies
           </Button>
         )}
 

@@ -1,4 +1,5 @@
 import type {
+  CommentComments,
   CommentContent,
   CommentDislikes,
   CommentId,
@@ -22,7 +23,7 @@ export interface CommentItem {
   dislikes: CommentDislikes
   liked: boolean
   disliked: boolean
-  has_comments: boolean
+  comments: CommentComments
 }
 
 export interface CommentItemAdapter {
@@ -35,5 +36,5 @@ export interface CommentItemAdapter {
   dislikes: CommentDislikes
   liked: boolean
   disliked: boolean
-  hasComments: boolean
+  comments: CommentComments
 }

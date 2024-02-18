@@ -6,5 +6,6 @@ export type CommentPublicationDate = string
 export type CommentWasEdited = boolean
 export type CommentDislikes = number
 export type CommentLikes = number
+export type CommentComments = number
 
 export * from './VideoCommentsParams'
