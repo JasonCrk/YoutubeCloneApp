@@ -1,10 +1,12 @@
-import { FC, MouseEvent } from 'react'
+import type { FC, MouseEvent } from 'react'
 
 import { Link, useNavigate } from 'react-router-dom'
 
 import type { SimpleVideoItemAdapter } from '@/features/video/models'
 
 import Picture from '@/components/ui/Picture'
+
+import VideoThumbnailImg from '@/features/video/components/VideoThumbnailImg'
 
 import { Box, Fade, Tooltip, Typography } from '@mui/material'
 
@@ -30,19 +32,7 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
   return (
     <Box data-testid='BlockVideoItem'>
       <Link to={watchVideoUrl} role='link'>
-        <img
-          src={thumbnailUrl}
-          alt={title}
-          style={{
-            maxWidth: '500px',
-            maxHeight: '250px',
-            width: '100%',
-            height: '100%',
-            borderRadius: '15px',
-            objectFit: 'cover',
-            aspectRatio: 16 / 9
-          }}
-        />
+        <VideoThumbnailImg thumbnailUrl={thumbnailUrl} alt={title} />
       </Link>
 
       <Box
