@@ -6,7 +6,7 @@ import type { SimpleVideoItemAdapter } from '@/features/video/models'
 
 import Picture from '@/components/ui/Picture'
 
-import VideoThumbnailImg from '@/features/video/components/VideoThumbnailImg'
+import ThumbnailImage from '@/components/ui/ThumbnailImage'
 
 import { Box, Fade, Tooltip, Typography } from '@mui/material'
 
@@ -32,7 +32,7 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
   return (
     <Box data-testid='BlockVideoItem'>
       <Link to={watchVideoUrl} role='link'>
-        <VideoThumbnailImg thumbnailUrl={thumbnailUrl} alt={title} />
+        <ThumbnailImage thumbnailUrl={thumbnailUrl} alt={title} />
       </Link>
 
       <Box

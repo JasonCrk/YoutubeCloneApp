@@ -1,13 +1,11 @@
 import type { FC } from 'react'
 
-import { VideoThumbnail } from '@/features/video/types'
-
 interface Props {
-  thumbnailUrl: VideoThumbnail
+  thumbnailUrl: string
   alt: string
 }
 
-const VideoThumbnailImg: FC<Props> = ({ alt, thumbnailUrl }) => {
+const ThumbnailImage: FC<Props> = ({ alt, thumbnailUrl }) => {
   return (
     <img
       src={thumbnailUrl}
@@ -25,4 +23,4 @@ const VideoThumbnailImg: FC<Props> = ({ alt, thumbnailUrl }) => {
   )
 }
 
-export default VideoThumbnailImg
+export default ThumbnailImage
