@@ -4,7 +4,9 @@ import { useFetchOwnPlaylists } from '@/features/playlist/hooks'
 
 import NavbarAsideLink from '@/components/ui/NavbarAsideLink'
 
-import { Box, Stack } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
+
+import { red } from '@mui/material/colors'
 
 import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay'
 
@@ -15,9 +17,16 @@ const NavbarAsidePlaylistLinkList: FC = () => {
 
   if (isError)
     return (
-      <Box textAlign='center' width='100%' py={4} px={2}>
+      <Typography
+        component='p'
+        variant='subtitle1'
+        color={red[500]}
+        textAlign='center'
+        py={6}
+        px={2}
+      >
         You are not authenticated
-      </Box>
+      </Typography>
     )
 
   if (isSuccess && ownPlaylists)
