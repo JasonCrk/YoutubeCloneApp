@@ -1,13 +1,34 @@
-import { ListResponse, MessageResponse } from '@/models/responses'
+import type { ListResponse, MessageResponse } from '@/models/responses'
 
-import { ListChannel, CreateChannelInputs } from '@/features/channel/models'
-import { ChannelId } from '@/features/channel/types'
-import { protectedChannelEndpoint } from '@/features/channel/services'
+import type {
+  ListChannel,
+  CreateChannelInputs,
+  ChannelDetails
+} from '@/features/channel/models'
+import type { ChannelHandle, ChannelId } from '@/features/channel/types'
+import {
+  optionalAuthChannelEndpoint,
+  protectedChannelEndpoint
+} from '@/features/channel/services'
 
 export const retrieveOwnChannelsService = async (): Promise<
   ListResponse<ListChannel>
 > => {
   const response = await protectedChannelEndpoint.get('/own/')
+  return response.data
+}
+
+export const retrieveChannelDetailsByHandleService = async (
+  handle: ChannelHandle
+): Promise<ChannelDetails> => {
+  const response = await optionalAuthChannelEndpoint.get('/by-handle/' + handle)
+  return response.data
+}
+
+export const retrieveChannelDetailsByChannelIdService = async (
+  channelId: ChannelId
+): Promise<ChannelDetails> => {
+  const response = await optionalAuthChannelEndpoint.get('/by-id/' + channelId)
   return response.data
 }
 

@@ -8,6 +8,8 @@ import {
   videoEndpoint
 } from '@/features/video/services'
 
+import type { ChannelId } from '@/features/channel/types'
+
 export const retrieveTrendingVideosService = async (): Promise<
   ListResponse<SimpleVideoItem>
 > => {
@@ -21,6 +23,15 @@ export const retrieveVideoDetailsService = async (
 ): Promise<VideoDetails> => {
   const response = await optionalProtectVideoEndpoint.get<VideoDetails>(
     `/${videoId}/`
+  )
+  return response.data
+}
+
+export const retrieveChannelVideosService = async (
+  channelId: ChannelId
+): Promise<ListResponse<SimpleVideoItem>> => {
+  const response = await videoEndpoint.get<ListResponse<SimpleVideoItem>>(
+    `/channel/${channelId}`
   )
   return response.data
 }
