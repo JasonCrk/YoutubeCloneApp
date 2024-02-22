@@ -1,39 +1,29 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 
-import { useQuery } from '@tanstack/react-query'
-
-import { listResponseAdapter } from '@/adapters/listResponse.adapter'
-
-import { retrieveOwnPlaylistsService } from '@/features/playlist/services'
-import { simplePlaylistAdapter } from '@/features/playlist/adapters'
+import { useFetchOwnPlaylists } from '@/features/playlist/hooks'
 
 import NavbarAsideLink from '@/components/ui/NavbarAsideLink'
 
-import { Stack } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 
 import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay'
 
 const NavbarAsidePlaylistLinkList: FC = () => {
-  const {
-    data: playlists,
-    isLoading,
-    isSuccess
-  } = useQuery({
-    queryKey: ['ownPlaylists'],
-    queryFn: async () => {
-      const unadaptedPlaylists = await retrieveOwnPlaylistsService()
-      return listResponseAdapter(unadaptedPlaylists, simplePlaylistAdapter)
-    },
-    refetchOnWindowFocus: false
-  })
+  const { ownPlaylists, isLoading, isError, isSuccess } = useFetchOwnPlaylists()
 
   if (isLoading) return null
 
-  return (
-    <Stack data-testid='NavbarAsidePlaylistLinkList'>
-      {isSuccess &&
-        playlists &&
-        playlists.map(playlist => (
+  if (isError)
+    return (
+      <Box textAlign='center' width='100%' py={4} px={2}>
+        You are not authenticated
+      </Box>
+    )
+
+  if (isSuccess && ownPlaylists)
+    return (
+      <Stack data-testid='NavbarAsidePlaylistLinkList'>
+        {ownPlaylists.map(playlist => (
           <NavbarAsideLink
             key={playlist.id}
             activeIcon={<PlaylistPlayIcon />}
@@ -41,8 +31,8 @@ const NavbarAsidePlaylistLinkList: FC = () => {
             title={playlist.name}
           />
         ))}
-    </Stack>
-  )
+      </Stack>
+    )
 }
 
 export default NavbarAsidePlaylistLinkList
