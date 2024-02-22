@@ -1,45 +1,41 @@
-import { FC } from 'react'
+import type { FC } from 'react'
 
-import { useQuery } from '@tanstack/react-query'
+import { useFetchSubscribedChannels } from '@/features/subscription/hooks'
 
-import { listResponseAdapter } from '@/adapters/index'
-
-import { retrieveSubscribedChannelsService } from '@/features/subscription/services'
-
-import { simpleChannelAdapter } from '@/features/channel/adapters'
 import NavbarAsideSubscriptionLink from '@/features/subscription/components/NavbarAsideSubscriptionLink'
 
-import { Stack } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
+
+import { red } from '@mui/material/colors'
 
 const NavbarAsideSubscriptionLinkList: FC = () => {
-  const {
-    data: subscribedChannels,
-    isLoading,
-    isSuccess
-  } = useQuery({
-    queryKey: ['subscribedChannels'],
-    queryFn: async () => {
-      const unadaptedSubscribedChannels =
-        await retrieveSubscribedChannelsService()
-      return listResponseAdapter(
-        unadaptedSubscribedChannels,
-        simpleChannelAdapter
-      )
-    },
-    refetchOnWindowFocus: false
-  })
+  const { subscribedChannels, isLoading, isSuccess, isError } =
+    useFetchSubscribedChannels()
 
   if (isLoading) return null
 
-  return (
-    <Stack data-testid='NavbarAsideSubscriptionLinkList'>
-      {isSuccess &&
-        subscribedChannels &&
-        subscribedChannels.map(channel => (
+  if (isError)
+    return (
+      <Typography
+        component='p'
+        variant='subtitle1'
+        color={red[500]}
+        textAlign='center'
+        py={6}
+        px={2}
+      >
+        You are not authenticated
+      </Typography>
+    )
+
+  if (isSuccess && subscribedChannels)
+    return (
+      <Stack data-testid='NavbarAsideSubscriptionLinkList'>
+        {subscribedChannels.map(channel => (
           <NavbarAsideSubscriptionLink key={channel.id} {...channel} />
         ))}
-    </Stack>
-  )
+      </Stack>
+    )
 }
 
 export default NavbarAsideSubscriptionLinkList
