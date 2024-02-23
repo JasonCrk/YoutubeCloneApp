@@ -1,8 +1,9 @@
-import { FC, MouseEvent, ReactNode } from 'react'
+import type { FC, MouseEvent, ReactNode } from 'react'
 
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { ListItem, ListItemButton } from '@mui/material'
+
 import { grey } from '@mui/material/colors'
 
 interface Props {
@@ -15,7 +16,7 @@ const ListItemLinkWrapper: FC<Props> = ({ children, href, testId }) => {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const isActive = location.pathname === href
+  const isActive = location.pathname.startsWith(href)
 
   const handleLink = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
