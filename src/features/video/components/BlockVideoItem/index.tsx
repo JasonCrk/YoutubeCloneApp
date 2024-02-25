@@ -5,10 +5,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import type { SimpleVideoItemAdapter } from '@/features/video/models'
 
 import Picture from '@/components/ui/Picture'
-
 import ThumbnailImage from '@/components/ui/ThumbnailImage'
 
-import { Box, Fade, Tooltip, Typography } from '@mui/material'
+import ChannelNameLink from '@/features/channel/components/ChannelNameLink'
+
+import { Box, Typography } from '@mui/material'
 
 import { getTimeAgo } from '@/utils/datetimeFormats'
 
@@ -39,7 +40,7 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
         pt={1}
         gap={1}
         onClick={() => navigate(watchVideoUrl)}
-        display={'flex'}
+        display='flex'
         sx={{ cursor: 'pointer' }}
       >
         <Link
@@ -51,13 +52,13 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
           <Picture
             src={channel.pictureUrl}
             name={channel.name}
-            sx={{ width: '36px', height: '36px' }}
+            sx={{ width: '36px' }}
           />
         </Link>
 
         <Box>
           <Typography
-            component={'p'}
+            component='p'
             title={title}
             sx={{
               color: 'white',
@@ -73,33 +74,14 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
             {title}
           </Typography>
 
-          <div>
-            <Tooltip
-              title={channel.name}
-              TransitionComponent={Fade}
-              TransitionProps={{ timeout: 400 }}
-              placement='top'
-            >
-              <Typography
-                component={Link}
-                to={channelUrl}
-                onClick={handleLinkChannel}
-                sx={{
-                  color: 'gray',
-                  fontSize: '0.9rem',
-                  '&:hover': { color: 'white' },
-                  transition: 'color 0.2s',
-                  textDecoration: 'none'
-                }}
-              >
-                {channel.name}
-              </Typography>
-            </Tooltip>
+          <ChannelNameLink
+            channelName={channel.name}
+            channelHandle={channel.handle}
+          />
 
-            <Typography color={'gray'} fontSize={'0.9rem'}>
-              {views} views • {getTimeAgo(publicationDate)}
-            </Typography>
-          </div>
+          <Typography color='gray' fontSize='0.9rem'>
+            {views} views • {getTimeAgo(publicationDate)}
+          </Typography>
         </Box>
       </Box>
     </Box>
