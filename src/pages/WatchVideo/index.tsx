@@ -57,7 +57,7 @@ const WatchVideoPage: FC = () => {
           pr={2.5}
           sx={{ gridColumnStart: isTheaterViewMode ? 2 : undefined }}
         >
-          <SuggestionVideoList />
+          <SuggestionVideoList videoId={video.id} />
         </Box>
 
         <Box

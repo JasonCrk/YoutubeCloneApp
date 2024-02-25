@@ -18,6 +18,15 @@ export const retrieveTrendingVideosService = async (): Promise<
   return response.data
 }
 
+export const retrieveSuggestionVideosService = async (
+  videoId: VideoId
+): Promise<ListResponse<SimpleVideoItem>> => {
+  const response = await videoEndpoint.get<ListResponse<SimpleVideoItem>>(
+    `/${videoId}/suggestions/`
+  )
+  return response.data
+}
+
 export const retrieveVideoDetailsService = async (
   videoId: VideoId
 ): Promise<VideoDetails> => {
