@@ -16,7 +16,9 @@ export const useFetchChannelDetailsByChannelId = (channelId: ChannelId) => {
     queryFn: async () => {
       const channel = await retrieveChannelDetailsByChannelIdService(channelId)
       return channelDetailsAdapter(channel)
-    }
+    },
+    enabled: !!channelId,
+    refetchOnWindowFocus: false
   })
 
   return { channelDetails, ...queryResult }

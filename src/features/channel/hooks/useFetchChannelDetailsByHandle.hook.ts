@@ -16,7 +16,9 @@ export const useFetchChannelDetailsByHandle = (handle: ChannelHandle) => {
     queryFn: async () => {
       const channel = await retrieveChannelDetailsByHandleService(handle)
       return channelDetailsAdapter(channel)
-    }
+    },
+    enabled: !!handle,
+    refetchOnWindowFocus: false
   })
 
   return { channelDetails, ...queryResult }
