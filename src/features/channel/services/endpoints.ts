@@ -47,3 +47,13 @@ export const createChannelService = async (
   )
   return response.data
 }
+
+export const updateChannelService = async (
+  channelData: FormData
+): Promise<MessageResponse> => {
+  const response = await protectedChannelEndpoint.patch<MessageResponse>(
+    '/edit/',
+    channelData
+  )
+  return response.data
+}

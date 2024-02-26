@@ -8,9 +8,8 @@ import { useAppSelector } from '@/store/hooks'
 
 import type { ChannelDetailsAdapter } from '@/features/channel/models'
 
-import Picture from '@/components/ui/Picture'
-
 import SubscribeButton from '@/features/subscription/components/SubscribeButton'
+import ChannelProfilePicture from '@/features/channel/components/ChannelProfilePicture'
 import ChannelProfileTabsNavigation from '@/features/channel/components/ChannelProfileTabsNavigation'
 
 import { Box, Container, Stack, Tooltip, Typography } from '@mui/material'
@@ -73,10 +72,9 @@ const ChannelProfileSection: FC<Props> = ({
             )}
 
             <Box display='flex' gap={3} my={2}>
-              <Picture
+              <ChannelProfilePicture
                 name={channel.name}
-                src={channel.pictureUrl}
-                sx={{ width: '160px', height: '160px', fontSize: '4rem' }}
+                pictureUrl={channel.pictureUrl}
               />
 
               <Stack spacing={0.5} alignItems='start'>
