@@ -2,7 +2,13 @@ import { useState, type FC, type ChangeEvent } from 'react'
 
 import { useQueryClient } from '@tanstack/react-query'
 
-import type { ChannelName, ChannelPictureUrl } from '@/features/channel/types'
+import { useAppSelector } from '@/store/hooks'
+
+import type {
+  ChannelId,
+  ChannelName,
+  ChannelPictureUrl
+} from '@/features/channel/types'
 import { useUpdateChannel } from '@/features/channel/hooks'
 
 import Picture from '@/components/ui/Picture'
@@ -12,11 +18,14 @@ import { Box, CircularProgress, Tooltip } from '@mui/material'
 import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined'
 
 interface Props {
+  id: ChannelId
   name: ChannelName
   pictureUrl: ChannelPictureUrl
 }
 
-const ChannelProfilePicture: FC<Props> = ({ name, pictureUrl }) => {
+const ChannelProfilePicture: FC<Props> = ({ id, name, pictureUrl }) => {
+  const { isAuth, user } = useAppSelector(state => state.auth)
+
   const [updateChannelPicture, setUpdateChannelPicture] = useState(false)
 
   const queryClient = useQueryClient()
@@ -40,11 +49,15 @@ const ChannelProfilePicture: FC<Props> = ({ name, pictureUrl }) => {
     })
   }
 
+  const handleShowUpdateChannelPicture = (value: boolean) => {
+    if (isAuth && user?.currentChannel.id === id) setUpdateChannelPicture(value)
+  }
+
   return (
     <Box
       position='relative'
-      onMouseEnter={() => setUpdateChannelPicture(true)}
-      onMouseLeave={() => setUpdateChannelPicture(false)}
+      onMouseEnter={() => handleShowUpdateChannelPicture(true)}
+      onMouseLeave={() => handleShowUpdateChannelPicture(false)}
     >
       {updateChannelPicture && !updateChannelIsPending && (
         <Tooltip title='Edit profile picture'>
