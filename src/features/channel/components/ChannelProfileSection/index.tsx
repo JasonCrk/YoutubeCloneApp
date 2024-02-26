@@ -2,6 +2,8 @@ import type { FC } from 'react'
 
 import { Outlet } from 'react-router-dom'
 
+import { useQueryClient } from '@tanstack/react-query'
+
 import { MessageResponse } from '@/models/responses'
 
 import { useAppSelector } from '@/store/hooks'
@@ -30,6 +32,12 @@ const ChannelProfileSection: FC<Props> = ({
   error
 }) => {
   const user = useAppSelector(state => state.auth.user)
+
+  const queryClient = useQueryClient()
+
+  const handleSuccessfulSubscription = () => {
+    queryClient.invalidateQueries({ queryKey: ['channelProfile'] })
+  }
 
   if (isLoading)
     return (
@@ -73,6 +81,7 @@ const ChannelProfileSection: FC<Props> = ({
 
             <Box display='flex' gap={3} my={2}>
               <ChannelProfilePicture
+                id={channel.id}
                 name={channel.name}
                 pictureUrl={channel.pictureUrl}
               />
@@ -107,6 +116,7 @@ const ChannelProfileSection: FC<Props> = ({
                   <SubscribeButton
                     channelId={channel.id}
                     subscribed={channel.isSubscribed}
+                    onSuccessfulSubscription={handleSuccessfulSubscription}
                   />
                 )}
               </Stack>
