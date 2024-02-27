@@ -3,7 +3,7 @@ import { useState, type FC } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 import { useAppSelector } from '@/store/hooks'
-import { listResponseAdapter } from '@/adapters/listResponse.adapter'
+import { listResponseAdapter } from '@/adapters'
 
 import { OptionsMenuTypes } from '@/features/channel/types'
 import { retrieveOwnChannelsService } from '@/features/channel/services'
@@ -21,9 +21,10 @@ interface Props {
 }
 
 const SwitchAccountOptionsMenu: FC<Props> = ({ onChangeMenu }) => {
-  const user = useAppSelector(state => state.auth.user!)
   const [isLoadingSwitchChannel, setIsLoadingSwitchChannel] =
     useState<boolean>(false)
+
+  const user = useAppSelector(state => state.auth.user!)
 
   const { data: channels, isSuccess } = useQuery({
     queryKey: ['ownChannels'],
