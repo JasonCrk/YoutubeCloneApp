@@ -59,7 +59,7 @@ describe('<NavbarAsideLink />', () => {
     expect(link).toHaveAttribute('href', href)
   })
 
-  it('Should show the active icon if the pathname is equal to the href', () => {
+  it('Should show the active icon if the pathname starts with the href', () => {
     const pathname = '/'
 
     render(
@@ -71,7 +71,7 @@ describe('<NavbarAsideLink />', () => {
       />,
       {
         routerOptions: {
-          initialEntries: [pathname]
+          initialEntries: ['/test']
         }
       }
     )
@@ -80,17 +80,17 @@ describe('<NavbarAsideLink />', () => {
     expect(activeIcon).toBeInTheDocument()
   })
 
-  it("Shouldn't contain the active icon if the pathname is not equal to the href", () => {
+  it("Shouldn't contain the active icon if the pathname not starts with the href", () => {
     render(
       <NavbarAsideLink
         activeIcon={<HomeIcon data-testid={ACTIVE_ICON_ID} />}
         noActiveIcon={<HomeOutlinedIcon />}
-        href='/'
+        href='/active'
         title='link'
       />,
       {
         routerOptions: {
-          initialEntries: ['/test']
+          initialEntries: ['/no-active']
         }
       }
     )
@@ -99,17 +99,17 @@ describe('<NavbarAsideLink />', () => {
     expect(activeIcon).toBeNull()
   })
 
-  it('Should contain the no active icon if the pathname is not equal to the href', () => {
+  it('Should contain the no active icon if the pathname not starts with the href', () => {
     render(
       <NavbarAsideLink
         activeIcon={<HomeIcon />}
         noActiveIcon={<HomeOutlinedIcon data-testid={NO_ACTIVE_ICON_ID} />}
-        href={'/'}
+        href={'/active'}
         title='link'
       />,
       {
         routerOptions: {
-          initialEntries: ['/test']
+          initialEntries: ['/no-active']
         }
       }
     )
@@ -118,7 +118,7 @@ describe('<NavbarAsideLink />', () => {
     expect(noActiveIcon).toBeInTheDocument()
   })
 
-  it("Shouldn't contain the no active icon if the pathname is equal to the href", () => {
+  it("Shouldn't contain the no active icon if the pathname starts with the href", () => {
     const pathname = '/'
 
     render(
