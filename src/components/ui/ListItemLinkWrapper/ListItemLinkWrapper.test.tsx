@@ -62,7 +62,7 @@ describe('<ListItemLinkWrapper />', () => {
     expect(link).toHaveAttribute('href', href)
   })
 
-  it('Should the isActive variable be equal to true if href is equal to the window pathname', () => {
+  it('Should the isActive variable be equal to true if href start with the window pathname', () => {
     const href = '/'
 
     render(
@@ -80,8 +80,8 @@ describe('<ListItemLinkWrapper />', () => {
     expect(isActiveMessage).toBeInTheDocument()
   })
 
-  it('Should the isActive variable be equal to false if href is not equal to the window pathname', () => {
-    const href = '/'
+  it('Should the isActive variable be equal to false if href start with the window pathname', () => {
+    const href = '/test'
 
     render(
       <ListItemLinkWrapper href={href}>
@@ -89,7 +89,7 @@ describe('<ListItemLinkWrapper />', () => {
       </ListItemLinkWrapper>,
       {
         routerOptions: {
-          initialEntries: ['/test']
+          initialEntries: ['/']
         }
       }
     )
