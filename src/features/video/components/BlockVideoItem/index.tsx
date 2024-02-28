@@ -1,6 +1,8 @@
-import type { FC, MouseEvent } from 'react'
+import { useState, type FC, type MouseEvent } from 'react'
 
 import { Link, useNavigate } from 'react-router-dom'
+
+import { useAppSelector } from '@/store/hooks'
 
 import type { SimpleVideoItemAdapter } from '@/features/video/models'
 
@@ -8,6 +10,7 @@ import Picture from '@/components/ui/Picture'
 import ThumbnailImage from '@/components/ui/ThumbnailImage'
 
 import ChannelNameLink from '@/features/channel/components/ChannelNameLink'
+import VideoOptionsButton from '@/features/video/components/VideoOptionsButton'
 
 import { Box, Typography } from '@mui/material'
 
@@ -21,6 +24,10 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
   publicationDate,
   views
 }) => {
+  const isAuth = useAppSelector(state => state.auth.isAuth)
+
+  const [showVideoOptions, setShowVideoOptions] = useState(false)
+
   const watchVideoUrl = '/watch?v=' + videoId
   const channelUrl = '/' + channel.handle
 
@@ -31,7 +38,15 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
   }
 
   return (
-    <Box data-testid='BlockVideoItem'>
+    <Box
+      data-testid='BlockVideoItem'
+      onMouseEnter={() => {
+        if (isAuth) setShowVideoOptions(true)
+      }}
+      onMouseLeave={() => {
+        if (isAuth) setShowVideoOptions(false)
+      }}
+    >
       <Link to={watchVideoUrl} role='link'>
         <ThumbnailImage thumbnailUrl={thumbnailUrl} alt={title} />
       </Link>
@@ -56,7 +71,18 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
           />
         </Link>
 
-        <Box>
+        <Box position='relative' flexGrow={1}>
+          {showVideoOptions && (
+            <Box
+              position='absolute'
+              right={0}
+              top={0}
+              onClick={event => event.stopPropagation()}
+            >
+              <VideoOptionsButton videoId={videoId} />
+            </Box>
+          )}
+
           <Typography
             component='p'
             title={title}

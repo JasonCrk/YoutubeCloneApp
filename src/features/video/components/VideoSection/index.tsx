@@ -10,8 +10,9 @@ import ChannelInfo from '@/features/channel/components/ChannelInfo'
 import SubscribeButton from '@/features/subscription/components/SubscribeButton'
 import LikeAndDislikeVideoButtons from '@/features/video/components/LikeAndDislikeVideoButtons'
 import VideoCommentsSection from '@/features/comment/components/VideoCommentsSection'
+import SaveVideoToPlaylistButton from '@/features/playlist/components/SaveVideoToPlaylistsButton'
 
-import { Box, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 
 import { getTimeAgo } from '@/utils/datetimeFormats'
 
@@ -44,7 +45,7 @@ const VideoSection: FC<Props> = ({ video }) => {
           />
         </Box>
 
-        <Box display='flex' gap={1} alignItems='center'>
+        <Stack direction='row' spacing={1} alignItems='center'>
           <LikeAndDislikeVideoButtons
             videoId={video.id}
             totalDislikes={video.totalDislikes}
@@ -52,7 +53,9 @@ const VideoSection: FC<Props> = ({ video }) => {
             isDislike={video.isDislike}
             isLike={video.isLike}
           />
-        </Box>
+
+          <SaveVideoToPlaylistButton videoId={video.id} />
+        </Stack>
       </Box>
 
       <Box bgcolor='background.paper' borderRadius='10px' p={2}>

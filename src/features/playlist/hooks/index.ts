@@ -1,2 +1,7 @@
 export * from './useFetchChannelPlaylists.hook'
 export * from './useFetchOwnPlaylists.hook'
+export * from './useFetchOwnPlaylistsToSaveVideo.hook'
+export * from './useSaveVideoToPlaylistsContext.hook'
+export * from './useSaveVideoToPlaylist.hook'
+export * from './useCreatePlaylist.hook'
+export * from './useRemoveVideoFromPlaylist.hook'
