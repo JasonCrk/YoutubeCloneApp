@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import type { FC, ReactNode } from 'react'
 
 import MenuItemWrapper from '@/components/ui/MenuItemWrapper'
 
@@ -15,12 +15,11 @@ const MenuItem: FC<Props> = ({
   startIcon,
   endIcon,
   children,
-  linkHref,
   onClick,
   ...props
 }) => {
   return (
-    <MenuItemWrapper linkHref={linkHref} onClick={onClick} {...props}>
+    <MenuItemWrapper onClick={onClick} {...props}>
       {startIcon && <ListItemIcon>{startIcon}</ListItemIcon>}
 
       <ListItemText
