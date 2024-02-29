@@ -1,11 +1,8 @@
 import type { FC } from 'react'
 
-import { useMutation } from '@tanstack/react-query'
-
-import { ListChannelAdapter } from '@/features/channel/models'
-import { ChannelId } from '@/features/channel/types'
-
-import { switchChannelService } from '@/features/channel/services'
+import type { ListChannelAdapter } from '@/features/channel/models'
+import type { ChannelId } from '@/features/channel/types'
+import { useSwitchChannel } from '@/features/channel/hooks'
 
 import MenuItemWrapper from '@/components/ui/MenuItemWrapper'
 
@@ -23,20 +20,19 @@ const SelectChannelMenuItem: FC<Props> = ({
   disabled,
   ...channel
 }) => {
-  const { mutate: callSwitchChannel } = useMutation({
-    mutationFn: switchChannelService,
-    onSuccess: () => {
-      window.location.reload()
-    },
-    onError: () => {
-      setDisabled(false)
-    }
-  })
+  const { mutateSwitchChannel } = useSwitchChannel()
 
   const handleSwitchChannel = () => {
     if (currentChannelId !== channel.id && !disabled) {
       setDisabled(true)
-      callSwitchChannel(channel.id)
+      mutateSwitchChannel(channel.id, {
+        onSuccess: () => {
+          window.location.reload()
+        },
+        onError: () => {
+          setDisabled(false)
+        }
+      })
     }
   }
 
