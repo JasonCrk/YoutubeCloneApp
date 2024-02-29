@@ -8,8 +8,17 @@ import { render } from '@/utils/testing/render'
 
 import { getTimeAgo } from '@/utils/datetimeFormats'
 
+import * as hooks from '@/hooks'
+
 describe('<VideoSection />', () => {
-  afterEach(cleanup)
+  const useLazyLoadSpy = vi
+    .spyOn(hooks, 'useLazyLoad')
+    .mockReturnValue([{ current: {} }, false])
+
+  afterEach(() => {
+    cleanup()
+    useLazyLoadSpy.mockClear()
+  })
 
   it('Should contain the video title', () => {
     render(<VideoSection video={videoDetailsAdapterMock} />)
@@ -39,7 +48,7 @@ describe('<VideoSection />', () => {
     render(<VideoSection video={videoDetailsAdapterMock} />)
 
     const likeAndDislikeButtonGroups = screen.queryByTestId(
-      'LikeAndDislikeButtonGroups'
+      'LikeAndDislikeVideoButtons'
     )
 
     expect(likeAndDislikeButtonGroups).toBeInTheDocument()
