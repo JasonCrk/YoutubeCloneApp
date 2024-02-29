@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { type FC, useState } from 'react'
 
 import { useAppSelector } from '@/store/hooks'
 
@@ -8,6 +8,7 @@ import FooterLink from '@/components/ui/FooterLink'
 import SignInButton from '@/features/auth/components/SignInButton'
 import NavbarAsideSubscriptionLinkList from '@/features/subscription/components/NavbarAsideSubscriptionLinkList'
 import NavbarAsidePlaylistLinkList from '@/features/playlist/components/NavbarAsidePlaylistLinkList'
+import NavbarAsideButton from '@/components/ui/NavbarAsideButton'
 
 import { Box, Divider, List, Stack, Typography } from '@mui/material'
 
@@ -22,7 +23,8 @@ import {
   SubscriptionsOutlined as SubscriptionsOutlinedIcon,
   ArrowForwardIos as ArrowForwardIosIcon,
   ThumbUpOutlined as LikedVideosOutlinedIcon,
-  ThumbUp as LikedVideosIcon
+  ThumbUp as LikedVideosIcon,
+  KeyboardArrowDown as KeyboardArrowDownIcon
 } from '@mui/icons-material'
 
 interface Props {
@@ -31,6 +33,8 @@ interface Props {
 
 const FullNavbarAside: FC<Props> = ({ disablePaddingTop }) => {
   const { isAuth, user } = useAppSelector(state => state.auth)
+
+  const [showPlaylists, setShowPlaylists] = useState(false)
 
   return (
     <Stack
@@ -98,7 +102,15 @@ const FullNavbarAside: FC<Props> = ({ disablePaddingTop }) => {
               title='Liked videos'
             />
 
-            <NavbarAsidePlaylistLinkList />
+            {showPlaylists ? (
+              <NavbarAsidePlaylistLinkList />
+            ) : (
+              <NavbarAsideButton
+                icon={<KeyboardArrowDownIcon />}
+                onClick={() => setShowPlaylists(true)}
+                title='Show more'
+              />
+            )}
           </List>
         ) : (
           <List data-testid='noAuthLinks'>
