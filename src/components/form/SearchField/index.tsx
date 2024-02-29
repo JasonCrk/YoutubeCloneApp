@@ -28,7 +28,7 @@ const SearchField: FC = () => {
 
   const handleSearch = () => {
     if (searchQuery === '') return
-    navigate('/search?search_query=' + searchQuery)
+    navigate('/results?search_query=' + searchQuery)
   }
 
   return (

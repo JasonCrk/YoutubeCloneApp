@@ -21,6 +21,7 @@ describe('<SearchField />', () => {
 
   afterEach(() => {
     cleanup()
+    useNavigateMock.mockClear()
   })
 
   it('Should render component', () => {
@@ -85,7 +86,7 @@ describe('<SearchField />', () => {
 
     expect(navigateMock).toHaveBeenCalledOnce()
     expect(navigateMock).toHaveBeenCalledWith(
-      '/search?search_query=' + searchQuery
+      '/results?search_query=' + searchQuery
     )
   })
 
@@ -108,7 +109,7 @@ describe('<SearchField />', () => {
 
     expect(navigateMock).toHaveBeenCalledOnce()
     expect(navigateMock).toHaveBeenCalledWith(
-      '/search?search_query=' + searchQuery
+      '/results?search_query=' + searchQuery
     )
   })
 })
