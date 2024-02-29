@@ -1,23 +1,19 @@
-import { FC } from 'react'
-
-import { useMutation } from '@tanstack/react-query'
+import type { FC } from 'react'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import {
+import type {
   SignUpInputsAdapter,
   SignUpResponseAdapter
 } from '@/features/auth/models'
-import { signUpService } from '@/features/auth/services'
+import { useSignUp } from '@/features/auth/hooks'
 import { signUpResponseAdapter } from '@/features/auth/adapters'
 import { signUpValidator } from '@/features/auth/validators'
 
 import PasswordField from '@/features/auth/components/PasswordField'
 
 import { Button, Stack, TextField, Typography } from '@mui/material'
-
-import toast from 'react-hot-toast'
 
 interface Props {
   onSuccess?: (data: SignUpResponseAdapter) => void
@@ -33,38 +29,28 @@ const SignUpForm: FC<Props> = ({ onSuccess, onSettled }) => {
     resolver: zodResolver(signUpValidator)
   })
 
-  const { mutate: callSignUpService, isPending } = useMutation({
-    mutationFn: signUpService,
-    onSettled,
-    onSuccess: signUpData => {
-      const adaptedSignUpData = signUpResponseAdapter(signUpData)
-      toast.success(
-        'You have received a link in your email to activate your account.',
-        {
-          duration: 4000
-        }
-      )
-      if (onSuccess) onSuccess(adaptedSignUpData)
-    },
-    onError: () => {
-      toast.error('An error occurred', {
-        duration: 4000
-      })
-    }
-  })
+  const { mutateSignUp, isPending } = useSignUp()
 
   const handleSignUp = handleSubmit(userData => {
-    callSignUpService(userData)
+    mutateSignUp(userData, {
+      onSuccess: signUpData => {
+        if (onSuccess) {
+          const adaptedSignUpData = signUpResponseAdapter(signUpData)
+          onSuccess(adaptedSignUpData)
+        }
+      },
+      onSettled
+    })
   })
 
   return (
     <Stack
       data-testid='SignUpForm'
-      component={'form'}
+      component='form'
       spacing={2}
       onSubmit={handleSignUp}
     >
-      <Typography component={'h2'} variant='h4' textAlign={'center'}>
+      <Typography component='h2' variant='h4' textAlign='center'>
         Sign up
       </Typography>
 
