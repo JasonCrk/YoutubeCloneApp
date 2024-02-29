@@ -52,6 +52,66 @@ const ChannelProfileSection: FC<Props> = ({
   if (channel)
     return (
       <Box pt='56px' width='100%' color='white'>
+        <Container
+          maxWidth='lg'
+          component='section'
+          sx={{
+            display: 'flex',
+            flexDirection: 'column'
+          }}
+        >
+          {channel.bannerUrl && (
+            <img
+              src={channel.bannerUrl}
+              alt={channel.name + ' banner'}
+              width='100%'
+              height='172px'
+              style={{ borderRadius: '15px' }}
+            />
+          )}
+
+          <Box display='flex' gap={3} my={2}>
+            <ChannelProfilePicture
+              id={channel.id}
+              name={channel.name}
+              pictureUrl={channel.pictureUrl}
+            />
+
+            <Stack spacing={0.5} alignItems='start'>
+              <Tooltip title={channel.name} placement='top'>
+                <Typography component='h2' variant='h4' fontWeight='bold'>
+                  {channel.name}
+                </Typography>
+              </Tooltip>
+
+              <Typography component='p' variant='body2' color='grey'>
+                {channel.handle} •{' '}
+                {channel.totalSubscribers > 0 ? channel.totalSubscribers : 'No'}{' '}
+                subscribers • {channel.totalVideos} videos
+              </Typography>
+
+              <Typography
+                variant='body2'
+                color='grey'
+                display='flex'
+                gap={0.5}
+                alignItems='center'
+              >
+                <span>More about this channel</span>
+                <KeyboardArrowRightIcon />
+              </Typography>
+
+              {user?.currentChannel.id !== channel.id && (
+                <SubscribeButton
+                  channelId={channel.id}
+                  subscribed={channel.isSubscribed}
+                  onSuccessfulSubscription={handleSuccessfulSubscription}
+                />
+              )}
+            </Stack>
+          </Box>
+        </Container>
+
         <Box
           position='sticky'
           top='56px'
@@ -60,68 +120,9 @@ const ChannelProfileSection: FC<Props> = ({
           borderBottom={1}
           borderColor='divider'
           zIndex={10}
+          component='section'
         >
-          <Container
-            maxWidth='lg'
-            component='section'
-            sx={{
-              display: 'flex',
-              flexDirection: 'column'
-            }}
-          >
-            {channel.bannerUrl && (
-              <img
-                src={channel.bannerUrl}
-                alt={channel.name + ' banner'}
-                width='100%'
-                height='172px'
-                style={{ borderRadius: '15px' }}
-              />
-            )}
-
-            <Box display='flex' gap={3} my={2}>
-              <ChannelProfilePicture
-                id={channel.id}
-                name={channel.name}
-                pictureUrl={channel.pictureUrl}
-              />
-
-              <Stack spacing={0.5} alignItems='start'>
-                <Tooltip title={channel.name} placement='top'>
-                  <Typography component='h2' variant='h4' fontWeight='bold'>
-                    {channel.name}
-                  </Typography>
-                </Tooltip>
-
-                <Typography component='p' variant='body2' color='grey'>
-                  {channel.handle} •{' '}
-                  {channel.totalSubscribers > 0
-                    ? channel.totalSubscribers
-                    : 'No'}{' '}
-                  subscribers • {channel.totalVideos} videos
-                </Typography>
-
-                <Typography
-                  variant='body2'
-                  color='grey'
-                  display='flex'
-                  gap={0.5}
-                  alignItems='center'
-                >
-                  <span>More about this channel</span>
-                  <KeyboardArrowRightIcon />
-                </Typography>
-
-                {user?.currentChannel.id !== channel.id && (
-                  <SubscribeButton
-                    channelId={channel.id}
-                    subscribed={channel.isSubscribed}
-                    onSuccessfulSubscription={handleSuccessfulSubscription}
-                  />
-                )}
-              </Stack>
-            </Box>
-
+          <Container maxWidth='lg'>
             <ChannelProfileTabsNavigation
               channelId={channel.id}
               channelHandle={channel.handle}
@@ -129,7 +130,7 @@ const ChannelProfileSection: FC<Props> = ({
           </Container>
         </Box>
 
-        <Container maxWidth='lg' sx={{ my: 2 }}>
+        <Container maxWidth='lg' sx={{ my: 2 }} component='section'>
           <Outlet
             context={{ channelId: channel.id, channelIsLoading: false }}
           />
