@@ -4,7 +4,7 @@ import { useFetchOwnPlaylists } from '@/features/playlist/hooks'
 
 import NavbarAsideLink from '@/components/ui/NavbarAsideLink'
 
-import { Stack, Typography } from '@mui/material'
+import { Box, CircularProgress, Stack, Typography } from '@mui/material'
 
 import { red } from '@mui/material/colors'
 
@@ -13,7 +13,12 @@ import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay'
 const NavbarAsidePlaylistLinkList: FC = () => {
   const { ownPlaylists, isLoading, isError, isSuccess } = useFetchOwnPlaylists()
 
-  if (isLoading) return null
+  if (isLoading)
+    return (
+      <Box py={2} display='flex' justifyContent='center'>
+        <CircularProgress color='inherit' size='25px' />
+      </Box>
+    )
 
   if (isError)
     return (
