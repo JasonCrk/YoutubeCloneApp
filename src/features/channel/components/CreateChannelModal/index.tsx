@@ -1,15 +1,15 @@
 import type { FC } from 'react'
 
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import toast from 'react-hot-toast'
-
 import type { CreateChannelInputs } from '@/features/channel/models'
-import { useCreateChannelModalContext } from '@/features/channel/hooks'
-import { createChannelService } from '@/features/channel/services'
+import {
+  useCreateChannel,
+  useCreateChannelModalContext
+} from '@/features/channel/hooks'
 import { createChannelValidator } from '@/features/channel/validators'
 
 import { Box, Button, Modal, TextField, Typography } from '@mui/material'
@@ -28,19 +28,15 @@ const CreateChannelModal: FC = () => {
     resolver: zodResolver(createChannelValidator)
   })
 
-  const { mutate: callCreateChannelService, isPending } = useMutation({
-    mutationFn: createChannelService,
-    onSuccess: ({ message }) => {
-      queryClient.invalidateQueries({ queryKey: ['ownChannels'] })
-      toast.success(message, {
-        duration: 3000
-      })
-      handleCloseModal()
-    }
-  })
+  const { mutateCreateChannel, isPending } = useCreateChannel()
 
   const handleCreateChannelSubmit = handleSubmit(channelData => {
-    callCreateChannelService(channelData)
+    mutateCreateChannel(channelData, {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['ownChannels'] })
+        handleCloseModal()
+      }
+    })
   })
 
   const handleCloseModal = () => {
