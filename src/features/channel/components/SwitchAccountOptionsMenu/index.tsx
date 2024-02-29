@@ -1,13 +1,9 @@
 import { useState, type FC } from 'react'
 
-import { useQuery } from '@tanstack/react-query'
-
 import { useAppSelector } from '@/store/hooks'
-import { listResponseAdapter } from '@/adapters'
 
-import { OptionsMenuTypes } from '@/features/channel/types'
-import { retrieveOwnChannelsService } from '@/features/channel/services'
-import { listChannelAdapter } from '@/features/channel/adapters'
+import type { OptionsMenuTypes } from '@/features/channel/types'
+import { useFetchOwnChannels } from '@/features/channel/hooks'
 
 import SelectChannelMenuItem from '@/features/channel/components/SelectChannelItem/Menu'
 import CreateChannelMenuOption from '@/features/channel/components/CreateChannelMenuOption'
@@ -24,19 +20,14 @@ const SwitchAccountOptionsMenu: FC<Props> = ({ onChangeMenu }) => {
   const [isLoadingSwitchChannel, setIsLoadingSwitchChannel] =
     useState<boolean>(false)
 
-  const user = useAppSelector(state => state.auth.user!)
+  const user = useAppSelector(state => state.auth.user)
 
-  const { data: channels, isSuccess } = useQuery({
-    queryKey: ['ownChannels'],
-    queryFn: async () => {
-      const channelList = await retrieveOwnChannelsService()
-      return listResponseAdapter(channelList, listChannelAdapter)
-    },
-    refetchOnWindowFocus: false
-  })
+  const { channels, isSuccess } = useFetchOwnChannels()
 
   const handleDisableMenuItem = (value: boolean) =>
     setIsLoadingSwitchChannel(value)
+
+  if (!user) return null
 
   return (
     <div data-testid='SwitchAccountOptionsMenu'>
