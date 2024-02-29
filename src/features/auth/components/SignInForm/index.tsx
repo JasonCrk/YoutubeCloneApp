@@ -1,17 +1,11 @@
-import { FC } from 'react'
-
-import { useMutation } from '@tanstack/react-query'
+import type { FC } from 'react'
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { SignInInputs } from '@/features/auth/models'
-import { signInService } from '@/features/auth/services'
+import type { SignInInputs } from '@/features/auth/models'
+import { useSignIn } from '@/features/auth/hooks'
 import { signInValidator } from '@/features/auth/validators'
-import {
-  setAccessTokenInLocalStorage,
-  setRefreshTokenInLocalStorage
-} from '@/features/auth/utils/localStorage.util'
 
 import PasswordField from '@/features/auth/components/PasswordField'
 
@@ -31,24 +25,19 @@ const SignInForm: FC<Props> = ({ onSettled, onSuccess }) => {
     resolver: zodResolver(signInValidator)
   })
 
-  const { mutate: callSignInService, isPending } = useMutation({
-    mutationFn: signInService,
-    onSettled,
-    onSuccess: ({ access, refresh }) => {
-      setAccessTokenInLocalStorage(access)
-      setRefreshTokenInLocalStorage(refresh)
-      if (onSuccess) onSuccess()
-    }
-  })
+  const { mutateSignIn, isPending } = useSignIn()
 
   const handleSignInSubmit = handleSubmit(credentials => {
-    callSignInService(credentials)
+    mutateSignIn(credentials, {
+      onSuccess,
+      onSettled
+    })
   })
 
   return (
     <Stack
       spacing={2}
-      component={'form'}
+      component='form'
       data-testid='SignInForm'
       onSubmit={handleSignInSubmit}
     >
