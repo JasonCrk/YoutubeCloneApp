@@ -1,7 +1,11 @@
 import type { FC } from 'react'
 
+import { useAppSelector } from '@/store/hooks'
+
 import type { VideoId } from '@/features/video/types'
 import { useSaveVideoToPlaylistsContext } from '@/features/playlist/hooks'
+
+import { useAuthModalContext } from '@/features/auth/hooks'
 
 import Button from '@/components/ui/Button'
 
@@ -14,7 +18,19 @@ interface Props {
 }
 
 const SaveVideoToPlaylistButton: FC<Props> = ({ videoId }) => {
-  const { onOpen } = useSaveVideoToPlaylistsContext()
+  const isAuth = useAppSelector(state => state.auth.isAuth)
+
+  const { onOpen: onOpenSaveVideoToPlaylist } = useSaveVideoToPlaylistsContext()
+  const { onOpen: onOpenAuthModal } = useAuthModalContext()
+
+  const handleOpenModal = () => {
+    if (!isAuth) {
+      onOpenAuthModal()
+      return
+    }
+
+    onOpenSaveVideoToPlaylist(videoId)
+  }
 
   return (
     <Button
@@ -22,7 +38,7 @@ const SaveVideoToPlaylistButton: FC<Props> = ({ videoId }) => {
       bgcolor={grey[900]}
       startIcon={<PlaylistAddIcon />}
       sx={{ gap: 0.5 }}
-      onClick={() => onOpen(videoId)}
+      onClick={handleOpenModal}
     >
       Save
     </Button>
