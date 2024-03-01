@@ -142,7 +142,7 @@ const VideoPlayer: FC<Props> = ({
       setIsLowVideoVolume(false)
       setIsVideoMuted(false)
     } else {
-      setIsLowVideoVolume(false)
+      setIsLowVideoVolume(true)
       setIsVideoMuted(false)
     }
   }
