@@ -213,9 +213,8 @@ const VideoPlayer: FC<Props> = ({
         onLoadedData={handleLoadedVideoData}
         onLoadStart={handleLoadStartVideo}
         onVolumeChange={handleChangeVideoVolume}
-      >
-        <source src={videoUrl} type='video/mp4'></source>
-      </Video>
+        src={videoUrl}
+      />
 
       {isVideoLoading && (
         <VideoPlayerEffectContainer>
