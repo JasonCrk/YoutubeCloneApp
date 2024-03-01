@@ -19,10 +19,11 @@ import {
   VideoPlayerControlsContainer,
   Video,
   VideoPlayerVolumenContainer,
-  VideoPlayerVolumenSlider
+  VideoPlayerVolumenSlider,
+  VideoPlayerLoading
 } from '@/features/video/components/VideoPlayer/ui'
 
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, CircularProgress, Stack, Typography } from '@mui/material'
 
 import {
   setIsTheaterViewModeInLocalStorage,
@@ -54,6 +55,7 @@ interface States {
   isVideoMuted: boolean
   isLowVideoVolume: boolean
   videoVolumeValue: number
+  isVideoLoading: boolean
 }
 
 const VideoPlayer: FC<Props> = ({
@@ -74,6 +76,8 @@ const VideoPlayer: FC<Props> = ({
     useState<States['isLowVideoVolume']>(false)
   const [videoVolumeValue, setVideoVolumeValue] =
     useState<States['videoVolumeValue']>(1)
+  const [isVideoLoading, setIsVideoLoading] =
+    useState<States['isVideoLoading']>(false)
 
   const timelineContainerRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -88,6 +92,7 @@ const VideoPlayer: FC<Props> = ({
   }, [])
 
   const handleLoadedVideoData = (event: SyntheticEvent<HTMLVideoElement>) => {
+    setIsVideoLoading(false)
     setTotalVideoTime(formatVideoDuration(event.currentTarget.duration))
   }
 
@@ -172,6 +177,10 @@ const VideoPlayer: FC<Props> = ({
     }
   }
 
+  const handleLoadStartVideo = () => {
+    setIsVideoLoading(true)
+  }
+
   return (
     <VideoPlayerContainer
       isTheaterViewMode={isTheaterViewMode}
@@ -187,10 +196,17 @@ const VideoPlayer: FC<Props> = ({
         isTheaterViewMode={isTheaterViewMode}
         onTimeUpdate={handleTimelineTimeUpdate}
         onLoadedData={handleLoadedVideoData}
+        onLoadStart={handleLoadStartVideo}
         onVolumeChange={handleChangeVideoVolume}
       >
         <source src={videoUrl} type='video/mp4'></source>
       </Video>
+
+      {isVideoLoading && (
+        <VideoPlayerLoading>
+          <CircularProgress size='100px' />
+        </VideoPlayerLoading>
+      )}
 
       <VideoPlayerControlsContainer isVideoPlaying={isVideoPlaying}>
         <VideoPlayerTimelineContainer
