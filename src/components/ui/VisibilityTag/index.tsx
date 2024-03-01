@@ -27,17 +27,17 @@ const VisibilityTag: FC<Props> = ({ visibility }) => {
       alignItems='center'
       width='fit-content'
     >
-      {Visibility.ONLY_URL ? (
+      {visibility === Visibility.ONLY_URL ? (
         <>
           <LinkOutlinedIcon fontSize='small' />
           <span>Only url</span>
         </>
-      ) : (
+      ) : visibility === Visibility.PRIVATE ? (
         <>
           <LockOutlinedIcon fontSize='small' />
           <span>Private</span>
         </>
-      )}
+      ) : null}
     </Box>
   )
 }
