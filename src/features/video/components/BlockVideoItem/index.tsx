@@ -46,6 +46,8 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
       onMouseLeave={() => {
         if (isAuth) setShowVideoOptions(false)
       }}
+      display='flex'
+      flexDirection='column'
     >
       <Link to={watchVideoUrl} role='link'>
         <ThumbnailImage thumbnailUrl={thumbnailUrl} alt={title} />
