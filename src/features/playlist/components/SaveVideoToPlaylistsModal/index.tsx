@@ -1,5 +1,7 @@
 import { useState, type FC } from 'react'
 
+import { useQueryClient } from '@tanstack/react-query'
+
 import type { SimplePlaylistAdapter } from '@/features/playlist/models'
 import {
   useSaveVideoToPlaylist,
@@ -24,6 +26,8 @@ import CloseIcon from '@mui/icons-material/Close'
 import AddIcon from '@mui/icons-material/Add'
 
 const SaveVideoToPlaylistsModal: FC = () => {
+  const queryClient = useQueryClient()
+
   const { onClose, isOpen, selectedVideoId } = useSaveVideoToPlaylistsContext()
 
   const [showCreatePlaylistForm, setShowCreatePlaylistForm] = useState(false)
@@ -32,10 +36,20 @@ const SaveVideoToPlaylistsModal: FC = () => {
 
   const handleSaveVideoToPlaylist = (playlist: SimplePlaylistAdapter) => {
     if (selectedVideoId)
-      mutateSaveVideoToPlaylist({
-        playlistId: playlist.id,
-        videoId: selectedVideoId
-      })
+      mutateSaveVideoToPlaylist(
+        {
+          playlistId: playlist.id,
+          videoId: selectedVideoId
+        },
+        {
+          onSuccess: () => {
+            onClose()
+            queryClient.invalidateQueries({
+              queryKey: ['ownPlaylistsToSaveVideo', selectedVideoId]
+            })
+          }
+        }
+      )
   }
 
   return (
