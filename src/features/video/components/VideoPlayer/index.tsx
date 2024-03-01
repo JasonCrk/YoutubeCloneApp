@@ -5,7 +5,7 @@ import {
   type FC,
   type SyntheticEvent,
   type MouseEvent,
-  FormEvent
+  type FormEvent
 } from 'react'
 
 import type { VideoThumbnail, VideoUrl } from '@/features/video/types'
@@ -20,17 +20,18 @@ import {
   Video,
   VideoPlayerVolumenContainer,
   VideoPlayerVolumenSlider,
-  VideoPlayerLoading
+  VideoPlayerEffectContainer,
+  VideoReproduction
 } from '@/features/video/components/VideoPlayer/ui'
 
-import { Box, CircularProgress, Stack, Typography } from '@mui/material'
+import { Box, CircularProgress, Grow, Stack, Typography } from '@mui/material'
 
 import {
   setIsTheaterViewModeInLocalStorage,
   formatVideoDuration
 } from '@/features/video/utils'
 
-import PlayArrowIcon from '@mui/icons-material/PlayArrow'
+import PlayIcon from '@mui/icons-material/PlayArrow'
 import PauseIcon from '@mui/icons-material/Pause'
 import FullscreenIcon from '@mui/icons-material/Fullscreen'
 import DefaultViewIcon from '@mui/icons-material/Crop169'
@@ -56,6 +57,8 @@ interface States {
   isLowVideoVolume: boolean
   videoVolumeValue: number
   isVideoLoading: boolean
+  showPlayAnimation: boolean
+  showPauseAnimation: boolean
 }
 
 const VideoPlayer: FC<Props> = ({
@@ -78,6 +81,10 @@ const VideoPlayer: FC<Props> = ({
     useState<States['videoVolumeValue']>(1)
   const [isVideoLoading, setIsVideoLoading] =
     useState<States['isVideoLoading']>(false)
+  const [showPlayAnimation, setShowPlayAnimation] =
+    useState<States['showPlayAnimation']>(false)
+  const [showPauseAnimation, setShowPauseAnimation] =
+    useState<States['showPauseAnimation']>(false)
 
   const timelineContainerRef = useRef<HTMLDivElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -91,17 +98,18 @@ const VideoPlayer: FC<Props> = ({
     setIsVideoPlaying(true)
   }, [])
 
-  const handleLoadedVideoData = (event: SyntheticEvent<HTMLVideoElement>) => {
-    setIsVideoLoading(false)
-    setTotalVideoTime(formatVideoDuration(event.currentTarget.duration))
-  }
-
   const handlePlayVideo = () => {
-    videoRef.current?.paused
-      ? videoRef.current.play()
-      : videoRef.current?.pause()
-
-    setIsVideoPlaying(prevValue => !prevValue)
+    if (videoRef.current?.paused) {
+      videoRef.current.play()
+      setIsVideoPlaying(true)
+      setShowPlayAnimation(true)
+      setTimeout(() => setShowPlayAnimation(false), 300)
+    } else {
+      videoRef.current?.pause()
+      setIsVideoPlaying(false)
+      setShowPauseAnimation(true)
+      setTimeout(() => setShowPauseAnimation(false), 300)
+    }
   }
 
   const handleFullScreenVideo = () => {
@@ -177,7 +185,14 @@ const VideoPlayer: FC<Props> = ({
     }
   }
 
+  const handleLoadedVideoData = (event: SyntheticEvent<HTMLVideoElement>) => {
+    setIsVideoLoading(false)
+    setIsVideoPlaying(true)
+    setTotalVideoTime(formatVideoDuration(event.currentTarget.duration))
+  }
+
   const handleLoadStartVideo = () => {
+    setIsVideoPlaying(false)
     setIsVideoLoading(true)
   }
 
@@ -189,11 +204,11 @@ const VideoPlayer: FC<Props> = ({
       <Video
         ref={videoRef}
         poster={thumbnail}
-        onClick={handlePlayVideo}
+        isTheaterViewMode={isTheaterViewMode}
+        disablePictureInPicture
         controlsList='nodownload'
         autoPlay={true}
-        disablePictureInPicture
-        isTheaterViewMode={isTheaterViewMode}
+        onClick={handlePlayVideo}
         onTimeUpdate={handleTimelineTimeUpdate}
         onLoadedData={handleLoadedVideoData}
         onLoadStart={handleLoadStartVideo}
@@ -203,10 +218,26 @@ const VideoPlayer: FC<Props> = ({
       </Video>
 
       {isVideoLoading && (
-        <VideoPlayerLoading>
+        <VideoPlayerEffectContainer>
           <CircularProgress size='100px' />
-        </VideoPlayerLoading>
+        </VideoPlayerEffectContainer>
       )}
+
+      <VideoPlayerEffectContainer>
+        <Grow in={showPlayAnimation} timeout={300} unmountOnExit>
+          <VideoReproduction>
+            <PlayIcon sx={{ fontSize: '60px' }} />
+          </VideoReproduction>
+        </Grow>
+      </VideoPlayerEffectContainer>
+
+      <VideoPlayerEffectContainer>
+        <Grow in={showPauseAnimation} timeout={300} unmountOnExit>
+          <VideoReproduction>
+            <PauseIcon sx={{ fontSize: '60px' }} />
+          </VideoReproduction>
+        </Grow>
+      </VideoPlayerEffectContainer>
 
       <VideoPlayerControlsContainer isVideoPlaying={isVideoPlaying}>
         <VideoPlayerTimelineContainer
@@ -228,7 +259,7 @@ const VideoPlayer: FC<Props> = ({
                 isVideoPlaying ? (
                   <PauseIcon fontSize='large' />
                 ) : (
-                  <PlayArrowIcon fontSize='large' />
+                  <PlayIcon fontSize='large' />
                 )
               }
             />
