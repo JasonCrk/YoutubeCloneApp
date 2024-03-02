@@ -1,24 +1,19 @@
 import type { FC } from 'react'
 
-import { useMutation } from '@tanstack/react-query'
-
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import type { UploadVideoInputs } from '@/features/video/models'
-
-import { createVideoService } from '@/features/video/services'
-
-import { useUploadVideoModalContext } from '@/features/video/hooks'
-
+import {
+  useUploadVideoModalContext,
+  useCreateVideo
+} from '@/features/video/hooks'
 import { uploadVideoValidator } from '@/features/video/validations'
 
 import VideoThumbnailField from '@/features/video/components/VideoThumbnailField'
 import VideoField from '@/features/video/components/VideoField'
 
 import { Box, Button, Modal, Stack, TextField } from '@mui/material'
-
-import toast from 'react-hot-toast'
 
 const UploadVideoModal: FC = () => {
   const { isOpen, onClose } = useUploadVideoModalContext()
@@ -33,15 +28,7 @@ const UploadVideoModal: FC = () => {
     resolver: zodResolver(uploadVideoValidator)
   })
 
-  const { mutate: callCreateVideoService, isPending } = useMutation({
-    mutationFn: createVideoService,
-    onSuccess: ({ message }) => {
-      toast.success(message, {
-        duration: 4000
-      })
-      handleCloseModal()
-    }
-  })
+  const { mutateCreateVideo, isPending } = useCreateVideo()
 
   const handleUploadVideoSubmit = handleSubmit(uploadVideoData => {
     const videoData = new FormData()
@@ -51,7 +38,11 @@ const UploadVideoModal: FC = () => {
     videoData.append('thumbnail', uploadVideoData.thumbnail)
     videoData.append('video', uploadVideoData.video)
 
-    callCreateVideoService(videoData)
+    mutateCreateVideo(videoData, {
+      onSuccess: () => {
+        handleCloseModal()
+      }
+    })
   })
 
   const handleCloseModal = () => {
