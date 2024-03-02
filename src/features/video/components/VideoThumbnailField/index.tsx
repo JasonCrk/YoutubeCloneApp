@@ -1,18 +1,21 @@
-import { CSSProperties, ChangeEvent, FC, useState } from 'react'
+import { type ChangeEvent, type FC, useState } from 'react'
 
-import { UseFormSetValue } from 'react-hook-form'
+import type { UseFormSetValue } from 'react-hook-form'
 
-import { Box, IconButton, Typography, useTheme } from '@mui/material'
+import ThumbnailImage from '@/components/ui/ThumbnailImage'
+
+import type { VideoThumbnail } from '@/features/video/types'
+
+import {
+  VideoThumbnailFieldContainer,
+  VideoThumbnailFieldError,
+  VideoThumbnailFieldLabel
+} from '@/features/video/components/VideoThumbnailField/ui'
+
+import { Box, IconButton } from '@mui/material'
 
 import FileUploadIcon from '@mui/icons-material/FileUpload'
 import ClearIcon from '@mui/icons-material/Clear'
-
-const centerStyles: CSSProperties = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)'
-}
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,11 +25,8 @@ interface Props {
 }
 
 const VideoThumbnailField: FC<Props> = ({ setValue, error, errorMessage }) => {
-  const [videoThumbnailUrl, setVideoThumbnailUrl] = useState<string | null>(
-    null
-  )
-
-  const theme = useTheme()
+  const [videoThumbnailUrl, setVideoThumbnailUrl] =
+    useState<VideoThumbnail | null>(null)
 
   const handleChangeImage = (event: ChangeEvent<HTMLInputElement>) => {
     const imageSelected = event.currentTarget.files?.item(0)
@@ -47,63 +47,31 @@ const VideoThumbnailField: FC<Props> = ({ setValue, error, errorMessage }) => {
 
   return (
     <Box data-testid='VideoThumbnailField'>
-      <Box
-        sx={{
-          backgroundColor: 'grey.800',
-          borderRadius: '10px',
-          position: 'relative',
-          height: '180px',
-          width: '100%',
-          borderWidth: '1px',
-          borderStyle: 'solid',
-          borderColor: error
-            ? theme.palette.error.main
-            : theme.palette.grey[700]
-        }}
-      >
+      <VideoThumbnailFieldContainer error={error}>
         {videoThumbnailUrl !== null ? (
           <>
-            <img
-              src={videoThumbnailUrl}
+            <ThumbnailImage
+              thumbnailUrl={videoThumbnailUrl}
               alt='preview video thumbnail'
-              role='img'
-              style={{
-                width: '100%',
-                height: '100%',
-                borderRadius: '10px',
-                aspectRatio: 16 / 9,
-                objectFit: 'cover'
-              }}
             />
 
             <IconButton
-              size='small'
-              style={centerStyles}
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)'
+              }}
               color='error'
               onClick={handleRemoveImage}
             >
-              <ClearIcon fontSize='small' />
+              <ClearIcon />
             </IconButton>
           </>
         ) : (
-          <label
-            htmlFor='thumbnail'
-            style={{
-              ...centerStyles,
-              background: error
-                ? theme.palette.error.main
-                : theme.palette.grey[900],
-              opacity: '60%',
-              padding: '5px',
-              borderRadius: '100%',
-              cursor: 'pointer',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          >
+          <VideoThumbnailFieldLabel htmlFor='thumbnail'>
             <FileUploadIcon />
-          </label>
+          </VideoThumbnailFieldLabel>
         )}
 
         <input
@@ -115,18 +83,12 @@ const VideoThumbnailField: FC<Props> = ({ setValue, error, errorMessage }) => {
           accept='image/png, image/jpeg, image/webp'
           onChange={handleChangeImage}
         />
-      </Box>
+      </VideoThumbnailFieldContainer>
 
       {errorMessage && error && (
-        <Typography
-          color='error'
-          fontSize='0.75rem'
-          mt='3px'
-          ml='14px'
-          data-testid='errorMessage'
-        >
+        <VideoThumbnailFieldError data-testid='errorMessage'>
           {errorMessage}
-        </Typography>
+        </VideoThumbnailFieldError>
       )}
     </Box>
   )
