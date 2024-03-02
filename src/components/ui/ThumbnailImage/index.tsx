@@ -11,6 +11,7 @@ const ThumbnailImage: FC<Props> = ({ alt, thumbnailUrl, width }) => {
     <img
       src={thumbnailUrl}
       alt={alt}
+      role='img'
       style={{
         maxWidth: width ?? '500px',
         width: width ?? '100%',
