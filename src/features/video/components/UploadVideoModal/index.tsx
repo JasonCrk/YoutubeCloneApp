@@ -13,7 +13,7 @@ import { uploadVideoValidator } from '@/features/video/validations'
 import VideoThumbnailField from '@/features/video/components/VideoThumbnailField'
 import VideoField from '@/features/video/components/VideoField'
 
-import { Box, Button, Modal, Stack, TextField } from '@mui/material'
+import { Box, Button, Grid, Modal, TextField } from '@mui/material'
 
 const UploadVideoModal: FC = () => {
   const { isOpen, onClose } = useUploadVideoModalContext()
@@ -78,40 +78,46 @@ const UploadVideoModal: FC = () => {
           gap={1}
           onSubmit={handleUploadVideoSubmit}
         >
-          <div style={{ display: 'flex', width: '100%', gap: 8 }}>
-            <Stack spacing={1.2} width='55%'>
-              <TextField
-                {...register('title')}
-                label='Title *'
-                fullWidth
-                error={Boolean(errors.title)}
-                helperText={errors.title?.message}
-              />
-
-              <TextField
-                {...register('description')}
-                label='Description'
-                multiline
-                fullWidth
-                rows={6}
-                error={Boolean(errors.description)}
-                helperText={errors.description?.message}
-              />
-            </Stack>
-
-            <Stack spacing={1.2} width='45%'>
-              <VideoThumbnailField
-                setValue={setValue}
-                error={Boolean(errors.thumbnail)}
-                errorMessage={errors.thumbnail?.message}
-              />
-              <VideoField
-                setValue={setValue}
-                error={Boolean(errors.video)}
-                errorMessage={errors.video?.message}
-              />
-            </Stack>
-          </div>
+          <Grid container spacing={1} gridTemplateColumns='repeat(2, 1fr)'>
+            <Grid item container spacing={1} direction='column' xs={6}>
+              <Grid item>
+                <TextField
+                  {...register('title')}
+                  label='Title *'
+                  fullWidth
+                  error={Boolean(errors.title)}
+                  helperText={errors.title?.message}
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  {...register('description')}
+                  label='Description'
+                  multiline
+                  fullWidth
+                  rows={8}
+                  error={Boolean(errors.description)}
+                  helperText={errors.description?.message}
+                />
+              </Grid>
+            </Grid>
+            <Grid item container direction='column' xs={6} spacing={1}>
+              <Grid item sx={{ width: '100%' }}>
+                <VideoThumbnailField
+                  setValue={setValue}
+                  error={Boolean(errors.thumbnail)}
+                  errorMessage={errors.thumbnail?.message}
+                />
+              </Grid>
+              <Grid item>
+                <VideoField
+                  setValue={setValue}
+                  error={Boolean(errors.video)}
+                  errorMessage={errors.video?.message}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
 
           <Button
             sx={{ alignSelf: 'end' }}

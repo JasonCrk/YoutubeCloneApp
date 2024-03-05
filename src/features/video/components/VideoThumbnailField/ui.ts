@@ -10,14 +10,15 @@ interface VideoThumbnailFieldContainerProps
 export const VideoThumbnailFieldContainer = styled('div', {
   shouldForwardProp: prop => prop !== 'error'
 })<VideoThumbnailFieldContainerProps>(({ theme, error }) => ({
+  display: 'flex',
   backgroundColor: theme.palette.grey[800],
-  borderRadius: '10px',
-  position: 'relative',
-  height: '180px',
+  borderRadius: '15px',
   width: '100%',
+  position: 'relative',
   borderWidth: '1px',
   borderStyle: 'solid',
-  borderColor: error ? theme.palette.error.main : theme.palette.grey[700]
+  borderColor: error ? theme.palette.error.main : theme.palette.grey[700],
+  aspectRatio: 16 / 9
 }))
 
 interface VideoThumbnailFieldLabelProps
@@ -45,6 +46,6 @@ export const VideoThumbnailFieldLabel = styled('label', {
 export const VideoThumbnailFieldError = styled('p')(({ theme }) => ({
   color: theme.palette.error.main,
   fontSize: '0.75rem',
-  marginTop: '3px',
-  marginBottom: '14px'
+  margin: 0,
+  marginTop: '5px'
 }))

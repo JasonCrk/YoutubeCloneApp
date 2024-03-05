@@ -42,7 +42,7 @@ const VideoThumbnailField: FC<Props> = ({ setValue, error, errorMessage }) => {
 
   const handleRemoveImage = () => {
     setVideoThumbnailUrl(null)
-    setValue('thumbnail', null, { shouldValidate: true })
+    setValue('thumbnail', null)
   }
 
   return (
@@ -73,17 +73,17 @@ const VideoThumbnailField: FC<Props> = ({ setValue, error, errorMessage }) => {
             <FileUploadIcon />
           </VideoThumbnailFieldLabel>
         )}
-
-        <input
-          id='thumbnail'
-          type='file'
-          name='thumbnail'
-          style={{ display: 'none' }}
-          role='textbox'
-          accept='image/png, image/jpeg, image/webp'
-          onChange={handleChangeImage}
-        />
       </VideoThumbnailFieldContainer>
+
+      <input
+        id='thumbnail'
+        type='file'
+        name='thumbnail'
+        style={{ display: 'none' }}
+        role='textbox'
+        accept='image/png, image/jpeg, image/webp'
+        onChange={handleChangeImage}
+      />
 
       {errorMessage && error && (
         <VideoThumbnailFieldError data-testid='errorMessage'>
