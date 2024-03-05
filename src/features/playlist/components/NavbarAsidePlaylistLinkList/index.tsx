@@ -1,24 +1,21 @@
-import type { FC } from 'react'
+import { useState, type FC } from 'react'
 
 import { useFetchOwnPlaylists } from '@/features/playlist/hooks'
 
 import NavbarAsideLink from '@/components/ui/NavbarAsideLink'
+import NavbarAsideButton from '@/components/ui/NavbarAsideButton'
 
-import { Box, CircularProgress, Stack, Typography } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 
 import { red } from '@mui/material/colors'
 
 import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 const NavbarAsidePlaylistLinkList: FC = () => {
-  const { ownPlaylists, isLoading, isError, isSuccess } = useFetchOwnPlaylists()
+  const { ownPlaylists, isError, isSuccess } = useFetchOwnPlaylists()
 
-  if (isLoading)
-    return (
-      <Box py={2} display='flex' justifyContent='center'>
-        <CircularProgress color='inherit' size='25px' />
-      </Box>
-    )
+  const [showPlaylists, setShowPlaylists] = useState(false)
 
   if (isError)
     return (
@@ -34,17 +31,27 @@ const NavbarAsidePlaylistLinkList: FC = () => {
       </Typography>
     )
 
+  if (ownPlaylists?.length === 0) return null
+
   if (isSuccess && ownPlaylists)
     return (
       <Stack data-testid='NavbarAsidePlaylistLinkList'>
-        {ownPlaylists.map(playlist => (
-          <NavbarAsideLink
-            key={playlist.id}
-            activeIcon={<PlaylistPlayIcon />}
-            href={`/playlist?list=${playlist.id}`}
-            title={playlist.name}
+        {showPlaylists ? (
+          ownPlaylists.map(playlist => (
+            <NavbarAsideLink
+              key={playlist.id}
+              activeIcon={<PlaylistPlayIcon />}
+              href={`/playlist?list=${playlist.id}`}
+              title={playlist.name}
+            />
+          ))
+        ) : (
+          <NavbarAsideButton
+            icon={<KeyboardArrowDownIcon />}
+            onClick={() => setShowPlaylists(true)}
+            title='Show more'
           />
-        ))}
+        )}
       </Stack>
     )
 }

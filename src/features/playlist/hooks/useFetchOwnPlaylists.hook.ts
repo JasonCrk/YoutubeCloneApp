@@ -12,7 +12,8 @@ export const useFetchOwnPlaylists = () => {
       const playlists = await retrieveOwnPlaylistsService()
       return listResponseAdapter(playlists, simplePlaylistAdapter)
     },
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
+    refetchOnMount: false
   })
 
   return { ownPlaylists, ...queryResult }
