@@ -23,7 +23,8 @@ const WatchVideoPage: FC = () => {
 
   const { video, isLoading, isSuccess } = useFetchVideoDetails(videoId)
 
-  if (isLoading) return <WatchVideoSkeleton />
+  if (isLoading)
+    return <WatchVideoSkeleton isTheaterViewMode={isTheaterViewMode} />
 
   if (isSuccess && video)
     return (

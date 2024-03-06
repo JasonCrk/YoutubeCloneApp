@@ -4,11 +4,11 @@ import VideoSectionSkeleton from '@/features/video/components/VideoSection/Skele
 
 import { Box, CircularProgress, Container, Skeleton } from '@mui/material'
 
-import { getIsTheaterViewModeFromLocalStorage } from '@/features/video/utils'
+interface Props {
+  isTheaterViewMode: boolean
+}
 
-const WatchVideoSkeleton: FC = () => {
-  const isTheaterViewMode = getIsTheaterViewModeFromLocalStorage()
-
+const WatchVideoSkeleton: FC<Props> = ({ isTheaterViewMode }) => {
   return (
     <Container
       maxWidth='xl'
@@ -22,15 +22,24 @@ const WatchVideoSkeleton: FC = () => {
       }}
     >
       <Box
-        gridColumn={isTheaterViewMode ? 1 / 3 : undefined}
+        gridColumn={isTheaterViewMode ? '1 / 3' : undefined}
         height={isTheaterViewMode ? '78vh' : '100%'}
         width='100%'
         bgcolor={isTheaterViewMode ? 'black' : 'transparent'}
         pt={isTheaterViewMode ? 0 : 2.5}
         pr={isTheaterViewMode ? 0 : 2.5}
       >
-        <Skeleton variant='rounded' width='100%' sx={{ borderRadius: '15px' }}>
-          <div style={{ aspectRatio: 16 / 9, width: '100%' }}></div>
+        <Skeleton
+          variant='rounded'
+          width='100%'
+          sx={{ borderRadius: isTheaterViewMode ? undefined : '15px' }}
+        >
+          <div
+            style={{
+              aspectRatio: isTheaterViewMode ? undefined : 16 / 9,
+              width: '100%'
+            }}
+          ></div>
         </Skeleton>
       </Box>
 
