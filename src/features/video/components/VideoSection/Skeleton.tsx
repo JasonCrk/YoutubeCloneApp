@@ -17,7 +17,7 @@ const VideoSectionSkeleton: FC = () => {
 
           <Skeleton
             variant='rounded'
-            height='35px'
+            height='40px'
             width='105px'
             sx={{ borderRadius: '99px' }}
           />
