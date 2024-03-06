@@ -8,6 +8,7 @@ import { useFetchVideoDetails } from '@/features/video/hooks'
 import VideoSection from '@/features/video/components/VideoSection'
 import SuggestionVideoList from '@/features/video/components/SuggestionVideoList'
 import VideoPlayer from '@/features/video/components/VideoPlayer'
+import WatchVideoSkeleton from '@/components/ui/WatchVideoSkeleton'
 
 import { Box, Container } from '@mui/material'
 
@@ -22,7 +23,7 @@ const WatchVideoPage: FC = () => {
 
   const { video, isLoading, isSuccess } = useFetchVideoDetails(videoId)
 
-  if (isLoading) return null
+  if (isLoading) return <WatchVideoSkeleton />
 
   if (isSuccess && video)
     return (
