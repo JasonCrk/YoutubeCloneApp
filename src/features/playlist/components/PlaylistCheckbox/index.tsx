@@ -61,7 +61,7 @@ const PlaylistCheckbox: FC<Props> = ({
     <Box
       display='flex'
       alignItems='center'
-      gap={3}
+      gap={0.5}
       sx={{ cursor: 'pointer' }}
       onClick={
         isChecked ? handleRemoveVideoFromPlaylist : handleSaveVideoToPlaylist
@@ -69,7 +69,13 @@ const PlaylistCheckbox: FC<Props> = ({
     >
       <Checkbox checked={isChecked} />
 
-      <Typography component='p' flexGrow={1}>
+      <Typography
+        component='p'
+        flexGrow={1}
+        textOverflow='ellipsis'
+        title={name}
+        noWrap
+      >
         {name}
       </Typography>
 
