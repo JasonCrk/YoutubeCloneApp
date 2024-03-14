@@ -1,4 +1,4 @@
-import { useState, type FC, type MouseEvent } from 'react'
+import { useState, type FC, type MouseEvent, useMemo } from 'react'
 
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -32,6 +32,10 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
   const channelUrl = '/' + channel.handle
 
   const navigate = useNavigate()
+
+  const publicationDateTimeAgo = useMemo(() => {
+    return getTimeAgo(publicationDate)
+  }, [publicationDate])
 
   const handleLinkChannel = (event: MouseEvent<HTMLAnchorElement>) => {
     event.stopPropagation()
@@ -108,7 +112,7 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
           />
 
           <Typography color='gray' fontSize='0.9rem'>
-            {views} views • {getTimeAgo(publicationDate)}
+            {views} views • {publicationDateTimeAgo}
           </Typography>
         </Box>
       </Box>
