@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react'
+import { useState, type FC, useMemo } from 'react'
 
 import { Link } from 'react-router-dom'
 
@@ -45,6 +45,11 @@ const CommentItem: FC<Props> = ({ isVideoComment, parentId, ...comment }) => {
     isLoading: fetchCommentsIsLoading
   } = useFetchCommentsOfComment(comment.id, { enabled: showComments })
 
+  const publicationDateTimeAgo = useMemo(
+    () => getTimeAgo(comment.publicationDate),
+    [comment.publicationDate]
+  )
+
   const isOwnComment = authUser?.currentChannel.id === comment.channel.id
   const channelProfileUrl = '/channel/' + comment.channel.id
   const hasComments = comment.comments > 0
@@ -89,8 +94,7 @@ const CommentItem: FC<Props> = ({ isVideoComment, parentId, ...comment }) => {
               color='grey'
               fontSize='0.8rem'
             >
-              {getTimeAgo(comment.publicationDate)}{' '}
-              {comment.wasEdited && '(edited)'}
+              {publicationDateTimeAgo} {comment.wasEdited && '(edited)'}
             </Typography>
             <Typography variant='body1' component='p'>
               {comment.content}
