@@ -218,7 +218,7 @@ const VideoPlayer: FC<Props> = ({
 
       {isVideoLoading && (
         <VideoPlayerEffectContainer>
-          <CircularProgress size='100px' />
+          <CircularProgress color='inherit' size='100px' />
         </VideoPlayerEffectContainer>
       )}
 
