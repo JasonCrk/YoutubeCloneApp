@@ -7,7 +7,7 @@ import { ListItemIcon, ListItemText, MenuItemProps } from '@mui/material'
 interface Props extends Omit<MenuItemProps, 'LinkComponent'> {
   startIcon?: ReactNode
   endIcon?: ReactNode
-  children: string
+  children: ReactNode
   linkHref?: string
 }
 
