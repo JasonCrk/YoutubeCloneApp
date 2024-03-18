@@ -16,7 +16,12 @@ const ListItemLinkWrapper: FC<Props> = ({ children, href, testId }) => {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const isActive = location.pathname.startsWith(href)
+  const isActive =
+    location.pathname.length > 1
+      ? href === '/'
+        ? false
+        : location.pathname.startsWith(href)
+      : href === '/'
 
   const handleLink = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
@@ -27,7 +32,7 @@ const ListItemLinkWrapper: FC<Props> = ({ children, href, testId }) => {
     <ListItem disablePadding data-testid={testId}>
       <ListItemButton
         role='link'
-        LinkComponent={'a'}
+        LinkComponent='a'
         href={href}
         onClick={handleLink}
         sx={{
