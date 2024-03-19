@@ -12,7 +12,8 @@ export const useFetchSubscribedChannels = () => {
       const channels = await retrieveSubscribedChannelsService()
       return listResponseAdapter(channels, simpleChannelAdapter)
     },
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
+    refetchOnMount: false
   })
 
   return { subscribedChannels, ...queryResult }
