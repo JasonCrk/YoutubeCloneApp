@@ -48,7 +48,10 @@ const PlaylistVideoOptionsMenu: FC<Props> = ({
         horizontal: 'right'
       }}
     >
-      <SaveVideoToPlaylistMenuItem videoId={playlistVideo.video.id} />
+      <SaveVideoToPlaylistMenuItem
+        onCloseMenu={onClose}
+        videoId={playlistVideo.video.id}
+      />
 
       {isOwner && (
         <RemovePlaylistVideoFromPlaylistMenuItem

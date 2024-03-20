@@ -9,13 +9,15 @@ import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd'
 
 interface Props {
   videoId: VideoId
+  onCloseMenu: () => void
 }
 
-const SaveVideoToPlaylistMenuItem: FC<Props> = ({ videoId }) => {
+const SaveVideoToPlaylistMenuItem: FC<Props> = ({ videoId, onCloseMenu }) => {
   const { onOpen } = useSaveVideoToPlaylistsContext()
 
   const handleSaveVideoToPlaylist = (event: MouseEvent) => {
     onOpen(videoId)
+    onCloseMenu()
     event.stopPropagation()
   }
 
