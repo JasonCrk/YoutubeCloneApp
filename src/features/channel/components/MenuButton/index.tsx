@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useState } from 'react'
+import { type FC, type MouseEvent, useState } from 'react'
 
 import { useAppSelector } from '@/store/hooks'
 
@@ -6,7 +6,7 @@ import Picture from '@/components/ui/Picture'
 
 import Menu from '@/features/channel/components/Menu'
 
-const OptionsMenuButton: FC = () => {
+const MenuButton: FC = () => {
   const user = useAppSelector(state => state.auth.user)
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -41,4 +41,4 @@ const OptionsMenuButton: FC = () => {
   )
 }
 
-export default OptionsMenuButton
+export default MenuButton

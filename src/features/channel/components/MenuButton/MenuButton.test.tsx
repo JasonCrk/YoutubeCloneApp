@@ -7,7 +7,7 @@ import MenuButton from '@/features/channel/components/MenuButton'
 
 import { render } from '@/utils/testing/render'
 
-describe('<OptionsMenuButton />', () => {
+describe('<MenuButton />', () => {
   afterEach(cleanup)
 
   it("Shouldn't show the component if user is not authenticated", () => {
