@@ -21,10 +21,10 @@ import {
   VideoPlayerVolumenContainer,
   VideoPlayerVolumenSlider,
   VideoPlayerEffectContainer,
-  VideoReproduction
+  VideoReproductionIconContainer
 } from '@/features/video/components/VideoPlayer/ui'
 
-import { Box, CircularProgress, Grow, Stack, Typography } from '@mui/material'
+import { Box, CircularProgress, Stack, Typography } from '@mui/material'
 
 import {
   setIsTheaterViewModeInLocalStorage,
@@ -103,12 +103,12 @@ const VideoPlayer: FC<Props> = ({
       videoRef.current.play()
       setIsVideoPlaying(true)
       setShowPlayAnimation(true)
-      setTimeout(() => setShowPlayAnimation(false), 300)
+      setTimeout(() => setShowPlayAnimation(false), 900)
     } else {
       videoRef.current?.pause()
       setIsVideoPlaying(false)
       setShowPauseAnimation(true)
-      setTimeout(() => setShowPauseAnimation(false), 300)
+      setTimeout(() => setShowPauseAnimation(false), 900)
     }
   }
 
@@ -223,19 +223,15 @@ const VideoPlayer: FC<Props> = ({
       )}
 
       <VideoPlayerEffectContainer>
-        <Grow in={showPlayAnimation} timeout={300} unmountOnExit>
-          <VideoReproduction>
-            <PlayIcon sx={{ fontSize: '60px' }} />
-          </VideoReproduction>
-        </Grow>
+        <VideoReproductionIconContainer isAction={showPlayAnimation}>
+          <PlayIcon sx={{ fontSize: '40px' }} />
+        </VideoReproductionIconContainer>
       </VideoPlayerEffectContainer>
 
       <VideoPlayerEffectContainer>
-        <Grow in={showPauseAnimation} timeout={300} unmountOnExit>
-          <VideoReproduction>
-            <PauseIcon sx={{ fontSize: '60px' }} />
-          </VideoReproduction>
-        </Grow>
+        <VideoReproductionIconContainer isAction={showPauseAnimation}>
+          <PauseIcon sx={{ fontSize: '40px' }} />
+        </VideoReproductionIconContainer>
       </VideoPlayerEffectContainer>
 
       <VideoPlayerControlsContainer isVideoPlaying={isVideoPlaying}>
