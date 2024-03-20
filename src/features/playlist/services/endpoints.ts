@@ -4,9 +4,16 @@ import type {
   CreatePlaylistInputs,
   PlaylistItem,
   PlaylistItemToSaveVideo,
-  SimplePlaylist
+  SimplePlaylist,
+  PlaylistDetails,
+  PlaylistVideoItem,
+  UpdatePlaylistInputs
 } from '@/features/playlist/models'
-import type { PlaylistId } from '@/features/playlist/types'
+import type {
+  PlaylistId,
+  PlaylistVideoId,
+  PlaylistVideoPosition
+} from '@/features/playlist/types'
 import {
   optionalAuthPlaylistEndpoint,
   protectedPlaylistEndpoint
@@ -32,12 +39,30 @@ export const retrieveOwnPlaylistsToSaveVideoService = async (
   return response.data
 }
 
+export const retrievePlaylistDetailsService = async (
+  playlistId: PlaylistId
+): Promise<PlaylistDetails> => {
+  const response = await optionalAuthPlaylistEndpoint.get<PlaylistDetails>(
+    `/${playlistId}/`
+  )
+  return response.data
+}
+
 export const retrieveChannelPlaylistsService = async (
   channelId: ChannelId
 ): Promise<ListResponse<PlaylistItem>> => {
   const response = await optionalAuthPlaylistEndpoint.get<
     ListResponse<PlaylistItem>
   >(`/channel/${channelId}`)
+  return response.data
+}
+
+export const retrievePlaylistVideosService = async (
+  playlistId: PlaylistId
+): Promise<ListResponse<PlaylistVideoItem>> => {
+  const response = await optionalAuthPlaylistEndpoint.get<
+    ListResponse<PlaylistVideoItem>
+  >(`/${playlistId}/videos/`)
   return response.data
 }
 
@@ -65,15 +90,51 @@ export const saveVideoToPlaylistService = async ({
   return response.data
 }
 
+export const repositionPlaylistVideoService = async ({
+  playlistId,
+  playlistVideoId,
+  newPlaylistVideoPosition
+}: {
+  playlistId: PlaylistId
+  playlistVideoId: PlaylistVideoId
+  newPlaylistVideoPosition: PlaylistVideoPosition
+}) => {
+  await protectedPlaylistEndpoint.post(
+    `/${playlistId}/playlist-video/${playlistVideoId}/reposition/`,
+    { new_position: newPlaylistVideoPosition }
+  )
+}
+
+export const updatePlaylistService = async ({
+  playlistId,
+  data
+}: {
+  playlistId: PlaylistId
+  data: UpdatePlaylistInputs
+}): Promise<MessageResponse> => {
+  const response = await protectedPlaylistEndpoint.patch<MessageResponse>(
+    `/${playlistId}/edit/`,
+    data
+  )
+  return response.data
+}
+
 export const removeVideoFromPlaylistService = async ({
   playlistId,
   videoId
 }: {
-  playlistId: PlaylistId,
+  playlistId: PlaylistId
   videoId: VideoId
 }): Promise<MessageResponse> => {
   const response = await protectedPlaylistEndpoint.delete<MessageResponse>(
     `/${playlistId}/video/${videoId}/remove/`
+  )
+  return response.data
+}
+
+export const deletePlaylistService = async (playlistId: PlaylistId) => {
+  const response = await protectedPlaylistEndpoint.delete<MessageResponse>(
+    `/${playlistId}/delete/`
   )
   return response.data
 }

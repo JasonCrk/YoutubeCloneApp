@@ -1,3 +1,5 @@
 export * from './simplePlaylist.adapter'
 export * from './playlistItem.adapter'
 export * from './playlistItemToSaveVideo.adapter'
+export * from './playlistDetails.adapter'
+export * from './playlistVideoItem.adapter'

@@ -28,3 +28,10 @@ export const getTimeAgo = (datetime: Date) => {
 
   return timeAgoFormat.format(value, timeAgoUnit as Intl.RelativeTimeFormatUnit)
 }
+
+export const dateFormat = (datetime: Date) => {
+  return new Intl.DateTimeFormat('en-US', {
+    dateStyle: 'medium',
+    timeZone: 'America/Lima'
+  }).format(datetime)
+}

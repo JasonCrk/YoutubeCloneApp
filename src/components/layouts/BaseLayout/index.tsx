@@ -6,11 +6,12 @@ import AuthModalProvider from '@/features/auth/contexts/AuthModal/Provider'
 import UploadVideoModalProvider from '@/features/video/contexts/UploadVideoModal/Provider'
 import CreateChannelModalProvider from '@/features/channel/contexts/CreateChannelModal/Provider'
 import SaveVideoToPlaylistsProvider from '@/features/playlist/contexts/SaveVideoToPlaylists/Provider'
+import DeletePlaylistModalProvider from '@/features/playlist/contexts/DeletePlaylistModal/Provider'
 
 import TopBar from '@/components/ui/TopBar'
 import NavbarAside from '@/components/ui/NavbarAside'
 
-import { Box } from '@mui/material'
+import Box from '@mui/material/Box'
 
 const BaseLayout: FC = () => {
   return (
@@ -18,11 +19,13 @@ const BaseLayout: FC = () => {
       <UploadVideoModalProvider>
         <CreateChannelModalProvider>
           <SaveVideoToPlaylistsProvider>
-            <TopBar />
-            <Box display={'flex'}>
-              <NavbarAside />
-              <Outlet />
-            </Box>
+            <DeletePlaylistModalProvider>
+              <TopBar />
+              <Box display='flex'>
+                <NavbarAside />
+                <Outlet />
+              </Box>
+            </DeletePlaylistModalProvider>
           </SaveVideoToPlaylistsProvider>
         </CreateChannelModalProvider>
       </UploadVideoModalProvider>
