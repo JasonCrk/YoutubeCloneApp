@@ -35,5 +35,6 @@ export const VideoPlayerControlsContainer = styled('div', {
   left: 0,
   visibility: isVideoPlaying ? 'hidden' : 'visible',
   transition: 'visibility 200ms, opacity 200ms',
-  opacity: isVideoPlaying ? 0 : 1
+  opacity: isVideoPlaying ? 0 : 1,
+  background: 'linear-gradient(transparent, rgba(0, 0, 0, 0.65))'
 }))
