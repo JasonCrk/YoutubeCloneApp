@@ -20,7 +20,8 @@ const ListItemLinkWrapper: FC<Props> = ({ children, href, testId }) => {
     location.pathname.length > 1
       ? href === '/'
         ? false
-        : location.pathname.startsWith(href)
+        : location.pathname.startsWith(href) ||
+          location.pathname + location.search === href
       : href === '/'
 
   const handleLink = (e: MouseEvent<HTMLAnchorElement>) => {
