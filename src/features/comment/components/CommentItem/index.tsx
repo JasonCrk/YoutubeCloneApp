@@ -45,7 +45,7 @@ const CommentItem: FC<Props> = ({ isVideoComment, parentId, ...comment }) => {
     isLoading: fetchCommentsIsLoading
   } = useFetchCommentsOfComment(comment.id, { enabled: showComments })
 
-  const publicationDateTimeAgo = useMemo(
+  const timeAgoPublicationDate = useMemo(
     () => getTimeAgo(comment.publicationDate),
     [comment.publicationDate]
   )
@@ -94,7 +94,7 @@ const CommentItem: FC<Props> = ({ isVideoComment, parentId, ...comment }) => {
               color='grey'
               fontSize='0.8rem'
             >
-              {publicationDateTimeAgo} {comment.wasEdited && '(edited)'}
+              {timeAgoPublicationDate} {comment.wasEdited && '(edited)'}
             </Typography>
             <Typography variant='body1' component='p'>
               {comment.content}

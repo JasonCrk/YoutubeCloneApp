@@ -33,7 +33,7 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
 
   const navigate = useNavigate()
 
-  const publicationDateTimeAgo = useMemo(() => {
+  const timeAgoPublicationDate = useMemo(() => {
     return getTimeAgo(publicationDate)
   }, [publicationDate])
 
@@ -112,7 +112,7 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
           />
 
           <Typography color='gray' fontSize='0.9rem'>
-            {views} views • {publicationDateTimeAgo}
+            {views} views • {timeAgoPublicationDate}
           </Typography>
         </Box>
       </Box>
