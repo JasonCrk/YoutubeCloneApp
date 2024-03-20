@@ -16,7 +16,7 @@ const ThumbnailImage: FC<Props> = ({ alt, thumbnailUrl, width, maxWidth }) => {
       style={{
         maxWidth: maxWidth ?? '500px',
         width: width ?? '100%',
-        height: '100%',
+        height: 'fit-content',
         borderRadius: '15px',
         objectFit: 'cover',
         aspectRatio: 16 / 9
