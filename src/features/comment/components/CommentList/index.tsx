@@ -1,29 +1,29 @@
 import type { FC } from 'react'
 
-import type { CommentItemAdapter } from '@/features/comment/models'
+import { VideoCommentsSortBy } from '@/features/comment/types'
+import { useFetchVideoComments } from '@/features/comment/hooks'
+
 import type { VideoId } from '@/features/video/types'
 
 import CommentItem from '@/features/comment/components/CommentItem'
 
 import { Box, CircularProgress, Stack, Typography } from '@mui/material'
+import { red } from '@mui/material/colors'
 
 interface Props {
-  isLoading: boolean
-  isSuccess: boolean
-  isError: boolean
-  comments: CommentItemAdapter[] | undefined
   parentId: VideoId
   isVideoComments?: boolean
+  sortByVideoComments: VideoCommentsSortBy
 }
 
 const CommentList: FC<Props> = ({
-  comments,
-  isError,
-  isLoading,
-  isSuccess,
   parentId,
-  isVideoComments
+  isVideoComments,
+  sortByVideoComments
 }) => {
+  const { videoComments, isLoading, isSuccess, isError, error } =
+    useFetchVideoComments(parentId, sortByVideoComments)
+
   if (isLoading)
     return (
       <Box display='flex' justifyContent='center'>
@@ -33,15 +33,17 @@ const CommentList: FC<Props> = ({
 
   if (isError)
     return (
-      <Box display='flex' justifyContent='center'>
-        <Typography>Ha ocurrido un error</Typography>
+      <Box width='100%'>
+        <Typography textAlign='center' color={red[600]}>
+          {error.message}
+        </Typography>
       </Box>
     )
 
-  if (isSuccess && comments)
+  if (isSuccess && videoComments)
     return (
       <Stack spacing={1.5}>
-        {comments.map(comment => (
+        {videoComments.map(comment => (
           <CommentItem
             key={comment.id}
             isVideoComment={Boolean(isVideoComments)}

@@ -8,16 +8,9 @@ import { render } from '@/utils/testing/render'
 
 import { getTimeAgo } from '@/utils/datetimeFormats'
 
-import * as hooks from '@/hooks'
-
 describe('<VideoSection />', () => {
-  const useLazyLoadSpy = vi
-    .spyOn(hooks, 'useLazyLoad')
-    .mockReturnValue([{ current: {} }, false])
-
   afterEach(() => {
     cleanup()
-    useLazyLoadSpy.mockClear()
   })
 
   it('Should contain the video title', () => {
