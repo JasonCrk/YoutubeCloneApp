@@ -32,7 +32,7 @@ const SuggestionVideoItem: FC<SimpleVideoItemAdapter> = ({
       sx={{ cursor: 'pointer' }}
     >
       <Link to={videoUrl} onClick={event => event.stopPropagation()}>
-        <ThumbnailImage alt={title} thumbnailUrl={thumbnailUrl} width='200px' />
+        <ThumbnailImage alt={title} thumbnailUrl={thumbnailUrl} width='168px' />
       </Link>
 
       <Box width='100%'>
