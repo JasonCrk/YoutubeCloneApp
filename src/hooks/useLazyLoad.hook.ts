@@ -8,7 +8,7 @@ export const useLazyLoad = (): [RefObject<any>, boolean] => {
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.05) {
           setIsVisible(true)
           observer.unobserve(entry.target)
         }
