@@ -1,4 +1,4 @@
-import { useState, type FC, type MouseEvent, useMemo } from 'react'
+import { type FC, type MouseEvent, useMemo } from 'react'
 
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -10,7 +10,7 @@ import Picture from '@/components/ui/Picture'
 import ThumbnailImage from '@/components/ui/ThumbnailImage'
 
 import ChannelNameLink from '@/features/channel/components/ChannelNameLink'
-import VideoOptionsButton from '@/features/video/components/VideoOptionsButton'
+import VideoOptionsMenuButton from '@/features/video/components/VideoOptionsMenuButton'
 
 import { Box, Typography } from '@mui/material'
 
@@ -26,8 +26,6 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
 }) => {
   const isAuth = useAppSelector(state => state.auth.isAuth)
 
-  const [showVideoOptions, setShowVideoOptions] = useState(false)
-
   const watchVideoUrl = '/watch?v=' + videoId
   const channelUrl = '/' + channel.handle
 
@@ -37,21 +35,22 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
     return getTimeAgo(publicationDate)
   }, [publicationDate])
 
-  const handleLinkChannel = (event: MouseEvent<HTMLAnchorElement>) => {
+  const handleLinkChannel = (event: MouseEvent<HTMLAnchorElement>) =>
     event.stopPropagation()
-  }
 
   return (
     <Box
       data-testid='BlockVideoItem'
-      onMouseEnter={() => {
-        if (isAuth) setShowVideoOptions(true)
-      }}
-      onMouseLeave={() => {
-        if (isAuth) setShowVideoOptions(false)
-      }}
       display='flex'
       flexDirection='column'
+      sx={{
+        '&:hover .videoOptionsMenuButton': {
+          visibility: 'visible'
+        },
+        '&:not(:hover) .videoOptionsMenuButton': {
+          visibility: 'hidden'
+        }
+      }}
     >
       <Link to={watchVideoUrl} role='link'>
         <ThumbnailImage thumbnailUrl={thumbnailUrl} alt={title} />
@@ -78,14 +77,16 @@ const BlockVideoItem: FC<SimpleVideoItemAdapter> = ({
         </Link>
 
         <Box position='relative' flexGrow={1}>
-          {showVideoOptions && (
+          {isAuth && (
             <Box
+              className='videoOptionsMenuButton'
               position='absolute'
+              visibility='hidden'
               right={0}
               top={0}
               onClick={event => event.stopPropagation()}
             >
-              <VideoOptionsButton videoId={videoId} />
+              <VideoOptionsMenuButton videoId={videoId} />
             </Box>
           )}
 
