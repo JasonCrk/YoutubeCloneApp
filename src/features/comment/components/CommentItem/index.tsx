@@ -31,11 +31,10 @@ interface Props extends CommentItemAdapter {
 }
 
 const CommentItem: FC<Props> = ({ isVideoComment, parentId, ...comment }) => {
-  const authUser = useAppSelector(state => state.auth.user)
+  const { user, isAuth } = useAppSelector(state => state.auth)
 
   const [openCommentForm, setOpenCommentForm] = useState(false)
   const [showComments, setShowComments] = useState(false)
-  const [showCommentOptions, setShowCommentOptions] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
 
   const {
@@ -50,7 +49,7 @@ const CommentItem: FC<Props> = ({ isVideoComment, parentId, ...comment }) => {
     [comment.publicationDate]
   )
 
-  const isOwnComment = authUser?.currentChannel.id === comment.channel.id
+  const isOwnComment = user?.currentChannel.id === comment.channel.id && isAuth
   const channelProfileUrl = '/channel/' + comment.channel.id
   const hasComments = comment.comments > 0
 
@@ -67,16 +66,32 @@ const CommentItem: FC<Props> = ({ isVideoComment, parentId, ...comment }) => {
         {!isEditing ? (
           <Box
             position='relative'
-            onMouseEnter={() => setShowCommentOptions(true)}
-            onMouseLeave={() => setShowCommentOptions(false)}
+            sx={{
+              '&:hover .commentOptionsMenuButton': {
+                visibility: 'visible'
+              },
+              '&:not(:hover) .commentOptionsMenuButton': {
+                visibility: 'hidden'
+              }
+            }}
           >
-            {showCommentOptions && isOwnComment && (
-              <CommentOptionsMenuButton
-                commentId={comment.id}
-                setIsEditing={setIsEditing}
-                commentParentId={parentId}
-                isVideoComment={isVideoComment}
-              />
+            {isOwnComment && (
+              <Box
+                className='commentOptionsMenuButton'
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                  visibility: 'hidden'
+                }}
+              >
+                <CommentOptionsMenuButton
+                  commentId={comment.id}
+                  setIsEditing={setIsEditing}
+                  commentParentId={parentId}
+                  isVideoComment={isVideoComment}
+                />
+              </Box>
             )}
             <Typography
               variant='body2'

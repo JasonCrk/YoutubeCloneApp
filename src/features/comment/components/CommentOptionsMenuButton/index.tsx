@@ -1,14 +1,11 @@
 import { useState, type FC } from 'react'
 
 import type { CommentId } from '@/features/comment/types'
-
 import type { VideoId } from '@/features/video/types'
 
+import OptionsMenuIconButton from '@/components/ui/OptionsMenuButton'
+
 import CommentOptionsMenu from '@/features/comment/components/CommentOptionsMenu'
-
-import { IconButton } from '@mui/material'
-
-import MoreVertIcon from '@mui/icons-material/MoreVert'
 
 interface Props {
   commentId: CommentId
@@ -36,10 +33,8 @@ const CommentOptionsMenuButton: FC<Props> = ({
   }
 
   return (
-    <div style={{ position: 'absolute', top: 0, right: 0 }}>
-      <IconButton onClick={handleOpenMenu}>
-        <MoreVertIcon />
-      </IconButton>
+    <>
+      <OptionsMenuIconButton onClick={handleOpenMenu} />
 
       <CommentOptionsMenu
         anchorEl={anchorEl}
@@ -50,7 +45,7 @@ const CommentOptionsMenuButton: FC<Props> = ({
         commentParentId={commentParentId}
         isVideoComment={isVideoComment}
       />
-    </div>
+    </>
   )
 }
 
