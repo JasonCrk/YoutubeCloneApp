@@ -22,7 +22,13 @@ const VideoSection: FC<Props> = ({ video }) => {
 
   return (
     <section>
-      <Typography component='h3' variant='h5' fontWeight='bold' mt={0.5}>
+      <Typography
+        component='h3'
+        fontSize='1.3rem'
+        lineHeight='1'
+        fontWeight='bold'
+        mt={0.5}
+      >
         {video.title}
       </Typography>
 
