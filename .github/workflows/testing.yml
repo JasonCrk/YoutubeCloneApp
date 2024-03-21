@@ -19,15 +19,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'pnpm'
 
       - name: Install app dependencies
-        run: npm ci
+        run: pnpm i --frozen-lockfile
 
       - name: Run unit tests
-        run: npm run test:no-watch
+        run: pnpm test:no-watch
 
       - name: Install Playwrite Browsers
         run: npx playwright install --with-deps
 
       - name: Run E2E tests
-        run: npm run test:e2e
+        run: pnpm test:e2e
