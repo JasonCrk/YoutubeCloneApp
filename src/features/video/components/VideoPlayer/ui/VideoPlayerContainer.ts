@@ -9,6 +9,7 @@ interface VideoPlayerContainerProps extends HTMLAttributes<HTMLDivElement> {
 interface VideoPlayerControlsContainerProps
   extends HTMLAttributes<HTMLDialogElement> {
   isVideoPlaying: boolean
+  isTheaterViewMode: boolean
 }
 
 export const VideoPlayerContainer = styled('div', {
@@ -26,15 +27,19 @@ export const VideoPlayerContainer = styled('div', {
 }))
 
 export const VideoPlayerControlsContainer = styled('div', {
-  shouldForwardProp: prop => prop != 'isVideoPlaying'
-})<VideoPlayerControlsContainerProps>(({ isVideoPlaying }) => ({
-  position: 'absolute',
-  width: '100%',
-  zIndex: 10,
-  bottom: 6,
-  left: 0,
-  visibility: isVideoPlaying ? 'hidden' : 'visible',
-  transition: 'visibility 200ms, opacity 200ms',
-  opacity: isVideoPlaying ? 0 : 1,
-  background: 'linear-gradient(transparent, rgba(0, 0, 0, 0.65))'
-}))
+  shouldForwardProp: prop =>
+    prop != 'isVideoPlaying' && prop !== 'isTheaterViewMode'
+})<VideoPlayerControlsContainerProps>(
+  ({ isVideoPlaying, isTheaterViewMode }) => ({
+    position: 'absolute',
+    width: '100%',
+    zIndex: 10,
+    bottom: isTheaterViewMode ? 0 : 6,
+    left: 0,
+    visibility: isVideoPlaying ? 'hidden' : 'visible',
+    transition: 'visibility 200ms, opacity 200ms',
+    opacity: isVideoPlaying ? 0 : 1,
+    background: 'linear-gradient(transparent, rgba(0, 0, 0, 0.65))',
+    borderRadius: '0 0 14px 14px'
+  })
+)

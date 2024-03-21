@@ -234,7 +234,10 @@ const VideoPlayer: FC<Props> = ({
         </VideoReproductionIconContainer>
       </VideoPlayerEffectContainer>
 
-      <VideoPlayerControlsContainer isVideoPlaying={isVideoPlaying}>
+      <VideoPlayerControlsContainer
+        isTheaterViewMode={isTheaterViewMode}
+        isVideoPlaying={isVideoPlaying}
+      >
         <VideoPlayerTimelineContainer
           ref={timelineContainerRef}
           onMouseDown={handleToggleScrubbing}
