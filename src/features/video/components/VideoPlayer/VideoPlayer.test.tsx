@@ -24,7 +24,7 @@ describe('<VideoPlayer />', () => {
     expect(screen.queryByTestId('VideoPlayer')).toBeInTheDocument()
   })
 
-  it('The source element should contain the videoUrl prop in the src attribute', () => {
+  it('The video element should contain the videoUrl prop in the src attribute', () => {
     const { container } = render(
       <VideoPlayer
         isTheaterViewMode={true}
@@ -33,22 +33,8 @@ describe('<VideoPlayer />', () => {
       />
     )
 
-    const sourceElement = container.querySelector('source')
+    const sourceElement = container.querySelector('video')
 
     expect(sourceElement).toHaveAttribute('src', TEST_VIDEO_URL)
-  })
-
-  it('The source element should have type attribute for mp4 videos', () => {
-    const { container } = render(
-      <VideoPlayer
-        isTheaterViewMode={true}
-        videoUrl={TEST_VIDEO_URL}
-        setIsTheaterViewMode={setIsTheaterViewModeMock}
-      />
-    )
-
-    const sourceElement = container.querySelector('source')
-
-    expect(sourceElement).toHaveAttribute('type', 'video/mp4')
   })
 })
