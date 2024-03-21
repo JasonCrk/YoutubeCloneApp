@@ -11,7 +11,7 @@ const VideoSectionSkeleton: FC = () => {
         <Skeleton />
       </Typography>
 
-      <Box display='flex' justifyContent='space-between' py={1}>
+      <Box display='flex' justifyContent='space-between' pt={1} pb={1.5}>
         <Box display='flex' alignItems='center' gap={3}>
           <ChannelInfoSkeleton />
 

@@ -12,22 +12,23 @@ const WatchVideoSkeleton: FC<Props> = ({ isTheaterViewMode }) => {
   return (
     <Container
       maxWidth='xl'
-      disableGutters={isTheaterViewMode}
-      component='div'
+      component='main'
       sx={{
         mt: '56px',
+        color: 'white',
         display: 'grid',
-        gridTemplateColumns: { xs: '1fr', md: '1fr minmax(30%, 400px)' },
-        color: 'white'
+        gridTemplateColumns: { xs: '1fr', md: '1fr minmax(28.5%, 400px)' },
+        '&.MuiContainer-maxWidthXl': {
+          paddingX: isTheaterViewMode ? 0 : { xs: '24px', md: '40px' }
+        }
       }}
     >
       <Box
-        gridColumn={isTheaterViewMode ? '1 / 3' : undefined}
+        sx={{ gridColumnStart: 1, gridColumnEnd: isTheaterViewMode ? 3 : 1 }}
         height={isTheaterViewMode ? '78vh' : '100%'}
-        width='100%'
         bgcolor={isTheaterViewMode ? 'black' : 'transparent'}
         pt={isTheaterViewMode ? 0 : 2.5}
-        pr={isTheaterViewMode ? 0 : 2.5}
+        pr={isTheaterViewMode ? 0 : { xs: 0, md: 2.5 }}
       >
         <Skeleton
           variant='rounded'
@@ -45,20 +46,24 @@ const WatchVideoSkeleton: FC<Props> = ({ isTheaterViewMode }) => {
 
       <Box
         pt={2.5}
-        pr={2.5}
         display='flex'
         justifyContent='center'
-        sx={{ gridColumnStart: isTheaterViewMode ? 2 : undefined }}
+        pr={{ xs: isTheaterViewMode ? 2.5 : 0, md: 2.5 }}
+        pl={{ xs: isTheaterViewMode ? 2.5 : 0, md: 0 }}
+        sx={{
+          gridColumnStart: { xs: 1, md: 2 },
+          gridRowStart: { xs: 3, md: isTheaterViewMode ? 2 : 1 },
+          gridRowEnd: { xs: 3, md: 5 }
+        }}
       >
-        <CircularProgress />
+        <CircularProgress color='inherit' />
       </Box>
 
       <Box
         sx={{ gridColumnStart: 1, gridRowStart: 2 }}
         pl={isTheaterViewMode ? 2.5 : 0}
-        pr={2.5}
+        pr={{ xs: isTheaterViewMode ? 2.5 : 0, md: 2.5 }}
         pt={1}
-        mb={2}
       >
         <VideoSectionSkeleton />
       </Box>
