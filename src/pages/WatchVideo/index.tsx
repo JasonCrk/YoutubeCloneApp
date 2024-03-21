@@ -5,7 +5,7 @@ import { useLoaderData } from 'react-router-dom'
 import type { WatchVideoLoaderData } from '@/features/video/types'
 import { useFetchVideoDetails } from '@/features/video/hooks'
 
-import WatchVideoSkeleton from '@/components/ui/WatchVideoSkeleton'
+import WatchVideoSkeleton from '@/pages/WatchVideo/Skeleton'
 
 import VideoSection from '@/features/video/components/VideoSection'
 import VideoPlayer from '@/features/video/components/VideoPlayer'
