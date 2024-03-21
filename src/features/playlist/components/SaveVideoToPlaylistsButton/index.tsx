@@ -37,7 +37,7 @@ const SaveVideoToPlaylistButton: FC<Props> = ({ videoId }) => {
       variant='solid'
       bgcolor={grey[900]}
       startIcon={<PlaylistAddIcon />}
-      sx={{ gap: 0.5 }}
+      sx={{ gap: 0.5, p: '6px 13px' }}
       onClick={handleOpenModal}
     >
       Save
