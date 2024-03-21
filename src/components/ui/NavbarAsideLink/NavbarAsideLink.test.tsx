@@ -60,7 +60,7 @@ describe('<NavbarAsideLink />', () => {
   })
 
   it('Should show the active icon if the pathname starts with the href', () => {
-    const pathname = '/'
+    const pathname = '/test'
 
     render(
       <NavbarAsideLink
@@ -71,7 +71,7 @@ describe('<NavbarAsideLink />', () => {
       />,
       {
         routerOptions: {
-          initialEntries: ['/test']
+          initialEntries: ['/test/path']
         }
       }
     )
