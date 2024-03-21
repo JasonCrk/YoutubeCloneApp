@@ -33,21 +33,19 @@ const WatchVideoPage: FC = () => {
     return (
       <Container
         maxWidth='xl'
-        disableGutters={isTheaterViewMode}
         component='main'
         sx={{
           mt: '56px',
+          color: 'white',
           display: 'grid',
           gridTemplateColumns: { xs: '1fr', md: '1fr minmax(28.5%, 400px)' },
-          color: 'white',
           '&.MuiContainer-maxWidthXl': {
-            paddingX: { xs: '24px', md: '40px' }
+            paddingX: isTheaterViewMode ? 0 : { xs: '24px', md: '40px' }
           }
         }}
       >
         <Box
-          width='100%'
-          gridColumn={isTheaterViewMode ? 1 / 3 : undefined}
+          sx={{ gridColumnStart: 1, gridColumnEnd: isTheaterViewMode ? 3 : 1 }}
           height={isTheaterViewMode ? '78vh' : '100%'}
           bgcolor={isTheaterViewMode ? 'black' : 'transparent'}
           pt={isTheaterViewMode ? 0 : 2.5}
@@ -62,19 +60,21 @@ const WatchVideoPage: FC = () => {
 
         <Box
           pt={2.5}
-          pr={2.5}
+          pr={{ xs: isTheaterViewMode ? 2.5 : 0, md: 2.5 }}
+          pl={{ xs: isTheaterViewMode ? 2.5 : 0, md: 0 }}
           sx={{
             gridColumnStart: { xs: 1, md: 2 },
-            gridRowStart: { xs: 3, md: 1 }
+            gridRowStart: { xs: 3, md: isTheaterViewMode ? 2 : 1 },
+            gridRowEnd: { xs: 3, md: 5 }
           }}
         >
           <SuggestionVideoList videoId={video.id} />
         </Box>
 
         <Box
-          sx={{ gridColumnStart: 1, gridRowStart: { xs: 2, md: 2 } }}
+          sx={{ gridColumnStart: 1, gridRowStart: 2 }}
           pl={isTheaterViewMode ? 2.5 : 0}
-          pr={{ xs: 0, md: 2.5 }}
+          pr={{ xs: isTheaterViewMode ? 2.5 : 0, md: 2.5 }}
           pt={1}
         >
           <VideoSection video={video} />
@@ -83,7 +83,7 @@ const WatchVideoPage: FC = () => {
         <Box
           sx={{ gridColumnStart: 1, gridRowStart: 4 }}
           pl={isTheaterViewMode ? 2.5 : 0}
-          pr={{ xs: 0, md: 2.5 }}
+          pr={{ xs: isTheaterViewMode ? 2.5 : 0, md: 2.5 }}
           mb={2}
         >
           <VideoCommentsSection
