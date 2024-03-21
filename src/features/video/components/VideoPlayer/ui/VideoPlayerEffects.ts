@@ -20,7 +20,8 @@ export const VideoPlayerEffectContainer = styled('div')(() => ({
   position: 'absolute',
   top: '50%',
   left: '50%',
-  transform: 'translate(-50%, -50%)'
+  transform: 'translate(-50%, -50%)',
+  pointerEvents: 'none'
 }))
 
 interface VideoReproductionIconContainerProps
@@ -40,7 +41,6 @@ export const VideoReproductionIconContainer = styled('div', {
   display: isAction ? 'grid' : 'none',
   placeContent: 'center',
   animationIterationCount: 1,
-  pointerEvents: 'none',
   ...(isAction && {
     animation: `${videoReproductionAnimation} 1s ${theme.transitions.easing.easeOut}`
   })
