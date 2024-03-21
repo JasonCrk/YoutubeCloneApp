@@ -162,7 +162,8 @@ describe('<CreateChannelModal />', () => {
     await user.click(submitButton)
 
     expect(successToastSpy).toBeCalledWith(createChannelMockResponse.message, {
-      duration: 3000
+      duration: 2000,
+      position: 'bottom-left'
     })
   })
 
