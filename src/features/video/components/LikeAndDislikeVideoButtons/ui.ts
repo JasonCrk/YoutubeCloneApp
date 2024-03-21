@@ -9,7 +9,7 @@ export const UiLikeButton = styled(ButtonBase, {
 })<LikeButtonProps>(({ theme }) => ({
   borderRadius: '99px 0 0 99px',
   color: 'white',
-  padding: '8px 15px',
+  padding: '7px 14px',
   display: 'flex',
   alignItems: 'center',
   gap: 4,
@@ -25,7 +25,7 @@ export const UiDislikeButton = styled(ButtonBase, {
 })<LikeButtonProps>(({ theme }) => ({
   borderRadius: '0 99px 99px 0',
   color: 'white',
-  padding: '8px 15px 8px 12px',
+  padding: '7px 14px 7px 11px',
   display: 'flex',
   alignItems: 'center',
   gap: 4,
