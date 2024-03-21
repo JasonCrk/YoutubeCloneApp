@@ -43,6 +43,7 @@ const NavbarAsidePlaylistLinkList: FC = () => {
               activeIcon={<PlaylistPlayIcon />}
               href={`/playlist?list=${playlist.id}`}
               title={playlist.name}
+              testId='link'
             />
           ))
         ) : (
