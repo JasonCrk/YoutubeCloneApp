@@ -1,4 +1,7 @@
+e2e/
+
 .env
+.env.production
 
 # Logs
 logs
