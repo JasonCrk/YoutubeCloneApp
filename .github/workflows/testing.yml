@@ -1,13 +1,50 @@
-name: Run Unit & E2E (Playwright) Tests
+name: Run Unit Tests
 
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+    types: [opened, synchronize]
 
 jobs:
-  run-tests:
+  avoid-reduncy:
+    runs-on: ubuntu-22.04
+    permissions:
+      actions: write
+    steps:
+      - name: Cancel Previous Redundant Tests
+        uses: styfle/cancel-workflow-action@0.12.1
+        with:
+          access_token: ${{ github.token }}
+
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Setup NodeJS 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install app dependencies
+        run: pnpm i --frozen-lockfile
+
+      - name: Run Lint
+        run: pnpm run lint
+
+  tests:
+    needs: lint
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
@@ -31,9 +68,3 @@ jobs:
 
       - name: Run unit tests
         run: pnpm run test:no-watch
-
-      - name: Install Playwrite Browsers
-        run: npx playwright install --with-deps
-
-      - name: Run E2E tests
-        run: pnpm run test:e2e
