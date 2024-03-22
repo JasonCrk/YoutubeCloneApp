@@ -10,9 +10,9 @@ import type { VideoComments, VideoId } from '@/features/video/types'
 
 import CommentDeleteConfirmationModal from '@/features/comment/components/CommentDeleteConfirmationModal'
 
-import CommentList from '@/features/comment/components/CommentList'
 import CommentsSortMenuButton from '@/features/comment/components/CommentsSortMenuButton'
 import CreateVideoCommentForm from '@/features/comment/components/CreateVideoCommentForm'
+import VideoCommentList from '@/features/comment/components/VideoCommentList'
 
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -32,6 +32,7 @@ const VideoCommentsSection: FC<Props> = ({ totalComments, videoId }) => {
     <div ref={ref}>
       <CommentDeleteConfirmationModalProvider>
         <CommentDeleteConfirmationModal />
+
         <Box component='section' mt={1.5}>
           <Box display='flex' gap={2} alignItems='center'>
             <Typography variant='h5' fontWeight='bold'>
@@ -53,10 +54,9 @@ const VideoCommentsSection: FC<Props> = ({ totalComments, videoId }) => {
                 />
               </Box>
 
-              <CommentList
+              <VideoCommentList
                 sortByVideoComments={sortByVideoComments}
                 parentId={videoId}
-                isVideoComments={true}
               />
             </>
           )}

@@ -39,6 +39,7 @@ const CommentItem: FC<Props> = ({ isVideoComment, parentId, ...comment }) => {
 
   const {
     comments,
+    error,
     isError: fetchCommentsIsError,
     isSuccess: fetchCommentsIsSuccess,
     isLoading: fetchCommentsIsLoading
@@ -166,6 +167,7 @@ const CommentItem: FC<Props> = ({ isVideoComment, parentId, ...comment }) => {
 
         {showComments && (
           <CommentList
+            error={error}
             comments={comments}
             isError={fetchCommentsIsError}
             isSuccess={fetchCommentsIsSuccess}
