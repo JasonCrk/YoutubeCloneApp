@@ -4,7 +4,7 @@ import type {
   CreatePlaylistInputs,
   PlaylistItem,
   PlaylistItemToSaveVideo,
-  SimplePlaylist,
+  SimplePlaylistList,
   PlaylistDetails,
   PlaylistVideoItem,
   UpdatePlaylistInputs
@@ -23,10 +23,12 @@ import type { VideoId } from '@/features/video/types'
 import type { ChannelId } from '@/features/channel/types'
 
 export const retrieveOwnPlaylistsService = async (): Promise<
-  ListResponse<SimplePlaylist>
+  ListResponse<SimplePlaylistList>
 > => {
   const response =
-    await protectedPlaylistEndpoint.get<ListResponse<SimplePlaylist>>('/own/')
+    await protectedPlaylistEndpoint.get<ListResponse<SimplePlaylistList>>(
+      '/own/'
+    )
   return response.data
 }
 
@@ -68,8 +70,8 @@ export const retrievePlaylistVideosService = async (
 
 export const createPlaylistService = async (
   playlistData: CreatePlaylistInputs
-): Promise<SimplePlaylist> => {
-  const response = await protectedPlaylistEndpoint.post<SimplePlaylist>(
+): Promise<SimplePlaylistList> => {
+  const response = await protectedPlaylistEndpoint.post<SimplePlaylistList>(
     '/create/',
     playlistData
   )

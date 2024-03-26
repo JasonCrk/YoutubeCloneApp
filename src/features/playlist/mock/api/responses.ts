@@ -1,8 +1,8 @@
 import { ListResponse } from '@/models/responses'
 
-import { SimplePlaylist } from '@/features/playlist/models'
+import { SimplePlaylistList } from '@/features/playlist/models'
 
-export const simplePlaylistsMockResponse: ListResponse<SimplePlaylist> = {
+export const simplePlaylistsMockResponse: ListResponse<SimplePlaylistList> = {
   data: [
     {
       id: 1,

@@ -2,7 +2,7 @@ import { useState, type FC } from 'react'
 
 import { useQueryClient } from '@tanstack/react-query'
 
-import type { SimplePlaylistAdapter } from '@/features/playlist/models'
+import type { SimplePlaylistListAdapter } from '@/features/playlist/models'
 import {
   useSaveVideoToPlaylist,
   useSaveVideoToPlaylistsContext
@@ -34,7 +34,7 @@ const SaveVideoToPlaylistsModal: FC = () => {
 
   const { mutateSaveVideoToPlaylist } = useSaveVideoToPlaylist()
 
-  const handleSaveVideoToPlaylist = (playlist: SimplePlaylistAdapter) => {
+  const handleSaveVideoToPlaylist = (playlist: SimplePlaylistListAdapter) => {
     if (selectedVideoId)
       mutateSaveVideoToPlaylist(
         {

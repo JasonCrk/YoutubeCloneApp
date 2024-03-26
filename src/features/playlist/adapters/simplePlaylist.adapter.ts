@@ -1,11 +1,11 @@
 import {
-  SimplePlaylist,
-  SimplePlaylistAdapter
-} from '@/features/playlist/models/SimplePlaylist.model'
+  SimplePlaylistList,
+  SimplePlaylistListAdapter
+} from '@/features/playlist/models/SimplePlaylistList.model'
 
-export const simplePlaylistAdapter = (
-  playlist: SimplePlaylist
-): SimplePlaylistAdapter => ({
+export const simplePlaylistListAdapter = (
+  playlist: SimplePlaylistList
+): SimplePlaylistListAdapter => ({
   id: playlist.id,
   name: playlist.name
 })
