@@ -1,4 +1,4 @@
-export * from './simplePlaylist.adapter'
+export * from './simplePlaylistList.adapter'
 export * from './playlistItem.adapter'
 export * from './playlistItemToSaveVideo.adapter'
 export * from './playlistDetails.adapter'
